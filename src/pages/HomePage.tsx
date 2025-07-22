@@ -41,6 +41,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100">
       {/* Hero Section with Video Background and Fallback Image */}
+{/* Hero Section with Video Background and Fallback Image */}
 <section
   className="relative h-screen flex items-center justify-center bg-cover bg-center"
   style={{ backgroundImage: "url('https://cdn.pixabay.com/photo/2014/03/03/16/08/construction-279012_1280.jpg')" }}
@@ -63,12 +64,11 @@ const HomePage: React.FC = () => {
   </div>
 </section>
 
-        
-        {/* Scroll Down Indicator */}
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-8 h-8 border-4 border-orange-400 border-t-transparent rounded-full animate-spin"></div>
-        
-      </section>
+{/* ✅ Fixed Scroll Down Indicator */}
+<div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+  <div className="w-8 h-8 border-4 border-orange-400 border-t-transparent rounded-full animate-spin"></div>
+</div>
+
 
       {/* About Our Company */}
       <section className="py-20 px-4 md:px-8 bg-slate-800">
