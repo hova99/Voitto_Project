@@ -86,7 +86,7 @@ const HomePage: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <p className="text-lg mb-6 leading-relaxed">
-                Founded in 2015, Voitto Company Limited started with a clear purpose: to deliver quality 
+                Founded in 2017, Voitto Company Limited started with a clear purpose: to deliver quality 
                 construction materials that builders can rely on. Over the past eight years, we've grown 
                 through consistency, hard work, and a commitment to serving our customers well.
               </p>
