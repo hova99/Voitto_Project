@@ -20,14 +20,10 @@ const Header: React.FC = () => {
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
       {/* Top Bar */}
-      <div className="bg-slate-700 text-white py-2">
+      <div className="bg-slate-800 text-white py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center text-sm">
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center space-x-2">
-                <Phone className="h-4 w-4" />
-                <span>+254 721 748851</span>
-              </div>
+            <div className="flex items-center">
               <a 
                 href="https://wa.me/254721748851" 
                 target="_blank" 

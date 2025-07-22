@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
           {/* Company Info */}
           <div>
             <div className="text-2xl font-bold mb-4">
-              Voitto <span className="text-brand-orange-500">Company Limited</span>
+              Voitto <span className="text-orange-500">Company Limited</span>
             </div>
             <p className="text-slate-300 mb-4">
               Kenya's trusted supplier of quality construction materials and precast products. 
@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
               <a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-slate-300 hover:text-brand-orange-500 transition-colors">
+              <a href="#" className="text-slate-300 hover:text-orange-500 transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
             </div>
@@ -29,10 +29,10 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a href="/" className="text-slate-300 hover:text-brand-orange-500 transition-colors">Home</a></li>
-              <li><a href="/products" className="text-slate-300 hover:text-brand-orange-500 transition-colors">Products</a></li>
-              <li><a href="/about" className="text-slate-300 hover:text-brand-orange-500 transition-colors">About Us</a></li>
-              <li><a href="/contact" className="text-slate-300 hover:text-brand-orange-500 transition-colors">Contact</a></li>
+              <li><a href="/" className="text-slate-300 hover:text-orange-500 transition-colors">Home</a></li>
+              <li><a href="/products" className="text-slate-300 hover:text-orange-500 transition-colors">Products</a></li>
+              <li><a href="/about" className="text-slate-300 hover:text-orange-500 transition-colors">About Us</a></li>
+              <li><a href="/contact" className="text-slate-300 hover:text-orange-500 transition-colors">Contact</a></li>
             </ul>
           </div>
 
@@ -54,15 +54,15 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-brand-orange-500 flex-shrink-0" />
+                <Phone className="h-5 w-5 text-orange-500 flex-shrink-0" />
                 <span className="text-slate-300">+254 721 748851</span>
               </div>
               <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-brand-orange-500 flex-shrink-0" />
+                <Mail className="h-5 w-5 text-orange-500 flex-shrink-0" />
                 <span className="text-slate-300">info@voittoconcrete.co.ke</span>
               </div>
               <div className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-brand-orange-500 flex-shrink-0 mt-1" />
+                <MapPin className="h-5 w-5 text-orange-500 flex-shrink-0 mt-1" />
                 <span className="text-slate-300">Mashambani, Banana, Kiambu</span>
               </div>
               <a 

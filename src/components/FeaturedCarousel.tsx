@@ -41,7 +41,6 @@ const FeaturedCarousel: React.FC = () => {
 
         <div className="text-center mt-12">
           <Link
-            href="/products"
             to="/products"
             className="inline-flex items-center bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors group"
           >

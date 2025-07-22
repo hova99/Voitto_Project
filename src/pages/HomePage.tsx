@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Truck, Shield, Clock, Award, Play, Info, Camera, Mic, FlaskRound as Flask, Mail } from 'lucide-react';
+import { ArrowRight, Truck, Shield, Clock, Award, Play, Info, Camera, Mic, FlaskRound as Flask, Mail, MessageCircle } from 'lucide-react';
+import FeaturedCarousel from '../components/FeaturedCarousel';
 
 /* ========================================
    HOMEPAGE LAYOUT OVERRIDES BEGIN
@@ -10,89 +11,6 @@ import { ArrowRight, Truck, Shield, Clock, Award, Play, Info, Camera, Mic, Flask
 
 const HomePage: React.FC = () => {
   useEffect(() => {
-    // Video upload functionality
-    const videoUpload = document.getElementById('videoUpload') as HTMLInputElement;
-    const resetVideo = document.getElementById('resetVideo') as HTMLButtonElement;
-    const heroVideo = document.getElementById('heroVideo') as HTMLVideoElement;
-
-    if (videoUpload) {
-      videoUpload.addEventListener('change', function(e) {
-        const file = (e.target as HTMLInputElement).files?.[0];
-        if (file) {
-          const videoURL = URL.createObjectURL(file);
-          
-          // Remove all existing sources
-          while(heroVideo.firstChild) {
-            heroVideo.removeChild(heroVideo.firstChild);
-          }
-          
-          // Add new source
-          const source = document.createElement('source');
-          source.src = videoURL;
-          source.type = 'video/' + file.name.split('.').pop();
-          heroVideo.appendChild(source);
-          
-          // Reload video
-          heroVideo.load();
-          heroVideo.play().catch(e => console.log("Autoplay prevented:", e));
-          
-          // Show success message
-          const uploadContainer = document.getElementById('videoUploadContainer');
-          const successMsg = document.createElement('p');
-          successMsg.className = 'text-green-400 text-sm mt-2';
-          successMsg.textContent = 'Video uploaded successfully!';
-          
-          // Remove any existing success messages
-          const existingMsg = uploadContainer?.querySelector('.text-green-400');
-          if (existingMsg) {
-            existingMsg.remove();
-          }
-          
-          uploadContainer?.appendChild(successMsg);
-        }
-      });
-    }
-
-    if (resetVideo) {
-      resetVideo.addEventListener('click', function() {
-        // Remove all existing sources
-        while(heroVideo.firstChild) {
-          heroVideo.removeChild(heroVideo.firstChild);
-        }
-        
-        // Add default source
-        const source = document.createElement('source');
-        source.src = 'https://res.cloudinary.com/dnv6mjhxv/video/upload/v1753110507/6036438_Man_People_1280x720_m2kwaa.webm';
-        source.type = 'video/webm';
-        heroVideo.appendChild(source);
-        
-        // Reload video
-        heroVideo.load();
-        heroVideo.play().catch(e => console.log("Autoplay prevented:", e));
-        
-        // Clear file input
-        if (videoUpload) videoUpload.value = '';
-        
-        // Remove any success messages
-        const successMsg = document.querySelector('.text-green-400');
-        if (successMsg) {
-          successMsg.remove();
-        }
-        
-        // Show reset message
-        const uploadContainer = document.getElementById('videoUploadContainer');
-        const resetMsg = document.createElement('p');
-        resetMsg.className = 'text-blue-400 text-sm mt-2';
-        resetMsg.textContent = 'Default video restored';
-        uploadContainer?.appendChild(resetMsg);
-        
-        // Remove message after 3 seconds
-        setTimeout(() => {
-          resetMsg.remove();
-        }, 3000);
-      });
-    }
-
     // Parallax effect
     const handleScroll = () => {
       const parallaxSections = document.querySelectorAll('.parallax-section');
@@ -135,24 +53,6 @@ const HomePage: React.FC = () => {
           <source src="https://res.cloudinary.com/dnv6mjhxv/video/upload/v1753110507/6036438_Man_People_1280x720_m2kwaa.webm" type="video/webm" />
           Your browser does not support HTML5 video.
         </video>
-        
-        {/* Video Upload Container */}
-        <div id="videoUploadContainer" className="absolute top-4 right-4 bg-slate-800 bg-opacity-70 p-4 rounded-lg shadow-lg z-50 max-w-xs transition-all duration-300 hover:scale-105">
-          <h3 className="text-lg font-bold mb-2">Upload Construction Video</h3>
-          <input 
-            type="file" 
-            id="videoUpload" 
-            accept="video/*" 
-            className="block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-orange-600 file:text-white hover:file:bg-orange-700 cursor-pointer mb-2"
-          />
-          <p className="text-xs text-slate-300">Supported formats: MP4, WebM, Ogg</p>
-          <button 
-            id="resetVideo" 
-            className="mt-2 px-3 py-1 bg-slate-600 text-white rounded text-sm hover:bg-slate-500 transition"
-          >
-            Reset to Default
-          </button>
-        </div>
         
         {/* Hero Content */}
         <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-center px-4">
@@ -240,59 +140,106 @@ const HomePage: React.FC = () => {
       >
         <div className="bg-black bg-opacity-60 py-20">
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="text-4xl font-bold mb-12 text-center text-orange-300">Our Product Range</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* Drainage Products */}
-              <div className="bg-slate-800 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-2xl">
-                <div className="h-48 overflow-hidden">
-                  <img 
-                    src="https://www.kcpquarry.com/images/service/fw-Falcon%20Floor%20Well.jpg" 
-                    alt="Drainage Systems" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+            <h2 className="text-4xl font-bold mb-12 text-center text-orange-300">Our Product Categories</h2>
+            <p className="text-xl text-center mb-12 text-slate-200">Everything you need for your construction project, delivered to your site</p>
+            
+            <div className="grid md:grid-cols-3 gap-8 mb-16">
+              {/* Drainage & Culverts */}
+              <div className="bg-slate-800 bg-opacity-80 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-2xl">
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-2 text-orange-300">Drainage Systems</h3>
-                  <p className="text-slate-300 mb-4">IBD, culverts, and shallow drains for effective water management</p>
-                  <div className="flex items-center text-sm text-slate-400">
-                    <span>From KES 350 - KES 5,500</span>
+                  <div className="text-orange-400 text-4xl mb-4 text-center">
+                    🏗️
                   </div>
+                  <h3 className="text-xl font-bold mb-2 text-orange-300 text-center">Drainage & Culverts</h3>
+                  <p className="text-slate-300 text-center">IBD, culverts, and shallow drains for effective water management</p>
                 </div>
               </div>
               
-              {/* Paving Materials */}
-              <div className="bg-slate-800 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-2xl">
-                <div className="h-48 overflow-hidden">
-                  <img 
-                    src="https://www.kcpquarry.com/images/service/pb-Interlocking%20Cabro.jpg" 
-                    alt="Paving Materials" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              {/* Paving & Surface Materials */}
+              <div className="bg-slate-800 bg-opacity-80 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-2xl">
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-2 text-orange-300">Paving Materials</h3>
-                  <p className="text-slate-300 mb-4">Cabros, kerbs, and paving slabs for durable surfaces</p>
-                  <div className="flex items-center text-sm text-slate-400">
-                    <span>From KES 180 - KES 350</span>
+                  <div className="text-orange-400 text-4xl mb-4 text-center">
+                    🚧
                   </div>
+                  <h3 className="text-xl font-bold mb-2 text-orange-300 text-center">Paving & Surface Materials</h3>
+                  <p className="text-slate-300 text-center">Cabros, kerbs, and paving slabs for durable surfaces</p>
                 </div>
               </div>
               
-              {/* Wall Coping */}
-              <div className="bg-slate-800 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-2xl">
-                <div className="h-48 overflow-hidden">
-                  <img 
-                    src="https://www.kcpquarry.com/images/service/4x9-Solid-Concrete-Block.jpg" 
-                    alt="Wall Coping" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              {/* Wall & Pillar Coping */}
+              <div className="bg-slate-800 bg-opacity-80 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-2xl">
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-2 text-orange-300">Wall & Pillar Coping</h3>
-                  <p className="text-slate-300 mb-4">Professional finishing for walls and pillars</p>
-                  <div className="flex items-center text-sm text-slate-400">
-                    <span>From KES 150 - KES 400</span>
+                  <div className="text-orange-400 text-4xl mb-4 text-center">
+                    🧱
                   </div>
+                  <h3 className="text-xl font-bold mb-2 text-orange-300 text-center">Wall & Pillar Coping</h3>
+                  <p className="text-slate-300 text-center">Professional finishing for walls and pillars</p>
+                </div>
+              </div>
+
+              {/* Window & Ventilation */}
+              <div className="bg-slate-800 bg-opacity-80 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-2xl">
+                <div className="p-6">
+                  <div className="text-orange-400 text-4xl mb-4 text-center">
+                    🪟
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-orange-300 text-center">Window & Ventilation</h3>
+                  <p className="text-slate-300 text-center">Window seals and louvers for proper airflow</p>
+                </div>
+              </div>
+
+              {/* Balustrades */}
+              <div className="bg-slate-800 bg-opacity-80 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-2xl">
+                <div className="p-6">
+                  <div className="text-orange-400 text-4xl mb-4 text-center">
+                    🪜
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-orange-300 text-center">Balustrades</h3>
+                  <p className="text-slate-300 text-center">Decorative railings for balconies and stairs</p>
+                </div>
+              </div>
+
+              {/* Garden Decor */}
+              <div className="bg-slate-800 bg-opacity-80 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-2xl">
+                <div className="p-6">
+                  <div className="text-orange-400 text-4xl mb-4 text-center">
+                    🌿
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-orange-300 text-center">Garden Decor</h3>
+                  <p className="text-slate-300 text-center">Flower pots and decorative elements</p>
+                </div>
+              </div>
+
+              {/* Fencing Materials */}
+              <div className="bg-slate-800 bg-opacity-80 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-2xl">
+                <div className="p-6">
+                  <div className="text-orange-400 text-4xl mb-4 text-center">
+                    🪵
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-orange-300 text-center">Fencing Materials</h3>
+                  <p className="text-slate-300 text-center">Posts and supports for boundary fencing</p>
+                </div>
+              </div>
+
+              {/* Stone, Sand & Aggregates */}
+              <div className="bg-slate-800 bg-opacity-80 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-2xl">
+                <div className="p-6">
+                  <div className="text-orange-400 text-4xl mb-4 text-center">
+                    🧱
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-orange-300 text-center">Stone, Sand & Aggregates</h3>
+                  <p className="text-slate-300 text-center">Foundation materials and aggregates</p>
+                </div>
+              </div>
+
+              {/* Miscellaneous */}
+              <div className="bg-slate-800 bg-opacity-80 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-2xl">
+                <div className="p-6">
+                  <div className="text-orange-400 text-4xl mb-4 text-center">
+                    🧪
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 text-orange-300 text-center">Miscellaneous</h3>
+                  <p className="text-slate-300 text-center">Cement and other construction essentials</p>
                 </div>
               </div>
             </div>
@@ -300,64 +247,8 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Company Journey Timeline */}
-      <section className="py-20 px-4 bg-slate-900">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center text-orange-300">Our Journey in Numbers</h2>
-          <div className="relative pl-8">
-            {/* Timeline line */}
-            <div className="absolute left-0 top-0 w-0.5 h-full bg-orange-600"></div>
-            
-            {/* Timeline Item 1 */}
-            <div className="relative pb-12">
-              <div className="absolute w-5 h-5 left-[-10px] bg-orange-600 rounded-full top-0"></div>
-              <div className="bg-slate-800 p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-bold text-orange-300 mb-2">2015 - Company Founded</h3>
-                <p className="text-slate-300">
-                  Voitto Company Limited was established with a mission to provide quality 
-                  construction materials to builders across Kenya.
-                </p>
-              </div>
-            </div>
-            
-            {/* Timeline Item 2 */}
-            <div className="relative pb-12">
-              <div className="absolute w-5 h-5 left-[-10px] bg-orange-600 rounded-full top-0"></div>
-              <div className="bg-slate-800 p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-bold text-orange-300 mb-2">2018 - Expansion</h3>
-                <p className="text-slate-300">
-                  Expanded our product range to include specialized drainage systems 
-                  and decorative concrete products.
-                </p>
-              </div>
-            </div>
-            
-            {/* Timeline Item 3 */}
-            <div className="relative pb-12">
-              <div className="absolute w-5 h-5 left-[-10px] bg-orange-600 rounded-full top-0"></div>
-              <div className="bg-slate-800 p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-bold text-orange-300 mb-2">2021 - Digital Innovation</h3>
-                <p className="text-slate-300">
-                  Launched our WhatsApp ordering system and online catalog, 
-                  making it easier for customers to access our products.
-                </p>
-              </div>
-            </div>
-            
-            {/* Timeline Item 4 */}
-            <div className="relative">
-              <div className="absolute w-5 h-5 left-[-10px] bg-orange-600 rounded-full top-0"></div>
-              <div className="bg-slate-800 p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-bold text-orange-300 mb-2">2023 - 8 Years Strong</h3>
-                <p className="text-slate-300">
-                  Today we serve 400+ happy clients with 50+ product categories, 
-                  having completed over 200 successful projects across Kenya.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Featured Products Carousel */}
+      <FeaturedCarousel />
 
       {/* Behind the Scenes */}
       <section 
@@ -480,15 +371,21 @@ const HomePage: React.FC = () => {
               <h3 className="text-xl font-bold mb-4 text-orange-300">Contact Us</h3>
               <div className="space-y-2 mb-4">
                 <p className="text-slate-400">
-                  <span className="mr-2">📞</span> +254 721 748851
-                </p>
-                <p className="text-slate-400">
                   <Mail className="inline h-4 w-4 mr-2" /> info@voittoconcrete.co.ke
                 </p>
                 <p className="text-slate-400">
                   <span className="mr-2">📍</span> Mashambani, Banana, Kiambu
                 </p>
               </div>
+              <a 
+                href="https://wa.me/254721748851" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-2 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg transition-colors"
+              >
+                <MessageCircle className="h-5 w-5" />
+                <span>WhatsApp</span>
+              </a>
             </div>
           </div>
           
