@@ -36,7 +36,7 @@ export const products: Product[] = [
     id: 'shallow-drain',
     name: 'Shallow Drain',
     price: 450,
-    image: 'https://www.kcpquarry.com/images/service/fw-Falcon%20Floor%20Well.jpg',
+    image: 'https://wcl.co.ke/chijoage/2024/09/7O6A8823-1.jpg',
     category: 'drainage',
     description: 'Used to control surface water flow along roads and compounds.',
     unit: 'per piece',
