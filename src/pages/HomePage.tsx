@@ -40,19 +40,31 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100">
-      {/* Hero Section with Video Background */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Video Background */}
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          id="heroVideo" 
-          className="absolute top-0 left-0 w-full h-full object-cover z-[-1]"
-        >
-          <source src="https://res.cloudinary.com/dnv6mjhxv/video/upload/v1753110507/6036438_Man_People_1280x720_m2kwaa.webm" type="video/webm" />
-          Your browser does not support HTML5 video.
-        </video>
+      {/* Hero Section with Video Background and Fallback Image */}
+<section className="relative h-screen flex items-center justify-center overflow-hidden">
+  {/* Fallback Background Image (behind video) */}
+  <div
+    className="absolute top-0 left-0 w-full h-full bg-cover bg-center z-[-2]"
+    style={{ backgroundImage: "url('https://cdn.pixabay.com/photo/2014/03/03/16/08/construction-279012_1280.jpg')" }}
+  ></div>
+
+  {/* Video Background */}
+  <video 
+    autoPlay 
+    muted 
+    loop 
+    playsInline
+    id="heroVideo" 
+    className="absolute top-0 left-0 w-full h-full object-cover z-[-1]"
+  >
+    <source src="https://res.cloudinary.com/dnv6mjhxv/video/upload/v1753110507/6036438_Man_People_1280x720_m2kwaa.webm" type="video/webm" />
+    {/* If video fails entirely, image tag appears */}
+    <img 
+      src="https://cdn.pixabay.com/photo/2014/03/03/16/08/construction-279012_1280.jpg" 
+      alt="Construction background"
+      className="w-full h-full object-cover"
+    />
+  </video>
         
         {/* Hero Content */}
         <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-center px-4">
