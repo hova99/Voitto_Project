@@ -76,7 +76,7 @@ export const products: Product[] = [
     id: 'culvert-450mm',
     name: 'Culvert 450mm',
     price: 2000,
-    image: 'https://www.kcpquarry.com/images/service/fw-Falcon%20Floor%20Well.jpg',
+    image: 'https://cdn.pixabay.com/photo/2016/08/10/13/51/concrete-1583245_1280.jpg',
     category: 'drainage',
     description: 'Suitable for small drainage projects.',
     unit: 'per piece',
