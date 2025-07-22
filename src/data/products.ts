@@ -200,7 +200,7 @@ export const products: Product[] = [
     id: 'wall-coping-6',
     name: 'Wall Coping 6"',
     price: 150,
-    image: 'https://www.kcpquarry.com/images/service/4x9-Solid-Concrete-Block.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753208972/copping_ql9fid.jpg',
     category: 'coping',
     description: 'Narrow coping for low boundary walls.',
     unit: 'per piece',
