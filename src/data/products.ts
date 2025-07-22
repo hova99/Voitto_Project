@@ -210,7 +210,7 @@ export const products: Product[] = [
     id: 'pillar-coping-18x18',
     name: 'Pillar Coping 18"x18"',
     price: 350,
-    image: 'https://www.kcpquarry.com/images/service/4x9-Solid-Concrete-Block.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753209520/pillar_coping_18_h4zllp.jpg',
     category: 'coping',
     description: 'Large cap for wide gate or entrance pillars.',
     unit: 'per piece',
