@@ -55,7 +55,7 @@ const AboutPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <img
-              src="https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg"
+              src="https://cdn.pixabay.com/photo/2017/04/02/09/08/bulldozer-2195329_640.jpg"
               alt="Construction workers"
               className="rounded-lg shadow-xl"
               loading="lazy"
