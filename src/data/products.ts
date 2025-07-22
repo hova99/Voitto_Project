@@ -56,7 +56,7 @@ export const products: Product[] = [
     id: 'culvert-900mm',
     name: 'Culvert 900mm',
     price: 5500,
-    image: 'https://www.kcpquarry.com/images/service/fw-Falcon%20Floor%20Well.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753208544/culvert_1200mm_vms5zz.jpg',
     category: 'drainage',
     description: 'Heavy-duty concrete pipe for major water channels and highways.',
     unit: 'per piece',
