@@ -66,7 +66,7 @@ export const products: Product[] = [
     id: 'culvert-600mm',
     name: 'Culvert 600mm',
     price: 3000,
-    image: 'https://cdn.pixabay.com/photo/2016/08/10/13/51/concrete-1583245_1280.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753209963/shallow_fqyngs.jpg',
     category: 'drainage',
     description: 'Mid-size culvert for drainage under driveways and rural roads.',
     unit: 'per piece',
