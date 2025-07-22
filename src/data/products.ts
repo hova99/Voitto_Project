@@ -220,7 +220,7 @@ export const products: Product[] = [
     id: 'pillar-coping-16x16',
     name: 'Pillar Coping 16"x16"',
     price: 250,
-    image: 'https://www.kcpquarry.com/images/service/4x9-Solid-Concrete-Block.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753209257/pillar_copping_vkdewe.jpg',
     category: 'coping',
     description: 'Mid-size cap for medium-sized pillars.',
     unit: 'per piece',
