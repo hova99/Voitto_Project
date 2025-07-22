@@ -50,31 +50,35 @@ const AboutPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Our Story */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <img
-              src="https://cdn.pixabay.com/photo/2017/08/04/08/53/two-way-excavator-2579435_1280.jpg"
-              alt="Construction workers"
-              className="rounded-lg shadow-xl"
-              loading="lazy"
-            />
-          </div>
-          <div>
-            <h2 className="text-3xl font-bold text-blue-900 mb-6">Our Story</h2>
-            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              Voitto Company Limited was founded in 2017 with a simple mission: to provide Kenya’s builders
-              with quality construction materials at fair prices. What began with a single truck and strong
-              commitment has grown into one of the country’s trusted suppliers.
-            </p>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              We serve thousands of customers — from homeowners to major contractors — and our foundation rests
-              on three pillars: quality products, dependable service, and competitive pricing.
-            </p>
-          </div>
-        </div>
-      </section>
+     {/* Our Story */}
+<section className="py-16 bg-white">
+  <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    {/* Text First */}
+    <div className="order-2 lg:order-1">
+      <h2 className="text-3xl font-bold text-blue-900 mb-6">Our Story</h2>
+      <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+        Voitto Company Limited was founded in 2017 with a simple mission: to provide Kenya’s builders
+        with quality construction materials at fair prices. What began with a single truck and strong
+        commitment has grown into one of the country’s trusted suppliers.
+      </p>
+      <p className="text-lg text-gray-600 leading-relaxed">
+        We serve thousands of customers — from homeowners to major contractors — and our foundation rests
+        on three pillars: quality products, dependable service, and competitive pricing.
+      </p>
+    </div>
+
+    {/* Image Second */}
+    <div className="order-1 lg:order-2">
+      <img
+        src="https://cdn.pixabay.com/photo/2017/08/04/08/53/two-way-excavator-2579435_1280.jpg"
+        alt="Excavator"
+        className="rounded-lg shadow-xl"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>
+
 
       {/* Our Impact (Animated Counters) */}
       <section className="py-16 bg-blue-900">
