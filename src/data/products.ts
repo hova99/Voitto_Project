@@ -180,7 +180,7 @@ export const products: Product[] = [
     id: 'wall-coping-9x4',
     name: 'Wall Coping 9"x4"',
     price: 250,
-    image: 'https://www.kcpquarry.com/images/service/4x9-Solid-Concrete-Block.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753209098/copping_9_q8nz04.jpg',
     category: 'coping',
     description: 'Wide coping to protect and finish wall tops.',
     unit: 'per piece',
