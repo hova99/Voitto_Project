@@ -356,7 +356,7 @@ export const products: Product[] = [
     id: 'flower-pot-rectangle',
     name: 'Flower Pot (Rectangle)',
     price: 3500,
-    image: 'https://images.pexels.com/photos/279810/pexels-photo-279810.jpeg',
+    image: 'https://wcl.co.ke/chijoage/2024/07/ffb9ae502fc08a715fc62b7561c550c0-1-1.jpg',
     category: 'garden',
     description: 'Large rectangular concrete planter for flowers or shrubs.',
     unit: 'per piece',
