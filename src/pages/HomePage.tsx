@@ -67,7 +67,7 @@ const HomePage: React.FC = () => {
         {/* Scroll Down Indicator */}
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
           <div className="w-8 h-8 border-4 border-orange-400 border-t-transparent rounded-full animate-spin"></div>
-        </div>
+        
       </section>
 
       {/* About Our Company */}
