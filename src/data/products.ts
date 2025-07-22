@@ -66,7 +66,7 @@ export const products: Product[] = [
     id: 'culvert-600mm',
     name: 'Culvert 600mm',
     price: 3000,
-    image: 'https://www.kcpquarry.com/images/service/fw-Falcon%20Floor%20Well.jpg',
+    image: 'https://cdn.pixabay.com/photo/2016/08/10/13/51/concrete-1583245_1280.jpg',
     category: 'drainage',
     description: 'Mid-size culvert for drainage under driveways and rural roads.',
     unit: 'per piece',
