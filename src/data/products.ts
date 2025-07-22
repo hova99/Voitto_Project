@@ -138,7 +138,7 @@ export const products: Product[] = [
     id: 'paving-slabs-12x24',
     name: 'Paving Slabs 12"x24"',
     price: 180,
-    image: 'https://www.kcpquarry.com/images/service/pb-Interlocking%20Cabro.jpg',
+    image: 'https://cdn.pixabay.com/photo/2018/10/26/14/56/paving-stones-3774723_1280.jpg',
     category: 'paving',
     description: 'Rectangular paving for creative patterns.',
     unit: 'per piece',
