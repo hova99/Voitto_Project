@@ -230,7 +230,7 @@ export const products: Product[] = [
     id: 'pillar-coping-12x12',
     name: 'Pillar Coping 12"x12"',
     price: 200,
-    image: 'https://www.kcpquarry.com/images/service/4x9-Solid-Concrete-Block.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753209689/coping_12_oeg39f.jpg',
     category: 'coping',
     description: 'Compact top cover for small pillars.',
     unit: 'per piece',
