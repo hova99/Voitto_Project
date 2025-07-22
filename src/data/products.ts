@@ -148,7 +148,7 @@ export const products: Product[] = [
     id: 'paving-slabs-cabro',
     name: 'Paving Slabs Cabro',
     price: 280,
-    image: 'https://www.kcpquarry.com/images/service/pb-Interlocking%20Cabro.jpg',
+    image: 'https://www.cabroblocks.co.ke/wp-content/uploads/2021/10/paving-slabs-in-nairobi.jpg',
     category: 'paving',
     description: 'Interlocking cabro-style pavers for durable surfaces.',
     unit: 'per piece',
