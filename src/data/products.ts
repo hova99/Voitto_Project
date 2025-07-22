@@ -46,7 +46,7 @@ export const products: Product[] = [
     id: 'shallow-drain-straight',
     name: 'Shallow Drain Straight',
     price: 500,
-    image: 'https://www.kcpquarry.com/images/service/fw-Falcon%20Floor%20Well.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753209963/shallow_fqyngs.jpg',
     category: 'drainage',
     description: 'Straight profile for smooth drainage layouts.',
     unit: 'per piece',
