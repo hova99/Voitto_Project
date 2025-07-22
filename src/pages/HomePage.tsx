@@ -101,7 +101,7 @@ const HomePage: React.FC = () => {
       {/* About Our Company */}
       <section className="py-20 px-4 md:px-8 bg-slate-800">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center text-orange-300">Building Kenya's Foundation</h2>
+          <h2 className="text-4xl font-bold mb-12 text-center text-orange-300">Building Kenya</h2>
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <p className="text-lg mb-6 leading-relaxed">
