@@ -292,7 +292,7 @@ export const products: Product[] = [
     id: 'louvers-6',
     name: 'Louvers 6"',
     price: 130,
-    image: 'https://www.kcpquarry.com/images/service/small-img/sm-Hollow-Block%209x9.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753209866/louver_ypwzk8.jpg',
     category: 'window',
     description: 'Smaller concrete louvers for indoor or light wall use.',
     unit: 'per piece',
