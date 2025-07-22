@@ -388,7 +388,7 @@ export const products: Product[] = [
     id: 'fencing-post-straight',
     name: 'Fencing Post Straight',
     price: 1500,
-    image: 'https://www.kcpquarry.com/images/service/small-img/sm-All-Sizes-Solid-Concrete-Blocks.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753208353/fencing_post_8_osrh1r.jpg',
     category: 'fencing',
     description: 'Standard vertical fencing post for support.',
     unit: 'per piece',
