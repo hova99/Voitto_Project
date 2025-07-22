@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, minimal = false }) =
 
   if (minimal) {
     return (
-      <div className="bg-white rounded-2xl shadow-md overflow-hidden w-full max-w-xs transition hover:shadow-lg">
+      <div className="bg-white rounded-2xl shadow-md overflow-hidden w-full max-w-xs transition hover:shadow-lg relative">
         <Link to={`/product/${product.id}`}>
           <div className="relative">
             <img
@@ -45,17 +45,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, minimal = false }) =
           </div>
         </Link>
 
-        <button
-          onClick={handleAddToCart}
-          disabled={!product.inStock}
-          className={`absolute bottom-2 right-2 p-2 rounded-full shadow-md transition ${
-            product.inStock
-              ? 'bg-emerald-500 hover:bg-emerald-600 text-white'
-              : 'bg-gray-300 text-gray-400 cursor-not-allowed'
-          }`}
-        >
-          <ShoppingCart className="w-4 h-4" />
-        </button>
+        {/* No add to cart button in minimal mode */}
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import { products } from '../data/products';
 
@@ -39,12 +40,13 @@ const FeaturedCarousel: React.FC = () => {
         </div>
 
         <div className="text-center mt-12">
-          <a
+          <Link
             href="/products"
+            to="/products"
             className="inline-flex items-center bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors group"
           >
             View All Products
-          </a>
+          </Link>
         </div>
       </div>
     </section>
