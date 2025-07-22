@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ========================================
+   GLOBAL COLOR THEME UPDATES
+   Updated global styles for consistency
+======================================== */
+
+/* Update default button styles */
+@layer components {
+  .btn-primary {
+    @apply bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply bg-blue-900 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded transition-colors;
+  }
+  
+  .text-primary {
+    @apply text-blue-900;
+  }
+  
+  .text-accent {
+    @apply text-orange-600;
+  }
+  
+  .bg-primary {
+    @apply bg-blue-900;
+  }
+  
+  .bg-accent {
+    @apply bg-orange-600;
+  }
+}
+
 /* Performance optimizations */
 @layer base {
   img {
@@ -35,6 +67,18 @@
 }
 
 /* Removed previous @apply inside media queries to prevent errors */
+
+/* ========================================
+   HOMEPAGE-SPECIFIC STYLES
+   Custom styles for the new homepage layout
+======================================== */
+
+.parallax-section {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 /* Infinite scroll animation */
 @keyframes scroll {

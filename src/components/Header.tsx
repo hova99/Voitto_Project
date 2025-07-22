@@ -63,8 +63,8 @@ const Header: React.FC = () => {
                 to={item.href}
                 className={`px-3 py-2 text-sm font-medium transition-colors ${
                   isActive(item.href)
-                    ? 'text-orange-600 border-b-2 border-orange-600'
-                    : 'text-gray-700 hover:text-orange-600'
+                    ? 'text-brand-orange-600 border-b-2 border-brand-orange-600'
+                    : 'text-gray-700 hover:text-brand-orange-600'
                 }`}
               >
                 {item.name}
@@ -76,11 +76,11 @@ const Header: React.FC = () => {
           <div className="flex items-center space-x-4">
             <Link
               to="/cart"
-              className="relative p-2 text-gray-700 hover:text-orange-600 transition-colors"
+              className="relative p-2 text-gray-700 hover:text-brand-orange-600 transition-colors"
             >
               <ShoppingCart className="h-6 w-6" />
               {state.items.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-orange-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-brand-orange-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                   {state.items.reduce((sum, item) => sum + item.quantity, 0)}
                 </span>
               )}
@@ -107,8 +107,8 @@ const Header: React.FC = () => {
                 to={item.href}
                 className={`block px-3 py-2 text-base font-medium transition-colors ${
                   isActive(item.href)
-                    ? 'text-orange-600 bg-orange-50'
-                    : 'text-gray-700 hover:text-orange-600 hover:bg-gray-50'
+                    ? 'text-brand-orange-600 bg-orange-50'
+                    : 'text-gray-700 hover:text-brand-orange-600 hover:bg-gray-50'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
