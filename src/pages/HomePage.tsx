@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Truck, Shield, Clock, Award, Play, Info, Camera, Mic, Flask, Mail } from 'lucide-react';
+import { ArrowRight, Truck, Shield, Clock, Award, Play, Info, Camera, Mic, FlaskRound as Flask, Mail } from 'lucide-react';
 
 /* ========================================
    HOMEPAGE LAYOUT OVERRIDES BEGIN
