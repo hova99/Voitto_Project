@@ -41,56 +41,28 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100">
       {/* Hero Section with Video Background and Fallback Image */}
-<section className="relative h-screen flex items-center justify-center overflow-hidden">
-  {/* Fallback Background Image (behind video) */}
-  <div
-    className="absolute top-0 left-0 w-full h-full bg-cover bg-center z-[-2]"
-    style={{ backgroundImage: "url('https://cdn.pixabay.com/photo/2014/03/03/16/08/construction-279012_1280.jpg')" }}
-  ></div>
+<section
+  className="relative h-screen flex items-center justify-center bg-cover bg-center"
+  style={{ backgroundImage: "url('https://cdn.pixabay.com/photo/2014/03/03/16/08/construction-279012_1280.jpg')" }}
+>
+  <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center px-4">
+    <div className="flex gap-4">
+      <Link
+        to="/products"
+        className="inline-flex items-center px-8 py-3 bg-orange-600 hover:bg-orange-700 rounded-full font-semibold transition transform hover:scale-105 text-white text-lg"
+      >
+        View Products
+      </Link>
+      <Link
+        to="/about"
+        className="inline-flex items-center px-8 py-3 bg-transparent border-2 border-white hover:bg-white hover:text-slate-900 rounded-full font-semibold transition transform hover:scale-105 text-white text-lg"
+      >
+        Learn More
+      </Link>
+    </div>
+  </div>
+</section>
 
-  {/* Video Background */}
-  <video 
-    autoPlay 
-    muted 
-    loop 
-    playsInline
-    id="heroVideo" 
-    className="absolute top-0 left-0 w-full h-full object-cover z-[-1]"
-  >
-    <source src="https://res.cloudinary.com/dnv6mjhxv/video/upload/v1753110507/6036438_Man_People_1280x720_m2kwaa.webm" type="video/webm" />
-    {/* If video fails entirely, image tag appears */}
-    <img 
-      src="https://cdn.pixabay.com/photo/2014/03/03/16/08/construction-279012_1280.jpg" 
-      alt="Construction background"
-      className="w-full h-full object-cover"
-    />
-  </video>
-        
-        {/* Hero Content */}
-        <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-center px-4">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-lg">
-            VOITTO CONSTRUCTION
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl text-orange-100 drop-shadow-md">
-            Building Kenya's future with quality precast concrete products and reliable construction materials
-          </p>
-          <div className="flex gap-4">
-            <Link
-              to="/products"
-              className="inline-flex items-center px-8 py-3 bg-orange-600 hover:bg-orange-700 rounded-full font-semibold transition transform hover:scale-105 text-white"
-            >
-              <Play className="mr-2 h-5 w-5" />
-              Shop Products
-            </Link>
-            <Link
-              to="/about"
-              className="inline-flex items-center px-8 py-3 bg-transparent border-2 border-white hover:bg-white hover:text-slate-900 rounded-full font-semibold transition transform hover:scale-105 text-white"
-            >
-              <Info className="mr-2 h-5 w-5" />
-              Learn More
-            </Link>
-          </div>
-        </div>
         
         {/* Scroll Down Indicator */}
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
