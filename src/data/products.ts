@@ -128,7 +128,7 @@ export const products: Product[] = [
     id: 'paving-slabs-18x18',
     name: 'Paving Slabs 18"x18"',
     price: 200,
-    image: 'https://www.kcpquarry.com/images/service/pb-Interlocking%20Cabro.jpg',
+    image: 'https://www.cabroblocks.co.ke/wp-content/uploads/2021/10/paving-slabs-in-nairobi.jpg',
     category: 'paving',
     description: 'Larger surface area slabs ideal for open spaces.',
     unit: 'per piece',
