@@ -6,7 +6,7 @@ export const products: Product[] = [
     id: 'ibd-600',
     name: 'I.B.D',
     price: 600,
-    image: 'https://www.cabroblocks.co.ke/wp-content/uploads/2021/11/shallow-drains-in-kenya-1.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753210706/IBD_6_txw6xd.jpg',
     category: 'drainage',
     description: 'Ideal for road and pavement edge drainage systems.',
     unit: 'per piece',
