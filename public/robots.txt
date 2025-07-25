@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://voittoconcrete.com/sitemap.xml
