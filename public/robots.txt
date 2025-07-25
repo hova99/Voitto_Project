@@ -1,3 +1,8 @@
 User-agent: *
+Disallow: /private/
+Disallow: /admin/
 Allow: /
+
+Crawl-delay: 10
+
 Sitemap: https://voittoconcrete.com/sitemap.xml
