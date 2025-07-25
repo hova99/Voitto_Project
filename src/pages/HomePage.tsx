@@ -334,7 +334,7 @@ const HomePage: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4 text-orange-300">Voitto Company Limited</h3>
+              <h3 className="text-xl font-bold mb-4 text-orange-300">Voitto Company Limite</h3>
               <p className="text-slate-400">
                 Kenya's trusted supplier of quality precast concrete products and construction materials.
               </p>
