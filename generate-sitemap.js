@@ -2,12 +2,13 @@ import { SitemapStream, streamToPromise } from 'sitemap';
 import { createWriteStream } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
 const sitemap = new SitemapStream({ hostname: 'https://voittoconcrete.com' });
-const writeStream = createWriteStream(path.resolve(__dirname, 'public', 'sitemap.xml'));
+const writeStream = createWriteStream(path.resolve(__dirname, 'dist', 'sitemap.xml'));
 
 sitemap.pipe(writeStream);
 
@@ -18,4 +19,4 @@ sitemap.write({ url: '/contact', changefreq: 'yearly', priority: 0.5 });
 
 sitemap.end();
 
-streamToPromise(sitemap).then(() => console.log('✅ Sitemap generated.'));
+streamToPromise(sitemap).then(() => console.log('✅ Sitemap generated in dist/'));
