@@ -68,7 +68,7 @@ const Footer = () => {
               Contact Us
             </h4>
             <p className="text-sm text-slate-300 flex items-center gap-2 mb-2">
-              <Mail className="w-4 h-4" /> info@voittoconcrete.com
+              <Mail className="w-4 h-4" /> voittoltd2023@gmail.com
             </p>
             <p className="text-sm text-slate-300 flex items-center gap-2">
               <PhoneCall className="w-4 h-4" /> 0727 530944
