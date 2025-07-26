@@ -1,7 +1,16 @@
 // src/components/Footer.tsx
 
 import { Link } from "react-router-dom";
-import { Mail, MessageCircle, Facebook, Instagram, Video } from "lucide-react";
+import {
+  Mail,
+  MessageCircle,
+  Facebook,
+  Instagram,
+  Video,
+  PhoneCall,
+} from "lucide-react";
+
+const WHATSAPP_NUMBER = "254727530944"; // Kenya format: 254 + number without 0
 
 const Footer = () => {
   return (
@@ -31,7 +40,9 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-10 mb-10">
           {/* Company Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-orange-500">Voitto Company Ltd</h3>
+            <h3 className="text-lg font-semibold mb-4 text-orange-500">
+              Voitto Company Ltd
+            </h3>
             <p className="text-sm text-slate-300">
               Supplying quality construction materials to Kenya since 2017. Built on trust, service,
               and solid foundations.
@@ -40,7 +51,9 @@ const Footer = () => {
 
           {/* Navigation */}
           <div>
-            <h4 className="text-md font-semibold mb-4 text-orange-500">Quick Links</h4>
+            <h4 className="text-md font-semibold mb-4 text-orange-500">
+              Quick Links
+            </h4>
             <ul className="space-y-2 text-sm">
               <li><Link to="/" className="hover:text-orange-400">Home</Link></li>
               <li><Link to="/about" className="hover:text-orange-400">About</Link></li>
@@ -51,19 +64,24 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-md font-semibold mb-4 text-orange-500">Contact Us</h4>
+            <h4 className="text-md font-semibold mb-4 text-orange-500">
+              Contact Us
+            </h4>
             <p className="text-sm text-slate-300 flex items-center gap-2 mb-2">
               <Mail className="w-4 h-4" /> info@voittoconcrete.com
             </p>
             <p className="text-sm text-slate-300 flex items-center gap-2">
-              <MessageCircle className="w-4 h-4" /> +254 712 345 678
+              <PhoneCall className="w-4 h-4" /> 0727 530944
             </p>
           </div>
 
-          {/* Social Media */}
+          {/* Social Media + WhatsApp */}
           <div>
-            <h4 className="text-md font-semibold mb-4 text-orange-500">Follow Us</h4>
+            <h4 className="text-md font-semibold mb-4 text-orange-500">
+              Connect With Us
+            </h4>
             <div className="flex gap-4">
+              {/* Placeholders */}
               <Link to="#" className="hover:text-orange-400" aria-label="Facebook">
                 <Facebook className="w-5 h-5" />
               </Link>
@@ -73,9 +91,17 @@ const Footer = () => {
               <Link to="#" className="hover:text-orange-400" aria-label="TikTok">
                 <Video className="w-5 h-5" />
               </Link>
-              <Link to="https://wa.me/254712345678" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400" aria-label="WhatsApp">
+
+              {/* WhatsApp */}
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-green-500"
+                aria-label="WhatsApp"
+              >
                 <MessageCircle className="w-5 h-5" />
-              </Link>
+              </a>
             </div>
           </div>
         </div>
