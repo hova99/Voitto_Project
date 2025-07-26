@@ -334,7 +334,7 @@ export const products: Product[] = [
     id: 'balustrade-2ft',
     name: 'Balustrade 2 ft',
     price: 300,
-    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/c_crop,ar_9:16,f_png/v1753519163/balu2.5_dxggwx.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/c_crop,w_500,h_889,ar_9:16,f_png/v1753519163/balu2.5_dxggwx.jpg',
     category: 'balustrade',
     description: 'Standard-size balustrade for medium spaces.',
     unit: 'per piece',
