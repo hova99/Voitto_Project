@@ -272,7 +272,7 @@ export const products: Product[] = [
     id: 'window-seal-generic',
     name: 'Window Seal (Generic)',
     price: 0,
-    image: 'https://www.kcpquarry.com/images/service/small-img/sm-Hollow-Block%209x9.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_improve,e_sharpen/v1753518186/generic_eprf3z.jpg',
     category: 'window',
     description: 'Placeholder for custom-sized concrete window seals.',
     unit: 'per piece',
