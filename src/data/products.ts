@@ -98,7 +98,7 @@ export const products: Product[] = [
     id: 'road-kerbs',
     name: 'Road Kerbs',
     price: 350,
-    image: 'https://www.kcpquarry.com/images/service/pb-Interlocking%20Cabro.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753513533/kerbnew_g5udss.webp',
     category: 'paving',
     description: 'Used to border roads, sidewalks, and parking lots.',
     unit: 'per piece',
