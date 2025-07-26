@@ -69,7 +69,7 @@ const OrderSuccessPage: React.FC = () => {
               </a>
               
               <a
-                href="https://wa.me/254721748851"
+                href="https://wa.me/254727 530944"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
