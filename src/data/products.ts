@@ -56,7 +56,7 @@ export const products: Product[] = [
     id: 'culvert-900mm',
     name: 'Culvert 900mm',
     price: 5500,
-    image: '',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753512743/culv999_wenltg.png',
     category: 'drainage',
     description: 'Heavy-duty concrete pipe for major water channels and highways.',
     unit: 'per piece',
