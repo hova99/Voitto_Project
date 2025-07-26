@@ -85,7 +85,7 @@ const Footer = () => {
                 to="https://wa.me/254727530944"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-orange-400"
+                className="hover:text-green-400"
                 aria-label="WhatsApp"
               >
                 <MessageCircle className="w-5 h-5" />
