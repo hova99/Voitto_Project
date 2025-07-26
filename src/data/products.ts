@@ -470,7 +470,7 @@ export const products: Product[] = [
     id: 'yellow-stones-6',
     name: 'Yellow Stones 6"',
     price: 0,
-    image: 'https://pictures-uganda.jijistatic.com/18803722_NjIwLTQ2NS1mZmRjNGJhMWIx.webp',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753520754/yellow_ruilxu.jpg',
     category: 'aggregates',
     description: 'Decorative or structural yellow stone blocks.',
     unit: 'per tipper',
