@@ -89,7 +89,7 @@ const Chatbot: React.FC = () => {
     
     // Payment methods
     if (message.includes('payment') || message.includes('pay') || message.includes('order')) {
-      return 'All orders are placed via WhatsApp for personalized service! Add items to cart, complete your details, and click "Order via WhatsApp" to send your order directly to us at +254 721 748851. We\'ll confirm pricing and arrange payment.';
+      return 'All orders are placed via WhatsApp for personalized service! Add items to cart, complete your details, and click "Order via WhatsApp" to send your order directly to us at +254 727 530944. We\'ll confirm pricing and arrange payment.';
     }
     
     // Contact information
