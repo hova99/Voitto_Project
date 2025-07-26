@@ -26,7 +26,7 @@ export const products: Product[] = [
     id: 'ibd-6ft',
     name: 'IBD 6\'',
     price: 350,
-    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753510479/WhatsApp_Image_2025-07-26_at_8.57.14_AM-removebg-preview_oykxcg.png',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753510828/iBd66-removebg-preview_gb2ino.png',
     category: 'drainage',
     description: 'Medium-sized drain used in residential and light road work.',
     unit: 'per piece',
