@@ -94,7 +94,7 @@ const Chatbot: React.FC = () => {
     
     // Contact information
     if (message.includes('contact') || message.includes('phone') || message.includes('whatsapp') || message.includes('location')) {
-      return 'Contact Voitto Company Limited: Phone/WhatsApp: +254 721 748851, Email: info@voittoconcrete.co.ke. Location: Mashambani, Banana, Kiambu. We\'re here to help with all your precast concrete needs!';
+      return 'Contact Voitto Company Limited: Phone/WhatsApp: +254 727 530944, Email: info@voittoconcrete.co.ke. Location: Mashambani, Banana, Kiambu. We\'re here to help with all your precast concrete needs!';
     }
     
     // General greetings
