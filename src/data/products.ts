@@ -420,7 +420,7 @@ export const products: Product[] = [
     id: 'chippings',
     name: 'Chippings',
     price: 0,
-    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png/v1753521007/drungo_bgwwnc.png',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753521098/chippings_jlswad.jpg',
     category: 'aggregates',
     description: 'Small stone chips for construction or decorative landscaping.',
     unit: 'per tipper',
