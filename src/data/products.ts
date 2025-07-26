@@ -16,7 +16,7 @@ export const products: Product[] = [
     id: 'ibd-9ft',
     name: 'IBD 9\'',
     price: 400,
-    image: 'https://www.kcpquarry.com/images/service/fw-Falcon%20Floor%20Well.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753508994/IBD9_rjfgwg.png',
     category: 'drainage',
     description: 'Long-format interlocking drain for larger areas.',
     unit: 'per piece',
