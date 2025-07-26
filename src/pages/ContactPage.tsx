@@ -65,7 +65,7 @@ const ContactPage: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                  <p className="text-gray-600">info@voittoconcrete.co.ke</p>
+                  <p className="text-gray-600">voittoltd2023@gmail.com</p>
                   <p className="text-sm text-gray-500">We'll respond within 24 hours</p>
                 </div>
               </div>
