@@ -36,7 +36,7 @@ export const products: Product[] = [
     id: 'shallow-drain',
     name: 'Shallow Drain',
     price: 450,
-    image: 'https://wcl.co.ke/chijoage/2024/09/7O6A8823-1.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753510671/SHALLOW_DRAIN_zccdan.jpg',
     category: 'drainage',
     description: 'Used to control surface water flow along roads and compounds.',
     unit: 'per piece',
