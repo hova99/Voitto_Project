@@ -240,7 +240,7 @@ export const products: Product[] = [
     id: 'ball-head',
     name: 'Ball Head',
     price: 300,
-    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/c_crop,w_2500,h_4444,ar_9:16,f_png,e_improve,e_sharpen/v1753516123/ball_head_srtgeg.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/c_crop,w_3000,h_5333,ar_9:16,f_png,e_improve,e_sharpen/v1753516123/ball_head_srtgeg.jpg',
     category: 'coping',
     description: 'Decorative top element for pillars or gate posts.',
     unit: 'per piece',
