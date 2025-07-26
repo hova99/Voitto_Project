@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, MessageCircle, Clock, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 import HeroBanner from '../components/HeroBanner';
 
 const ContactPage: React.FC = () => {
@@ -11,7 +11,9 @@ const ContactPage: React.FC = () => {
     message: ''
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -20,7 +22,6 @@ const ContactPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
     alert('Thank you for your message! We will get back to you soon.');
     setFormData({
       name: '',
@@ -33,7 +34,6 @@ const ContactPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Hero Banner */}
       <HeroBanner
         title="Contact Us"
         subtitle="Get in touch for quotes, orders, or any questions"
@@ -43,10 +43,10 @@ const ContactPage: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
+          {/* Contact Info */}
           <div>
             <h2 className="text-2xl font-bold text-blue-900 mb-8">Get in Touch</h2>
-            
+
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
                 <div className="bg-orange-600 p-3 rounded-lg">
@@ -58,7 +58,7 @@ const ContactPage: React.FC = () => {
                   <p className="text-sm text-gray-500">Available 24/7 for emergencies</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start space-x-4">
                 <div className="bg-orange-600 p-3 rounded-lg">
                   <Mail className="h-6 w-6 text-white" />
@@ -69,7 +69,7 @@ const ContactPage: React.FC = () => {
                   <p className="text-sm text-gray-500">We'll respond within 24 hours</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start space-x-4">
                 <div className="bg-orange-600 p-3 rounded-lg">
                   <MapPin className="h-6 w-6 text-white" />
@@ -80,7 +80,7 @@ const ContactPage: React.FC = () => {
                   <p className="text-sm text-gray-500">Kenya</p>
                 </div>
               </div>
-              
+
               <div className="flex items-start space-x-4">
                 <div className="bg-orange-600 p-3 rounded-lg">
                   <Clock className="h-6 w-6 text-white" />
@@ -93,37 +93,15 @@ const ContactPage: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            {/* WhatsApp Section */}
-            <div className="mt-8 p-6 bg-green-50 rounded-lg border border-green-200">
-              <h3 className="text-lg font-semibold text-green-800 mb-3">
-                <MessageCircle className="inline h-5 w-5 mr-2" />
-                WhatsApp Support
-              </h3>
-              <p className="text-green-700 mb-4">
-                Get instant quotes and place orders through WhatsApp
-              </p>
-              <a
-                href="https://wa.me/254727530944"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
-              >
-                <MessageCircle className="h-5 w-5 mr-2" />
-                Chat on WhatsApp
-              </a>
-            </div>
           </div>
 
           {/* Contact Form */}
           <div className="bg-white rounded-lg shadow-md p-8">
             <h2 className="text-2xl font-bold text-blue-900 mb-6">Send us a Message</h2>
-            
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Full Name *
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
                 <input
                   type="text"
                   name="name"
@@ -133,11 +111,9 @@ const ContactPage: React.FC = () => {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                 />
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address *
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
                 <input
                   type="email"
                   name="email"
@@ -147,11 +123,9 @@ const ContactPage: React.FC = () => {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                 />
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number *
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
                 <input
                   type="tel"
                   name="phone"
@@ -162,11 +136,9 @@ const ContactPage: React.FC = () => {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                 />
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Subject
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
                 <select
                   name="subject"
                   value={formData.subject}
@@ -181,11 +153,9 @@ const ContactPage: React.FC = () => {
                   <option value="other">Other</option>
                 </select>
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Message *
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
                 <textarea
                   name="message"
                   required
@@ -196,7 +166,7 @@ const ContactPage: React.FC = () => {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                 />
               </div>
-              
+
               <button
                 type="submit"
                 className="w-full bg-orange-600 hover:bg-orange-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2"
@@ -217,13 +187,13 @@ const ContactPage: React.FC = () => {
             </p>
           </div>
           <div className="h-96">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d383.5847572797015!2d36.749615365072124!3d-1.1646156359352253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f2338a66f2b39%3A0x628a8ef6e30dd21a!2sVoitto%20concrete%20works!5e1!3m2!1sen!2snl!4v1753105182515!5m2!1sen!2snl" 
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen 
-              loading="lazy" 
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d383.5847572797015!2d36.749615365072124!3d-1.1646156359352253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f2338a66f2b39%3A0x628a8ef6e30dd21a!2sVoitto%20concrete%20works!5e1!3m2!1sen!2snl!4v1753105182515!5m2!1sen!2snl"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Voitto Company Limited Location"
             ></iframe>
