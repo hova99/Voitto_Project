@@ -25,7 +25,7 @@ const Header: React.FC = () => {
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center">
               <a 
-                href="https://wa.me/254721748851" 
+                href="https://wa.me/254727 530944" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 hover:text-orange-300 transition-colors"
