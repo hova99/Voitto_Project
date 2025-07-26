@@ -378,7 +378,7 @@ export const products: Product[] = [
     id: 'fencing-post-curved',
     name: 'Fencing Post Curved',
     price: 1600,
-    image: 'https://www.kcpquarry.com/images/service/small-img/sm-All-Sizes-Solid-Concrete-Blocks.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/a_hflip/v1753519854/femcing_curved_touaqf.webp',
     category: 'fencing',
     description: 'Arched post for strong boundary fencing.',
     unit: 'per piece',
