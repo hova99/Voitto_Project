@@ -490,7 +490,7 @@ export const products: Product[] = [
     id: 'darugo-stones-6',
     name: 'Darugo Stones 6"',
     price: 0,
-    image: 'https://pictures-uganda.jijistatic.com/18803722_NjIwLTQ2NS1mZmRjNGJhMWIx.webp',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753520519/ndarungo_rivni8.webp',
     category: 'aggregates',
     description: 'Smaller variant of Darugo for partition walls.',
     unit: 'per tipper',
