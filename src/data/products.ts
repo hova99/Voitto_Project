@@ -344,7 +344,7 @@ export const products: Product[] = [
     id: 'balustrade-1-5ft',
     name: 'Balustrade 1.5 ft',
     price: 250,
-    image: 'https://www.kcpquarry.com/images/service/small-img/sm-All-Sizes-Solid-Concrete-Blocks.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png,e_improve,e_sharpen/v1753518499/balustarde1_z4kvkt.webp',
     category: 'balustrade',
     description: 'Compact balustrade for short walls or stair rails.',
     unit: 'per piece',
