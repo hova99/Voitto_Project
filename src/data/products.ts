@@ -440,7 +440,7 @@ export const products: Product[] = [
     id: 'rock-dust',
     name: 'Rock Dust',
     price: 0,
-    image: 'https://images.pexels.com/photos/279810/pexels-photo-279810.jpeg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753520842/rockdust_fe38kl.webp',
     category: 'aggregates',
     description: 'Fine aggregate used for compacting and surface preparation.',
     unit: 'per tipper',
