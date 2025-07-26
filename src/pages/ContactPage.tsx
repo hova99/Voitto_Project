@@ -186,18 +186,19 @@ const ContactPage: React.FC = () => {
               Visit our yard in Mashambani, Banana, Kiambu to see our materials firsthand and speak with our experts.
             </p>
           </div>
-          <div className="h-96">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d383.5847572797015!2d36.749615365072124!3d-1.1646156359352253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f2338a66f2b39%3A0x628a8ef6e30dd21a!2sVoitto%20concrete%20works!5e1!3m2!1sen!2snl!4v1753105182515!5m2!1sen!2snl"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Voitto Company Limited Location"
-            ></iframe>
-          </div>
+         <div className="h-[600px] w-full rounded-xl overflow-hidden mt-6 shadow-md">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d685.8336845360525!2d36.74988535962528!3d-1.1647037369551296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f2338a66f2b39%3A0x628a8ef6e30dd21a!2sVoitto%20concrete%20works!5e0!3m2!1sen!2snl!4v1753528678267!5m2!1sen!2snl"
+    width="100%"
+    height="100%"
+    style={{ border: 0 }}
+    allowFullScreen
+    loading="lazy"
+    referrerPolicy="no-referrer-when-downgrade"
+    title="Voitto Concrete Works Location"
+  ></iframe>
+</div>
+
         </div>
       </div>
     </div>
