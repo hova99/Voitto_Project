@@ -20,7 +20,7 @@ const QuoteExporter: React.FC = () => {
     return `
 VOITTO CONCRETE CONSTRUCTION
 Mashambani, Banana, Kiambu
-Phone: +254 721 748851
+Phone: +254 727 530944
 Email: info@voittoconcrete.co.ke
 
 QUOTATION
