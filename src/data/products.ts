@@ -220,7 +220,7 @@ export const products: Product[] = [
     id: 'pillar-coping-16x16',
     name: 'Pillar Coping 16"x16"',
     price: 250,
-    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753209257/pillar_copping_vkdewe.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/e_dropshadow:azimuth_220;elevation_60;spread_20/f_png,e_improve,e_sharpen/v1753516712/pillar_coping16_hiqj21.png',
     category: 'coping',
     description: 'Mid-size cap for medium-sized pillars.',
     unit: 'per piece',
