@@ -14,7 +14,7 @@ const WhatsAppOrder: React.FC = () => {
   };
 
   const sendWhatsAppOrder = () => {
-    const phoneNumber = '254721748851';
+    const phoneNumber = '254727 530944';
     const orderDetails = state.items.map(item => 
       `• ${item.name} - Qty: ${item.quantity} ${item.unit} @ ${formatPrice(item.price)}`
     ).join('\n');
