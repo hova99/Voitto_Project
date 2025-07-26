@@ -480,7 +480,7 @@ export const products: Product[] = [
     id: 'darugo-stones-9',
     name: 'Darugo Stones 9"',
     price: 0,
-    image: 'https://pictures-uganda.jijistatic.com/18803722_NjIwLTQ2NS1mZmRjNGJhMWIx.webp',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png/v1753521007/drungo_bgwwnc.png',
     category: 'aggregates',
     description: 'Traditional 9" hard-cut building stones.',
     unit: 'per tipper',
