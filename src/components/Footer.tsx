@@ -1,14 +1,7 @@
+// src/components/Footer.tsx
+
 import { Link } from "react-router-dom";
-import {
-  Mail,
-  MessageCircle,
-  Facebook,
-  Instagram,
-  Video,
-  MapPin,
-  Phone,
-  Whatsapp,
-} from "lucide-react";
+import { Mail, MessageCircle, Facebook, Instagram, Video, MapPin, Phone } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -43,6 +36,14 @@ const Footer = () => {
               Supplying quality construction materials to Kenya since 2017. Built on trust, service,
               and solid foundations.
             </p>
+            <div className="mt-4 text-sm text-slate-300 flex items-start gap-2">
+              <MapPin className="w-4 h-4 mt-1" />
+              <p>P.O. Box 941-00217, Limuru.</p>
+            </div>
+            <div className="mt-2 text-sm text-slate-300 flex items-center gap-2">
+              <Phone className="w-4 h-4" />
+              <p>Tel: 0721 748851</p>
+            </div>
           </div>
 
           {/* Navigation */}
@@ -60,13 +61,10 @@ const Footer = () => {
           <div>
             <h4 className="text-md font-semibold mb-4 text-orange-500">Contact Us</h4>
             <p className="text-sm text-slate-300 flex items-center gap-2 mb-2">
-              <Mail className="w-4 h-4" /> info@voittoconcrete.com
-            </p>
-            <p className="text-sm text-slate-300 flex items-center gap-2 mb-2">
-              <Phone className="w-4 h-4" /> +254 727 530944
+              <Mail className="w-4 h-4" /> voittoltd2023@gmail.com
             </p>
             <p className="text-sm text-slate-300 flex items-center gap-2">
-              <MapPin className="w-4 h-4" /> P.O. Box 941-00217, Limuru
+              <MessageCircle className="w-4 h-4" /> +254 727 530944
             </p>
           </div>
 
@@ -90,7 +88,7 @@ const Footer = () => {
                 className="hover:text-orange-400"
                 aria-label="WhatsApp"
               >
-                <Whatsapp className="w-5 h-5" />
+                <MessageCircle className="w-5 h-5" />
               </Link>
             </div>
           </div>
