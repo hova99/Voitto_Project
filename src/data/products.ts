@@ -230,7 +230,7 @@ export const products: Product[] = [
     id: 'pillar-coping-12x12',
     name: 'Pillar Coping 12"x12"',
     price: 200,
-    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753209689/coping_12_oeg39f.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/e_dropshadow:azimuth_220;elevation_60;spread_20/f_png,e_improve,e_sharpen/v1753516561/pillar_copping_as3d0w.jpg',
     category: 'coping',
     description: 'Compact top cover for small pillars.',
     unit: 'per piece',
