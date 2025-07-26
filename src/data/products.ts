@@ -282,7 +282,7 @@ export const products: Product[] = [
     id: 'louvers-9',
     name: 'Louvers 9"',
     price: 180,
-    image: 'https://www.kcpquarry.com/images/service/small-img/sm-Hollow-Block%209x9.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png,e_improve,e_sharpen/v1753517430/louver9_mhxnhp.jpg',
     category: 'window',
     description: 'Air vents for 9" walls, allows ventilation and light.',
     unit: 'per piece',
