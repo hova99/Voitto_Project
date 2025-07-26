@@ -262,7 +262,7 @@ export const products: Product[] = [
     id: 'window-seal-6',
     name: 'Window Seal 6"',
     price: 250,
-    image: 'https://www.kcpquarry.com/images/service/small-img/sm-Hollow-Block%209x9.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png,e_improve,e_sharpen/v1753517823/winddow_seal_obpl8e.jpg',
     category: 'window',
     description: 'Smaller sill for lighter structures or partition walls.',
     unit: 'per piece',
