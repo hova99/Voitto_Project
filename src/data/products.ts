@@ -366,7 +366,7 @@ export const products: Product[] = [
     id: 'flower-pot-hexagon',
     name: 'Flower Pot (Hexagon)',
     price: 2500,
-    image: 'https://images.pexels.com/photos/279810/pexels-photo-279810.jpeg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/e_dropshadow:azimuth_220;elevation_60;spread_20/f_png,e_improve,e_sharpen/v1753519416/hexagon_flower_pot_fkfsqi.png',
     category: 'garden',
     description: 'Stylish hexagonal pot for decorative planting.',
     unit: 'per piece',
