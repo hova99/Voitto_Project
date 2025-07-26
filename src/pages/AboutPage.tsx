@@ -3,27 +3,6 @@ import AnimatedCounter from '../components/AnimatedCounter';
 import { Award, Users, Truck, Shield, Clock, MapPin } from 'lucide-react';
 
 const AboutPage: React.FC = () => {
-  const team = [
-    {
-      name: 'Antony Kamau',
-      role: 'CEO & Founder',
-      image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg',
-      description: 'Over 25 years of experience in the construction industry'
-    },
-    {
-      name: 'Sarah Njeri',
-      role: 'Operations Manager',
-      image: 'https://images.pexels.com/photos/3756681/pexels-photo-3756681.jpeg',
-      description: 'Expert in logistics and supply chain management'
-    },
-    {
-      name: 'David Kipchoge',
-      role: 'Quality Assurance',
-      image: 'https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg',
-      description: 'Ensures all materials meet industry standards'
-    }
-  ];
-
   return (
     <div className="min-h-screen">
       {/* Header Video with fallback */}
@@ -45,40 +24,36 @@ const AboutPage: React.FC = () => {
         </video>
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <h1 className="text-white text-3xl md:text-4xl font-bold text-center px-4">
-             Quality that lasts.
+            Quality that lasts.
           </h1>
         </div>
       </div>
 
-     {/* Our Story */}
-<section className="py-16 bg-white">
-  <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-    {/* Text First */}
-    <div className="order-2 lg:order-1">
-      <h2 className="text-3xl font-bold text-blue-900 mb-6">Our Story</h2>
-      <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-        Voitto Company Limited was founded in 2017 with a simple mission: to provide Kenya’s builders
-        with quality construction materials at fair prices. What began with a single truck and strong
-        commitment has grown into one of the country’s trusted suppliers.
-      </p>
-      <p className="text-lg text-gray-600 leading-relaxed">
-        We serve thousands of customers — from homeowners to major contractors — and our foundation rests
-        on three pillars: quality products, dependable service, and competitive pricing.
-      </p>
-    </div>
-
-    {/* Image Second */}
-    <div className="order-1 lg:order-2">
-      <img
-        src="https://cdn.pixabay.com/photo/2017/08/04/08/53/two-way-excavator-2579435_1280.jpg"
-        alt="Excavator"
-        className="rounded-lg shadow-xl"
-        loading="lazy"
-      />
-    </div>
-  </div>
-</section>
-
+      {/* Our Story */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="order-2 lg:order-1">
+            <h2 className="text-3xl font-bold text-blue-900 mb-6">Our Story</h2>
+            <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+              Voitto Company Limited was founded in 2017 with a simple mission: to provide Kenya’s builders
+              with quality construction materials at fair prices. What began with a single truck and strong
+              commitment has grown into one of the country’s trusted suppliers.
+            </p>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              We serve thousands of customers — from homeowners to major contractors — and our foundation rests
+              on three pillars: quality products, dependable service, and competitive pricing.
+            </p>
+          </div>
+          <div className="order-1 lg:order-2">
+            <img
+              src="https://cdn.pixabay.com/photo/2017/08/04/08/53/two-way-excavator-2579435_1280.jpg"
+              alt="Excavator"
+              className="rounded-lg shadow-xl"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Our Impact (Animated Counters) */}
       <section className="py-16 bg-blue-900">
@@ -95,33 +70,13 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Mission & Values */}
-      <section className="py-16 bg-slate-50">
-        <div className="max-w-7xl mx-auto text-center px-4">
-          <h2 className="text-3xl font-bold text-blue-900 mb-12">Our Mission & Values</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Value icon={<Shield />} title="Quality First" desc="We provide materials that meet or exceed all industry standards." />
-            <Value icon={<Clock />} title="Reliable Service" desc="We deliver on time — always." />
-            <Value icon={<Users />} title="Customer Focus" desc="We offer personal support to every client, big or small." />
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
+      {/* Product Carousel Placeholder */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-blue-900 mb-12">Meet Our Team</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {team.map((member, idx) => (
-              <div key={idx} className="bg-slate-50 rounded-lg shadow-md overflow-hidden">
-                <img src={member.image} alt={member.name} className="w-full h-64 object-cover" />
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-blue-900">{member.name}</h3>
-                  <p className="text-orange-600 mb-2">{member.role}</p>
-                  <p className="text-gray-600">{member.description}</p>
-                </div>
-              </div>
-            ))}
+          <h2 className="text-3xl font-bold text-blue-900 mb-12">Explore Our Products</h2>
+          {/* The 3D carousel will be inserted here using your provided style */}
+          <div id="custom-carousel-placeholder" className="w-full flex justify-center">
+            {/* Your custom carousel component will be added here */}
           </div>
         </div>
       </section>
@@ -151,7 +106,6 @@ const AboutPage: React.FC = () => {
   );
 };
 
-// Helper components
 const Counter = ({ icon, label, end }: { icon: React.ReactNode; label: string; end: number }) => (
   <div className="text-center">
     <div className="bg-orange-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -159,16 +113,6 @@ const Counter = ({ icon, label, end }: { icon: React.ReactNode; label: string; e
     </div>
     <AnimatedCounter end={end} suffix="+" />
     <div className="text-blue-200 mt-2">{label}</div>
-  </div>
-);
-
-const Value = ({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) => (
-  <div className="bg-white p-8 rounded-lg shadow-md text-center">
-    <div className="text-orange-600 mb-4">
-      {React.cloneElement(icon as React.ReactElement, { className: "h-12 w-12 mx-auto" })}
-    </div>
-    <h3 className="text-xl font-semibold text-blue-900 mb-2">{title}</h3>
-    <p className="text-gray-600">{desc}</p>
   </div>
 );
 
