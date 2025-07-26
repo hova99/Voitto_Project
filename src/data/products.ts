@@ -324,7 +324,7 @@ export const products: Product[] = [
     id: 'balustrade-2-5ft',
     name: 'Balustrade 2.5 ft',
     price: 350,
-    image: 'https://www.kcpquarry.com/images/service/small-img/sm-All-Sizes-Solid-Concrete-Blocks.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png,e_improve/v1753518734/balustarde3_dled8j.jpg',
     category: 'balustrade',
     description: 'Decorative concrete railing piece for balconies and stairs.',
     unit: 'per piece',
