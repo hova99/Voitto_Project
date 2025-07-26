@@ -398,7 +398,7 @@ export const products: Product[] = [
     id: 'fencing-post-support',
     name: 'Fencing Post Support',
     price: 1400,
-    image: 'https://www.kcpquarry.com/images/service/small-img/sm-All-Sizes-Solid-Concrete-Blocks.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png/v1753520176/fencsupp_gtpvd8.jpg',
     category: 'fencing',
     description: 'Reinforcement post to support fencing stability.',
     unit: 'per piece',
