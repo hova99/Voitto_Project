@@ -1,5 +1,6 @@
 import React from 'react';
 import AnimatedCounter from '../components/AnimatedCounter';
+import ProductCarousel from '../components/ProductCarousel';
 import { Award, Users, Truck, Shield, Clock, MapPin } from 'lucide-react';
 
 const AboutPage: React.FC = () => {
@@ -70,13 +71,12 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Product Carousel Placeholder */}
+      {/* Product Carousel */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-blue-900 mb-12">Explore Our Products</h2>
-          {/* The 3D carousel will be inserted here using your provided style */}
-          <div id="custom-carousel-placeholder" className="w-full flex justify-center">
-            {/* Your custom carousel component will be added here */}
+          <div className="w-full flex justify-center">
+            <ProductCarousel />
           </div>
         </div>
       </section>
