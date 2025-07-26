@@ -168,7 +168,7 @@ export const products: Product[] = [
     id: 'hexagon',
     name: 'Hexagon',
     price: 280,
-    image: 'https://www.kcpquarry.com/images/service/pb-Interlocking%20Cabro.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png,e_improve,e_sharpen/v1753515447/WhatsApp_Image_2025-07-26_at_8.57.13_AM_h9htyw.jpg',
     category: 'paving',
     description: 'Decorative hexagonal paving block for stylish outdoor areas.',
     unit: 'per piece',
