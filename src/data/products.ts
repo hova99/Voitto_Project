@@ -240,7 +240,7 @@ export const products: Product[] = [
     id: 'ball-head',
     name: 'Ball Head',
     price: 300,
-    image: 'https://www.kcpquarry.com/images/service/4x9-Solid-Concrete-Block.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png,e_improve,e_sharpen/v1753516123/ball_head_srtgeg.jpg',
     category: 'coping',
     description: 'Decorative top element for pillars or gate posts.',
     unit: 'per piece',
