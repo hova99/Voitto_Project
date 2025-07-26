@@ -108,7 +108,7 @@ export const products: Product[] = [
     id: 'road-channel',
     name: 'Road Channel',
     price: 250,
-    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753513882/road_channel_z8utto.png',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753514111/channel2_mrkmjt.png',
     category: 'paving',
     description: 'Assists with water flow and edging along roads.',
     unit: 'per piece',
