@@ -138,7 +138,7 @@ export const products: Product[] = [
     id: 'paving-slabs-12x24',
     name: 'Paving Slabs 12"x24"',
     price: 180,
-    image: 'https://cdn.pixabay.com/photo/2018/10/26/14/56/paving-stones-3774723_1280.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753514850/paving_hzykxw_e_background_removal_f_png_qv4wmm.png',
     category: 'paving',
     description: 'Rectangular paving for creative patterns.',
     unit: 'per piece',
