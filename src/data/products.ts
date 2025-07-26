@@ -252,7 +252,7 @@ export const products: Product[] = [
     id: 'window-seal-9',
     name: 'Window Seal 9"',
     price: 280,
-    image: 'https://www.kcpquarry.com/images/service/small-img/sm-Hollow-Block%209x9.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/e_dropshadow:azimuth_220;elevation_60;spread_20/f_png,e_improve,e_sharpen/v1753518036/winode_seal_dldetg.png',
     category: 'window',
     description: 'Concrete window sill for 9" wall openings.',
     unit: 'per piece',
