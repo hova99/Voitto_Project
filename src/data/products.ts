@@ -292,7 +292,7 @@ export const products: Product[] = [
     id: 'louvers-6',
     name: 'Louvers 6"',
     price: 130,
-    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753209866/louver_ypwzk8.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png,e_improve,e_sharpen/v1753517240/louvre_pknqwc.jpg',
     category: 'window',
     description: 'Smaller concrete louvers for indoor or light wall use.',
     unit: 'per piece',
