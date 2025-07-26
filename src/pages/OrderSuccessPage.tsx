@@ -61,7 +61,7 @@ const OrderSuccessPage: React.FC = () => {
             
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center">
               <a
-                href="tel:+254721748851"
+                href="tel:+254727 530944"
                 className="inline-flex items-center bg-blue-900 hover:bg-blue-800 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
               >
                 <Phone className="h-5 w-5 mr-2" />
