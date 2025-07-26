@@ -3,10 +3,29 @@ import AnimatedCounter from '../components/AnimatedCounter';
 import ProductCarousel from '../components/ProductCarousel';
 import { Award, Users, Truck, Shield, Clock, MapPin } from 'lucide-react';
 
+const featuredProducts = [
+  {
+    name: 'High-Grade Cement',
+    image: 'https://cdn.pixabay.com/photo/2016/03/27/22/16/cement-1280.jpg',
+  },
+  {
+    name: 'Reinforced Steel Bars',
+    image: 'https://cdn.pixabay.com/photo/2016/03/05/19/02/rebar-1235737_1280.jpg',
+  },
+  {
+    name: 'Concrete Blocks',
+    image: 'https://cdn.pixabay.com/photo/2015/05/26/14/58/cement-784438_1280.jpg',
+  },
+  {
+    name: 'Precast Slabs',
+    image: 'https://cdn.pixabay.com/photo/2017/05/10/13/19/concrete-2304312_1280.jpg',
+  },
+];
+
 const AboutPage: React.FC = () => {
   return (
     <div className="min-h-screen">
-      {/* Header Video with fallback */}
+      {/* Header Video */}
       <div className="relative h-[400px] overflow-hidden">
         <video
           className="w-full h-full object-cover absolute top-0 left-0"
@@ -56,7 +75,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Our Impact (Animated Counters) */}
+      {/* Our Impact */}
       <section className="py-16 bg-blue-900">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Our Impact</h2>
@@ -76,7 +95,7 @@ const AboutPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-blue-900 mb-12">Explore Our Products</h2>
           <div className="w-full flex justify-center">
-            <ProductCarousel />
+            <ProductCarousel variant="3d" products={featuredProducts} />
           </div>
         </div>
       </section>
@@ -91,7 +110,7 @@ const AboutPage: React.FC = () => {
               { icon: <Award />, title: "ISO 9001:2015", desc: "Quality Management System" },
               { icon: <Shield />, title: "KEBS Certified", desc: "Kenya Bureau of Standards" },
               { icon: <MapPin />, title: "NCA Registered", desc: "National Construction Authority" },
-              { icon: <Users />, title: "Safety Certified", desc: "Occupational Health & Safety" }
+              { icon: <Users />, title: "Safety Certified", desc: "Occupational Health & Safety" },
             ].map((item, idx) => (
               <div key={idx} className="bg-white p-6 rounded-lg shadow-md">
                 <div className="text-orange-600 mb-3">{item.icon}</div>
