@@ -168,7 +168,7 @@ export const products: Product[] = [
     id: 'hexagon',
     name: 'Hexagon',
     price: 280,
-    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png,e_improve,e_sharpen/v1753515447/WhatsApp_Image_2025-07-26_at_8.57.13_AM_h9htyw.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png,e_improve,e_sharpen/v1753519594/hexagon2_kkudyc.jpg',
     category: 'paving',
     description: 'Decorative hexagonal paving block for stylish outdoor areas.',
     unit: 'per piece',
