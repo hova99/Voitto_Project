@@ -226,7 +226,7 @@ const ContactPage: React.FC = () => {
               loading="lazy" 
               referrerPolicy="no-referrer-when-downgrade"
               title="Voitto Company Limited Location"
-            />
+            ></iframe>
           </div>
         </div>
       </div>
