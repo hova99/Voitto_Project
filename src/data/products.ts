@@ -76,7 +76,7 @@ export const products: Product[] = [
     id: 'culvert-450mm',
     name: 'Culvert 450mm',
     price: 2000,
-    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753210206/culveer_600_zycipg.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753512290/WhatsApp_Image_2025-07-26_at_8.57.14_AM-removebg-preview_i56ql7.png',
     category: 'drainage',
     description: 'Suitable for small drainage projects.',
     unit: 'per piece',
