@@ -1,7 +1,7 @@
 // src/components/Footer.tsx
 
 import { Link } from "react-router-dom";
-import { Mail, MessageCircle, Facebook, Instagram, Video, MapPin, Phone } from "lucide-react";
+import { Mail, MessageCircle, Facebook, Instagram, Video } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -32,18 +32,14 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             <h3 className="text-lg font-semibold mb-4 text-orange-500">Voitto Company Ltd</h3>
-            <p className="text-sm text-slate-300">
+            <p className="text-sm text-slate-300 mb-2">
               Supplying quality construction materials to Kenya since 2017. Built on trust, service,
               and solid foundations.
             </p>
-            <div className="mt-4 text-sm text-slate-300 flex items-start gap-2">
-              <MapPin className="w-4 h-4 mt-1" />
-              <p>P.O. Box 941-00217, Limuru.</p>
-            </div>
-            <div className="mt-2 text-sm text-slate-300 flex items-center gap-2">
-              <Phone className="w-4 h-4" />
-              <p>Tel: 0721 748851</p>
-            </div>
+            <p className="text-sm text-slate-400">
+              P.O. Box 941-00217, Limuru. <br />
+              Tel: 0721 748851
+            </p>
           </div>
 
           {/* Navigation */}
