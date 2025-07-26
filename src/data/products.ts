@@ -314,7 +314,7 @@ export const products: Product[] = [
     id: 'balustrade-coping',
     name: 'Balustrade Coping',
     price: 400,
-    image: 'https://www.kcpquarry.com/images/service/small-img/sm-All-Sizes-Solid-Concrete-Blocks.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png/v1753519069/balucop_w0vbdq.png',
     category: 'balustrade',
     description: 'Top finishing piece for concrete railings.',
     unit: 'per piece',
