@@ -450,7 +450,7 @@ export const products: Product[] = [
     id: 'foundation-stones-6',
     name: 'Foundation Stones 6"',
     price: 0,
-    image: 'https://pictures-uganda.jijistatic.com/18803722_NjIwLTQ2NS1mZmRjNGJhMWIx.webp',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png/v1753520422/foundation6_sz7fik.jpg',
     category: 'aggregates',
     description: 'Small cut stones for basic house or structure foundations.',
     unit: 'per tipper',
