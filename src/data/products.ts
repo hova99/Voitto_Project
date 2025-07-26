@@ -158,7 +158,7 @@ export const products: Product[] = [
     id: 'side-slabs',
     name: 'Side Slabs',
     price: 200,
-    image: 'https://www.kcpquarry.com/images/service/pb-Interlocking%20Cabro.jpg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/e_background_removal/f_png,e_improve,e_sharpen/v1753515803/side_slab_bmm3le.jpg',
     category: 'paving',
     description: 'Edge paving used alongside footpaths and curbs.',
     unit: 'per piece',
