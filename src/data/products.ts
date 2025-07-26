@@ -410,7 +410,7 @@ export const products: Product[] = [
     id: 'ballast',
     name: 'Ballast',
     price: 0,
-    image: 'https://images.pexels.com/photos/279810/pexels-photo-279810.jpeg',
+    image: 'https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753520319/ballast_ifb1if.jpg',
     category: 'aggregates',
     description: 'Crushed stone used in concrete mixing and foundations (Price varies by quantity).',
     unit: 'per tipper',
