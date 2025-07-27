@@ -241,7 +241,7 @@ Thank you!`;
             
             <div className="mt-6 p-4 bg-slate-50 rounded-lg">
               <div className="text-sm text-gray-600">
-                <p className="mb-2">✓ Free delivery within Kiambu County</p>
+                <p className="mb-2">✓ Fast delivery within Kiambu County</p>
                 <p className="mb-2">✓ Same-day delivery available</p>
                 <p>✓ Quality guaranteed</p>
               </div>
