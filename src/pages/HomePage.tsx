@@ -128,7 +128,7 @@ const HomePage: React.FC = () => {
       <section 
         className="parallax-section py-20 bg-fixed bg-center bg-no-repeat bg-cover" 
         style={{
-          backgroundImage: "url('https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg')"
+          backgroundImage: "url('https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753615528/photo-wall-texture-pattern_1_n4rjnd.jpg')"
         }}
       >
         <div className="bg-black bg-opacity-60 py-20">
