@@ -32,11 +32,22 @@
 
     <!-- ✅ Page Title -->
     <title>Voitto Concrete Works | Precast Concrete Products in Kenya</title>
-  </head>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- ✅ Schema.org Organization Markup (Logo Support in Search) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Voitto Company Limited",
+        "url": "https://voittoconcrete.com",
+        "logo": "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753526980/apple-touch-icon_nn5nyb.png",
+        "sameAs": [
+          "https://www.facebook.com/yourpage",
+          "https://www.instagram.com/yourpage",
+          "https://www.linkedin.com/company/yourpage"
+        ]
+      }
+    </script>
 
     <!-- ✅ Schema.org Local Business Markup -->
     <script type="application/ld+json">
@@ -61,5 +72,10 @@
         }
       }
     </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
