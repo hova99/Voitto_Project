@@ -38,7 +38,7 @@ const ContactPage: React.FC = () => {
         title="Contact Us"
         subtitle="Get in touch for quotes, orders, or any questions"
         backgroundImage="https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753615789/wheel-3853539_1920_gllesv.jpg"
-        overlayText="Heavy-Duty Culvert in Action – Road Drainage Project"
+        overlayText="Need an Excavator? We’ve Got You Covered"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
