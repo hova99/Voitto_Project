@@ -37,7 +37,7 @@ const ContactPage: React.FC = () => {
       <HeroBanner
         title="Contact Us"
         subtitle="Get in touch for quotes, orders, or any questions"
-        backgroundImage="https://images.pexels.com/photos/416978/pexels-photo-416978.jpeg"
+        backgroundImage="https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753614066/construction-hammers-still-life_1_elcsbm.jpg"
         overlayText="Heavy-Duty Culvert in Action – Road Drainage Project"
       />
 
