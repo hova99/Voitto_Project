@@ -104,7 +104,7 @@ const HomePage: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-lg">Fast Delivery</h4>
-                  <p className="text-orange-300">Available across Kiambu County</p>
+                  <p className="text-orange-300">Available across</p>
                 </div>
               </div>
             </div>
