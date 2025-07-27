@@ -38,7 +38,7 @@ const CheckoutPage: React.FC = () => {
       return;
     }
 
-    const phoneNumber = '254721748851';
+    const phoneNumber = '254 727 530944';
     const customerName = `${formData.firstName} ${formData.lastName}`.trim();
     const orderDetails = state.items.map(item => 
       `• ${item.name} - Qty: ${item.quantity} ${item.unit} @ ${formatPrice(item.price)}`
