@@ -58,7 +58,7 @@ const ProductsPage: React.FC = () => {
       <HeroBanner
         title="Our Products"
         subtitle="Premium precast concrete products for all your building needs"
-        backgroundImage="https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg"
+        backgroundImage="https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753614756/abstract-wall-with-3d-shapes_1_p5oyqx.jpg"
         overlayText="Cabro Paving Installed on Residential Driveway"
       />
 
