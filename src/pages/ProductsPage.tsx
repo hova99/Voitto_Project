@@ -59,7 +59,7 @@ const ProductsPage: React.FC = () => {
         title="Our Products"
         subtitle="Premium precast concrete products for all your building needs"
         backgroundImage="https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753614756/abstract-wall-with-3d-shapes_1_p5oyqx.jpg"
-        overlayText="Cabro Paving Installed on Residential Driveway"
+        overlayText="Perforated wall"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
