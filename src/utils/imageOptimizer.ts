@@ -7,7 +7,6 @@ export interface ImageOptimizationOptions {
   quality?: number;
   format?: 'webp' | 'jpg' | 'png';
   crop?: 'fill' | 'fit' | 'scale';
-  fetch_format?: 'auto' | 'webp' | 'jpg' | 'png';
 }
 
 export class ImageOptimizer {
@@ -20,8 +19,7 @@ export class ImageOptimizer {
       height = 300,
       quality = 60,
       format = 'webp',
-      crop = 'fill',
-      fetch_format = 'auto'
+      crop = 'fill'
     } = options;
 
     // Parse Cloudinary URL
@@ -84,19 +82,19 @@ export class ImageOptimizer {
     return hasValidExtension || url.includes('cloudinary.com') || url.includes('placeholder.com');
   }
 
-  // Get optimized image URLs for a product
+  // Get optimized image URLs for a product - SIMPLIFIED for reliability
   static getOptimizedProductImages(
     image1: string, 
-    image2?: string, 
-    options: ImageOptimizationOptions = {}
+    image2?: string
   ): { image1: string; image2: string } {
-    const optimizedImage1 = this.isValidImageUrl(image1) 
-      ? this.optimizeImage(image1, options)
-      : this.getPlaceholder('Product', 1);
+    // Simple optimization - just add basic Cloudinary parameters if it's a Cloudinary URL
+    const optimizedImage1 = image1.includes('cloudinary.com') 
+      ? this.optimizeCloudinary(image1, { width: 300, height: 300, quality: 70 })
+      : image1;
     
-    const optimizedImage2 = image2 && this.isValidImageUrl(image2)
-      ? this.optimizeImage(image2, options)
-      : this.getPlaceholder('Product', 2);
+    const optimizedImage2 = image2 && image2.includes('cloudinary.com')
+      ? this.optimizeCloudinary(image2, { width: 300, height: 300, quality: 70 })
+      : image2 || '';
 
     return {
       image1: optimizedImage1,
@@ -113,8 +111,7 @@ export const ImagePresets = {
     height: 300,
     quality: 60, // Reduced for faster loading
     format: 'webp' as const,
-    crop: 'fill' as const, // Changed to fill for better performance
-    fetch_format: 'auto' as const
+    crop: 'fill' as const // Changed to fill for better performance
   },
   
   // For product detail pages (optimized for speed)
@@ -123,8 +120,7 @@ export const ImagePresets = {
     height: 500,
     quality: 70, // Reduced for faster loading
     format: 'webp' as const,
-    crop: 'fill' as const,
-    fetch_format: 'auto' as const
+    crop: 'fill' as const
   },
   
   // For thumbnails (ultra-fast loading)
@@ -133,8 +129,7 @@ export const ImagePresets = {
     height: 150,
     quality: 50, // Reduced for faster loading
     format: 'webp' as const,
-    crop: 'fill' as const,
-    fetch_format: 'auto' as const
+    crop: 'fill' as const
   },
   
   // New ultra-fast preset for mobile
@@ -143,7 +138,6 @@ export const ImagePresets = {
     height: 200,
     quality: 40, // Very low quality for instant loading
     format: 'webp' as const,
-    crop: 'fill' as const,
-    fetch_format: 'auto' as const
+    crop: 'fill' as const
   }
 }; 
