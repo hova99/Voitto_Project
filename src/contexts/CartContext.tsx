@@ -5,6 +5,7 @@ export interface Product {
   name: string;
   price: number;
   image: string;
+  image2?: string; // Optional second image for product detail page
   category: string;
   description: string;
   unit: string;

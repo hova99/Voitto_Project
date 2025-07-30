@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingCart, Menu, X, Phone, MessageCircle } from 'lucide-react';
+import { ShoppingCart, Menu, X, MessageCircle } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 
 const Header: React.FC = () => {

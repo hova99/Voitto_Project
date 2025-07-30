@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ShoppingCart, Star, Truck, Shield, ArrowLeft, Plus, Minus } from 'lucide-react';
+import { Star, Truck, Shield, ArrowLeft, Plus, Minus } from 'lucide-react';
 import { products } from '../data/products';
-import { useCart } from '../contexts/CartContext';
+
+import ProductCard from '../components/ProductCard';
 
 const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [quantity, setQuantity] = useState(1);
-  const { dispatch } = useCart();
+
 
   const product = products.find(p => p.id === id);
 
@@ -24,11 +25,7 @@ const ProductDetailPage: React.FC = () => {
     );
   }
 
-  const handleAddToCart = () => {
-    for (let i = 0; i < quantity; i++) {
-      dispatch({ type: 'ADD_ITEM', product });
-    }
-  };
+
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-KE', {
@@ -66,13 +63,12 @@ const ProductDetailPage: React.FC = () => {
         {/* Product Details */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Product Image */}
+            {/* Product Image with Carousel */}
             <div className="p-8">
-              <img
-                src={product.image}
-                alt={product.name}
-                loading="lazy"
-                className="w-full h-96 object-cover rounded-lg"
+              <ProductCard 
+                product={product} 
+                showCarousel={true}
+                minimal={false}
               />
             </div>
 
@@ -124,19 +120,10 @@ const ProductDetailPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Add to Cart Button */}
-              <button
-                onClick={handleAddToCart}
-                disabled={!product.inStock}
-                className={`w-full py-4 px-6 rounded-lg text-lg font-semibold flex items-center justify-center space-x-3 transition-colors ${
-                  product.inStock
-                    ? 'bg-orange-600 hover:bg-orange-700 text-white'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                }`}
-              >
-                <ShoppingCart className="h-5 w-5" />
-                <span>{product.inStock ? 'Add to Cart' : 'Out of Stock'}</span>
-              </button>
+              {/* Quantity Info */}
+              <div className="w-full py-4 px-6 rounded-lg text-lg font-semibold flex items-center justify-center space-x-3 bg-gray-100 text-gray-700">
+                <span>Quantity: {quantity}</span>
+              </div>
 
               {/* Features */}
               <div className="grid grid-cols-2 gap-4 mt-8">

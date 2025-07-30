@@ -41,12 +41,12 @@ const ContactPage: React.FC = () => {
         overlayText="Need an Excavator? We’ve Got You Covered"
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Info */}
           <div>
-            <h2 className="text-2xl font-bold text-blue-900 mb-8">Get in Touch</h2>
-            <div className="space-y-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-blue-900 mb-6 sm:mb-8">Get in Touch</h2>
+            <div className="space-y-4 sm:space-y-6">
               <ContactItem
                 icon={<Phone className="h-6 w-6 text-white" />}
                 title="Phone"
@@ -80,8 +80,8 @@ const ContactPage: React.FC = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <h2 className="text-2xl font-bold text-blue-900 mb-6">Send us a Message</h2>
+          <div className="bg-white rounded-lg shadow-md p-6 sm:p-8">
+            <h2 className="text-xl sm:text-2xl font-bold text-blue-900 mb-4 sm:mb-6">Send us a Message</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <InputField label="Full Name *" name="name" value={formData.name} onChange={handleInputChange} required />
               <InputField label="Email Address *" name="email" type="email" value={formData.email} onChange={handleInputChange} required />

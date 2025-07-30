@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Truck, Shield, Clock, Award, Play, Info, Camera, Mic, FlaskRound as Flask, Mail, MessageCircle } from 'lucide-react';
+import { Truck, Camera, Mic, FlaskRound as Flask } from 'lucide-react';
 import FeaturedCarousel from '../components/FeaturedCarousel';
 
 /* ========================================

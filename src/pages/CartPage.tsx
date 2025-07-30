@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
-import WhatsAppOrder from '../components/WhatsAppOrder';
-import QuoteExporter from '../components/QuoteExporter';
+
 
 const CartPage: React.FC = () => {
   const { state, dispatch } = useCart();
