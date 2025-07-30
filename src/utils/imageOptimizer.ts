@@ -7,6 +7,7 @@ export interface ImageOptimizationOptions {
   quality?: number;
   format?: 'webp' | 'jpg' | 'png';
   crop?: 'fill' | 'fit' | 'scale';
+  fetch_format?: 'auto' | 'webp' | 'jpg' | 'png';
 }
 
 export class ImageOptimizer {
@@ -15,11 +16,12 @@ export class ImageOptimizer {
     if (!url.includes('cloudinary.com')) return url;
     
     const {
-      width = 400,
-      height = 400,
-      quality = 80,
+      width = 300,
+      height = 300,
+      quality = 60,
       format = 'webp',
-      crop = 'fit'
+      crop = 'fill',
+      fetch_format = 'auto'
     } = options;
 
     // Parse Cloudinary URL
@@ -35,8 +37,8 @@ export class ImageOptimizer {
       return url;
     }
     
-    // Insert optimization parameters
-    const optimizedParams = `f_${format},q_${quality},w_${width},h_${height},c_${crop}`;
+    // Insert optimization parameters for faster loading
+    const optimizedParams = `f_${format},q_${quality},w_${width},h_${height},c_${crop},fl_auto_image`;
     urlParts.splice(uploadIndex + 1, 0, optimizedParams);
     
     return urlParts.join('/');
@@ -105,30 +107,43 @@ export class ImageOptimizer {
 
 // Predefined optimization presets
 export const ImagePresets = {
-  // For product cards (optimized for better visibility)
+  // For product cards (optimized for faster loading)
   card: {
-    width: 400,
-    height: 400,
-    quality: 80,
+    width: 300,
+    height: 300,
+    quality: 60, // Reduced for faster loading
     format: 'webp' as const,
-    crop: 'fit' as const
+    crop: 'fill' as const, // Changed to fill for better performance
+    fetch_format: 'auto' as const
   },
   
-  // For product detail pages (larger, higher quality)
+  // For product detail pages (optimized for speed)
   detail: {
-    width: 600,
-    height: 600,
-    quality: 85,
+    width: 500,
+    height: 500,
+    quality: 70, // Reduced for faster loading
     format: 'webp' as const,
-    crop: 'fit' as const
+    crop: 'fill' as const,
+    fetch_format: 'auto' as const
   },
   
-  // For thumbnails (very small, very fast)
+  // For thumbnails (ultra-fast loading)
   thumbnail: {
+    width: 150,
+    height: 150,
+    quality: 50, // Reduced for faster loading
+    format: 'webp' as const,
+    crop: 'fill' as const,
+    fetch_format: 'auto' as const
+  },
+  
+  // New ultra-fast preset for mobile
+  mobile: {
     width: 200,
     height: 200,
-    quality: 70,
+    quality: 40, // Very low quality for instant loading
     format: 'webp' as const,
-    crop: 'fit' as const
+    crop: 'fill' as const,
+    fetch_format: 'auto' as const
   }
 }; 

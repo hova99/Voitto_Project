@@ -26,8 +26,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   // Get all available images for this product
-    // Get optimized images based on usage
-  const optimizationPreset = showCarousel ? ImagePresets.detail : ImagePresets.card;
+    // Get optimized images based on usage and screen size
+  const isMobile = window.innerWidth < 768;
+  const optimizationPreset = showCarousel 
+    ? ImagePresets.detail 
+    : isMobile 
+      ? ImagePresets.mobile 
+      : ImagePresets.card;
   const optimizedImages = ImageOptimizer.getOptimizedProductImages(
     product.image,
     product.image2,
@@ -120,7 +125,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
     setIsImageError(false);
     // Always start with first image, and ensure single-image products stay at index 0
     setCurrentImageIndex(0);
-  }, [product.id, product.image2]);
+    
+    // Preload images for faster switching
+    if (images.length > 1) {
+      const preloadImage = new Image();
+      preloadImage.src = images[1];
+    }
+  }, [product.id, product.image2, images]);
 
   // Auto-switch image on hover for products with multiple images
   const handleMouseEnter = () => {
@@ -152,19 +163,23 @@ const ProductCard: React.FC<ProductCardProps> = ({
           >
             {/* Image Container - Only show current image */}
             <div className="relative w-full h-40 sm:h-48 bg-gray-50 overflow-hidden" role="img" aria-label={`${product.name} product images`}>
+              {/* Low-quality placeholder for instant loading */}
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse"></div>
+              
               {/* Current Image */}
               <img
                 src={isImageError ? placeholderImage : images[currentImageIndex]}
                 alt={`${product.name} - ${currentImageIndex === 0 ? 'Front' : 'Back'} View`}
-                className={`w-full h-full object-contain transition-opacity duration-150 ${
+                className={`relative w-full h-full object-contain transition-opacity duration-300 ${
                   isImageLoaded ? 'opacity-100' : 'opacity-0'
                 } group-hover:scale-105`}
-                loading="lazy"
+                loading="eager"
                 onLoad={handleImageLoad}
                 onError={handleImageError}
-                width="400"
-                height="400"
+                width="300"
+                height="300"
                 decoding="async"
+                fetchPriority="high"
               />
             </div>
             {!isImageLoaded && !isImageError && (
@@ -227,19 +242,23 @@ const ProductCard: React.FC<ProductCardProps> = ({
         >
           {/* Image Container - Only show current image */}
           <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 bg-gray-50 overflow-hidden" role="img" aria-label={`${product.name} product images`}>
+            {/* Low-quality placeholder for instant loading */}
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse"></div>
+            
             {/* Current Image */}
             <img
               src={isImageError ? placeholderImage : images[currentImageIndex]}
               alt={`${product.name} - ${currentImageIndex === 0 ? 'Front' : 'Back'} View`}
-              className={`w-full h-full object-contain transition-opacity duration-150 ${
+              className={`relative w-full h-full object-contain transition-opacity duration-300 ${
                 isImageLoaded ? 'opacity-100' : 'opacity-0'
               } group-hover:scale-105`}
-              loading="lazy"
+              loading="eager"
               onLoad={handleImageLoad}
               onError={handleImageError}
-              width="600"
-              height="600"
+              width="500"
+              height="500"
               decoding="async"
+              fetchPriority="high"
             />
           </div>
 
