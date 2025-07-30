@@ -47,16 +47,16 @@ const HomePage: React.FC = () => {
   style={{ backgroundImage: "url('https://cdn.pixabay.com/photo/2014/03/03/16/08/construction-279012_1280.jpg')" }}
 >
   <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center px-4">
-    <div className="flex gap-4">
+    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
       <Link
         to="/products"
-        className="inline-flex items-center px-8 py-3 bg-orange-600 hover:bg-orange-700 rounded-full font-semibold transition transform hover:scale-105 text-white text-lg"
+        className="inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 bg-orange-600 hover:bg-orange-700 rounded-full font-semibold transition transform hover:scale-105 text-white text-base sm:text-lg"
       >
         View Products
       </Link>
       <Link
         to="/about"
-        className="inline-flex items-center px-8 py-3 bg-transparent border-2 border-white hover:bg-white hover:text-slate-900 rounded-full font-semibold transition transform hover:scale-105 text-white text-lg"
+        className="inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 bg-transparent border-2 border-white hover:bg-white hover:text-slate-900 rounded-full font-semibold transition transform hover:scale-105 text-white text-base sm:text-lg"
       >
         Learn More
       </Link>
@@ -80,22 +80,22 @@ const HomePage: React.FC = () => {
 
 
       {/* About Our Company */}
-      <section className="py-20 px-4 md:px-8 bg-slate-800">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 md:px-8 bg-slate-800">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center text-orange-300">Building Kenya</h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 text-center text-orange-300">Building Kenya</h2>
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
             <div>
-              <p className="text-lg mb-6 leading-relaxed">
+              <p className="text-base sm:text-lg mb-4 sm:mb-6 leading-relaxed">
                 Founded in 2017, Voitto Company Limited started with a clear purpose: to deliver quality 
                 construction materials that builders can rely on. Over the past eight years, we've grown 
                 through consistency, hard work, and a commitment to serving our customers well.
               </p>
-              <p className="text-lg mb-6 leading-relaxed">
+              <p className="text-base sm:text-lg mb-4 sm:mb-6 leading-relaxed">
                 We work with homeowners, contractors, and developers across Kenya — supporting projects 
                 ranging from residential builds to large-scale infrastructure. Our focus remains the same: 
                 providing reliable materials, fair pricing, and honest service.
               </p>
-              <p className="text-lg mb-6 leading-relaxed text-orange-200">
+              <p className="text-base sm:text-lg mb-4 sm:mb-6 leading-relaxed text-orange-200">
                 From driveways to drainage, we're proud to be part of the foundation that keeps Kenya building.
               </p>
               <div className="flex items-center mt-8">

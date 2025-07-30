@@ -65,8 +65,8 @@ const ProductsPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         {/* Filters and Search */}
-        <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md mb-6 sm:mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {/* Search */}
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
@@ -107,35 +107,35 @@ const ProductsPage: React.FC = () => {
         </div>
 
         {/* Category Tabs */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          <button
-            onClick={() => handleCategoryChange('all')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              selectedCategory === 'all'
-                ? 'bg-orange-600 text-white'
-                : 'bg-white text-gray-700 hover:bg-orange-50'
-            }`}
-          >
-            All Products
-          </button>
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => handleCategoryChange(category.id)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                selectedCategory === category.id
+        <div className="flex flex-wrap gap-1 sm:gap-2 mb-6 sm:mb-8">
+                      <button
+              onClick={() => handleCategoryChange('all')}
+              className={`px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
+                selectedCategory === 'all'
                   ? 'bg-orange-600 text-white'
                   : 'bg-white text-gray-700 hover:bg-orange-50'
               }`}
             >
-              {category.name}
+              All Products
             </button>
-          ))}
+                      {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => handleCategoryChange(category.id)}
+                className={`px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
+                  selectedCategory === category.id
+                    ? 'bg-orange-600 text-white'
+                    : 'bg-white text-gray-700 hover:bg-orange-50'
+                }`}
+              >
+                {category.name}
+              </button>
+            ))}
         </div>
 
         {/* Products Grid */}
         {filteredAndSortedProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {filteredAndSortedProducts.map((product) => (
               <ProductCard 
                 key={product.id} 

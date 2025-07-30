@@ -46,13 +46,13 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <div className="text-2xl font-bold text-blue-900">
+            <div className="text-lg sm:text-xl lg:text-2xl font-bold text-blue-900">
               Voitto <span className="text-orange-600">Company Limited</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex space-x-4 lg:space-x-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}
