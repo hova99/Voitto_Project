@@ -226,23 +226,25 @@ export const products: Product[] = [
   },
   {
     id: "cabros",
-    name: "Cabros",
+    name: "Cabros (KSh 950/m²)",
     price: 950,
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1754049835/CAbrojpeg_sbhcff.jpg",
     category: "paving",
-    description: "Interlocking cabro paving blocks for durable surfaces.",
+    description:
+      "Interlocking cabro paving blocks for durable surfaces. Price: KSh 950 per square metre.",
     unit: "per square metre",
     inStock: true,
   },
   {
     id: "wet-concrete-cabros",
-    name: "Wet Concrete Cabros",
+    name: "Wet Concrete Cabros (KSh 1500/m²)",
     price: 1500,
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1754050057/wet_cabro_httldn.webp",
     category: "paving",
-    description: "Premium wet concrete cabro blocks for high-quality paving.",
+    description:
+      "Premium wet concrete cabro blocks for high-quality paving. Price: KSh 1500 per square metre.",
     unit: "per square metre",
     inStock: true,
   },
