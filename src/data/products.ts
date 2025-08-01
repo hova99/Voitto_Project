@@ -46,9 +46,9 @@ export const products: Product[] = [
     name: "Shallow Drain",
     price: 450,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754056277/shall-removebg-preview_wu9gzw_prx95u.webp",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1754056277/shall-removebg-preview_wu9gzw_prx95u.webp",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754056277/shall-removebg-preview_wu9gzw_prx95u.webp",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1754056277/shall-removebg-preview_wu9gzw_prx95u.webp",
     category: "drainage",
     description:
       "Used to control surface water flow along roads and compounds.",
@@ -60,7 +60,7 @@ export const products: Product[] = [
     name: "Shallow Drain Straight",
     price: 500,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754056371/sssss_wyzyk0.webp",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1754056371/sssss_wyzyk0.webp",
     category: "drainage",
     description: "Straight profile for smooth drainage layouts.",
     unit: "per piece",
@@ -99,7 +99,7 @@ export const products: Product[] = [
     name: "Culvert 450mm",
     price: 2000,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754054709/450_jmjcwc.png",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1754054709/450_jmjcwc.png",
     category: "drainage",
     description: "Suitable for small drainage projects.",
     unit: "per piece",
