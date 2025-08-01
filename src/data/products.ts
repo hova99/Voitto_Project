@@ -60,7 +60,7 @@ export const products: Product[] = [
     name: "Shallow Drain Straight",
     price: 500,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753209963/shallow_fqyngs.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754056371/sssss_wyzyk0.webp",
     category: "drainage",
     description: "Straight profile for smooth drainage layouts.",
     unit: "per piece",
