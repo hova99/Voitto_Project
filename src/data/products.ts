@@ -46,7 +46,7 @@ export const products: Product[] = [
     name: "Shallow Drain",
     price: 450,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753511986/shall-removebg-preview_wu9gzw.png",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754056277/shall-removebg-preview_wu9gzw_prx95u.webp",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753511986/shall-removebg-preview_wu9gzw.png",
     category: "drainage",
