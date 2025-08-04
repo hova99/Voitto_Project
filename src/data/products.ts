@@ -190,7 +190,7 @@ export const products: Product[] = [
     name: "Paving Slabs Cabro",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753889760/The_mold_is_made_of_abs_plastic_suitable_for_m9eieo.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754317820/pavingcabroooo_vta5gp.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753888928/Eco-Priora_Pavers_z1pxm9.jpg",
     category: "paving",
@@ -216,7 +216,7 @@ export const products: Product[] = [
     name: "Hexagon",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753888728/2-pack_Hexagon_Mold__DIY_Concrete_Mold_Cement_Tile_gsblky.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754317902/hexa_ctc70x.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754315597/hexagonpaving_mev45x.jpg",
     category: "paving",
@@ -245,7 +245,7 @@ export const products: Product[] = [
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754312151/wetconcrete_ldpf8a.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754312151/wetconcrete_ldpf8a.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754317536/wett_ydtqt7.webp",
     category: "paving",
     description:
       "Premium wet concrete cabro blocks for high-quality paving. Price: KSh 1500 per square metre.",
