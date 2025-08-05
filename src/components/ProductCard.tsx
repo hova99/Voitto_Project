@@ -40,7 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   // Generate responsive image data for the current image
   const responsiveImage = useResponsiveImage(
     images[currentImageIndex],
-    minimal ? [300, 400, 600] : [300, 400, 600, 800]
+    minimal ? [320, 400, 600] : [320, 400, 600, 800, 1200]
   );
 
   // Generate mobile-first srcSet for product images
@@ -252,15 +252,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            {/* Image Container - Show all images but only display current one */}
+            {/* Image Container with Fixed Aspect Ratio */}
             <div
-              className="relative w-full h-40 sm:h-48 bg-gray-50 overflow-hidden"
+              className="relative w-full aspect-[4/3] sm:aspect-[4/3] bg-gray-50 overflow-hidden"
               role="img"
               aria-label={`${product.name} product images`}
             >
-              {/* Loading placeholder - only show if no images are loaded yet */}
+              {/* Loading placeholder with skeleton animation */}
               {!isImageLoaded && !isImageError && isPreloading && (
-                <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+                <div className="absolute inset-0 loading-placeholder flex items-center justify-center">
                   <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
                 </div>
               )}
@@ -270,19 +270,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 const isCurrentImage = index === currentImageIndex;
                 const responsiveData = useResponsiveImage(
                   imageSrc,
-                  minimal ? [300, 600, 900] : [400, 800, 1200, 1600]
+                  minimal ? [320, 400, 600] : [320, 400, 600, 800, 1200]
                 );
                 
                 return (
                   <img
                     key={index}
                     src={responsiveData.src}
-                    srcSet={responsiveData.srcSet}
-                    sizes={responsiveData.sizes}
+                    srcSet={productSrcSet}
+                    sizes={productSizes}
                     alt={`${product.name} - ${
                       index === 0 ? "Front" : "Back"
                     } View`}
-                    className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-200 ${
                       isCurrentImage &&
                       (isImageLoaded || loadedImages.has(index))
                         ? "opacity-100"
@@ -290,20 +290,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     } group-hover:scale-105`}
                     onLoad={index === 0 ? handleImageLoad : undefined}
                     onError={index === 0 ? handleImageError : undefined}
-                                       width={minimal ? "300" : "500"}
-                   height={minimal ? "300" : "500"}
-                    fetchPriority={index === 0 ? "high" : "low"}
-                    loading="eager"
+                    width={minimal ? "300" : "500"}
+                    height={minimal ? "300" : "500"}
+                    fetchPriority={isLCPImage ? "high" : index === 0 ? "high" : "low"}
+                    loading={isLCPImage ? "eager" : isCritical && index === 0 ? "eager" : "lazy"}
                     decoding="async"
                   />
                 );
               })}
             </div>
-            {!isImageLoaded && !isImageError && (
-              <div className="absolute inset-0 bg-gray-50 animate-shimmer flex items-center justify-center">
-                <div className="w-8 h-8 border-4 border-gray-200 border-t-blue-600 rounded-full animate-spin"></div>
-              </div>
-            )}
 
             {/* Image Toggle Indicator for Minimal Cards */}
             {enableImageToggle && images.length > 1 && (
@@ -364,9 +359,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          {/* Image Container - Show all images but only display current one */}
+          {/* Image Container with Fixed Aspect Ratio */}
           <div
-            className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 bg-gray-50 overflow-hidden"
+            className="relative w-full aspect-[4/3] sm:aspect-[4/3] md:aspect-[4/3] lg:aspect-[4/3] bg-gray-50 overflow-hidden"
             role="img"
             aria-label={`${product.name} product images`}
           >
@@ -382,7 +377,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               const isCurrentImage = index === currentImageIndex;
               const responsiveData = useResponsiveImage(
                 imageSrc,
-                minimal ? [300, 600, 900] : [400, 800, 1200, 1600]
+                minimal ? [320, 400, 600] : [320, 400, 600, 800, 1200]
               );
               
               return (
@@ -394,7 +389,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   alt={`${product.name} - ${
                     index === 0 ? "Front" : "Back"
                   } View`}
-                  className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-200 ${
                     isCurrentImage &&
                     (isImageLoaded || loadedImages.has(index))
                       ? "opacity-100"

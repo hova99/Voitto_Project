@@ -147,9 +147,9 @@ export class ImageOptimizer {
     const baseUrl = originalUrl.split("/upload/")[0] + "/upload/";
     const path = originalUrl.split("/upload/")[1];
 
-    // Mobile-first approach with proper aspect ratios (4:3 for product cards)
+    // Mobile-first approach with 4:3 aspect ratio for product cards
     const sizes = [
-      { width: 300, height: 225 }, // Mobile small (1x)
+      { width: 320, height: 240 }, // Mobile small (1x)
       { width: 400, height: 300 }, // Mobile large (1x)
       { width: 600, height: 450 }, // Tablet (1x)
       { width: 800, height: 600 }, // Desktop (1x)

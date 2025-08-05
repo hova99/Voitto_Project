@@ -253,15 +253,35 @@
       .product-card-image-toggle img {
         transition: opacity 0.15s ease-in-out;
       }
-      /* Prevent layout shifts */
+      /* Prevent layout shifts with consistent aspect ratios */
       .product-card-image-toggle {
         aspect-ratio: 4/3;
         background: #f8fafc;
+        min-height: 200px;
       }
-      /* Optimize for mobile */
+      /* Ensure images fill containers properly */
+      .product-card-image-toggle img {
+        object-fit: cover;
+        object-position: center;
+      }
+      /* Optimize for mobile with consistent sizing */
       @media (max-width: 640px) {
         .product-card-image-toggle {
-          aspect-ratio: 1/1;
+          aspect-ratio: 4/3;
+          min-height: 180px;
+        }
+      }
+      /* Ensure proper image display on all screen sizes */
+      @media (min-width: 641px) and (max-width: 1024px) {
+        .product-card-image-toggle {
+          aspect-ratio: 4/3;
+          min-height: 220px;
+        }
+      }
+      @media (min-width: 1025px) {
+        .product-card-image-toggle {
+          aspect-ratio: 4/3;
+          min-height: 250px;
         }
       }
       /* Critical loading states */
