@@ -21,6 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isImageError, setIsImageError] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
@@ -29,6 +30,36 @@ const ProductCard: React.FC<ProductCardProps> = ({
   if (product.image2 && (showCarousel || enableImageToggle)) {
     images.push(product.image2);
   }
+
+  // Preload all images when component mounts
+  useEffect(() => {
+    const preloadImages = async () => {
+      const newLoadedImages = new Set<number>();
+
+      // Create promises for all images to load in parallel
+      const imagePromises = images.map((imageSrc, index) => {
+        return new Promise<void>((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            newLoadedImages.add(index);
+            setLoadedImages(new Set(newLoadedImages));
+            resolve();
+          };
+          img.onerror = () => {
+            newLoadedImages.add(index); // Mark as "loaded" even if error to prevent infinite loading
+            setLoadedImages(new Set(newLoadedImages));
+            resolve();
+          };
+          img.src = imageSrc;
+        });
+      });
+
+      // Wait for all images to load
+      await Promise.all(imagePromises);
+    };
+
+    preloadImages();
+  }, [images]);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -112,6 +143,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   useEffect(() => {
     setIsImageLoaded(false);
     setIsImageError(false);
+    setLoadedImages(new Set());
     // Always start with first image, and ensure single-image products stay at index 0
     setCurrentImageIndex(0);
   }, [product.id, product.image2]);
@@ -141,7 +173,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            {/* Image Container - Only show current image */}
+            {/* Image Container - Show all images but only display current one */}
             <div
               className="relative w-full h-40 sm:h-48 bg-gray-50 overflow-hidden"
               role="img"
@@ -154,20 +186,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 </div>
               )}
 
-              {/* Current Image */}
-              <img
-                src={images[currentImageIndex]}
-                alt={`${product.name} - ${
-                  currentImageIndex === 0 ? "Front" : "Back"
-                } View`}
-                className={`w-full h-full object-contain transition-opacity duration-200 ${
-                  isImageLoaded ? "opacity-100" : "opacity-0"
-                } group-hover:scale-105`}
-                onLoad={handleImageLoad}
-                onError={handleImageError}
-                width="300"
-                height="300"
-              />
+              {/* Render all images but only show current one */}
+              {images.map((imageSrc, index) => (
+                <img
+                  key={index}
+                  src={imageSrc}
+                  alt={`${product.name} - ${
+                    index === 0 ? "Front" : "Back"
+                  } View`}
+                  className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
+                    index === currentImageIndex && isImageLoaded
+                      ? "opacity-100"
+                      : "opacity-0"
+                  } group-hover:scale-105`}
+                  onLoad={index === 0 ? handleImageLoad : undefined}
+                  onError={index === 0 ? handleImageError : undefined}
+                  width="300"
+                  height="300"
+                  fetchPriority={index === 0 ? "high" : "low"}
+                />
+              ))}
             </div>
             {!isImageLoaded && !isImageError && (
               <div className="absolute inset-0 bg-gray-50 animate-shimmer flex items-center justify-center">
@@ -231,7 +269,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          {/* Image Container - Only show current image */}
+          {/* Image Container - Show all images but only display current one */}
           <div
             className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 bg-gray-50 overflow-hidden"
             role="img"
@@ -244,20 +282,24 @@ const ProductCard: React.FC<ProductCardProps> = ({
               </div>
             )}
 
-            {/* Current Image */}
-            <img
-              src={images[currentImageIndex]}
-              alt={`${product.name} - ${
-                currentImageIndex === 0 ? "Front" : "Back"
-              } View`}
-              className={`w-full h-full object-contain transition-opacity duration-200 ${
-                isImageLoaded ? "opacity-100" : "opacity-0"
-              } group-hover:scale-105`}
-              onLoad={handleImageLoad}
-              onError={handleImageError}
-              width="500"
-              height="500"
-            />
+            {/* Render all images but only show current one */}
+            {images.map((imageSrc, index) => (
+              <img
+                key={index}
+                src={imageSrc}
+                alt={`${product.name} - ${index === 0 ? "Front" : "Back"} View`}
+                className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
+                  index === currentImageIndex && isImageLoaded
+                    ? "opacity-100"
+                    : "opacity-0"
+                } group-hover:scale-105`}
+                onLoad={index === 0 ? handleImageLoad : undefined}
+                onError={index === 0 ? handleImageError : undefined}
+                width="500"
+                height="500"
+                fetchPriority={index === 0 ? "high" : "low"}
+              />
+            ))}
           </div>
 
           {/* Loading Spinner */}
