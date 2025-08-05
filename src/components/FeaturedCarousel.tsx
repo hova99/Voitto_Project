@@ -23,7 +23,7 @@ const FeaturedCarousel: React.FC = () => {
             {featuredProducts.map((product) => (
               <div
                 key={product.id}
-                className="min-w-[250px] w-[250px] h-[100px] flex items-center justify-center px-4"
+                className="min-w-[250px] w-[250px] flex items-center justify-center px-4"
               >
                 <ProductCard product={product} minimal />
               </div>
@@ -31,7 +31,7 @@ const FeaturedCarousel: React.FC = () => {
             {featuredProducts.map((product, index) => (
               <div
                 key={`duplicate-${index}`}
-                className="min-w-[250px] w-[250px] h-[100px] flex items-center justify-center px-4"
+                className="min-w-[250px] w-[250px] flex items-center justify-center px-4"
               >
                 <ProductCard product={product} minimal />
               </div>

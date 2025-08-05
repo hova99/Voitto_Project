@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
 {/* Hero Section with Video Background and Fallback Image */}
 <section
   className="relative h-screen flex items-center justify-center bg-cover bg-center"
-  style={{ backgroundImage: "url('https://cdn.pixabay.com/photo/2014/03/03/16/08/construction-279012_1280.jpg')" }}
+  style={{ backgroundImage: "url('https://cdn.pixabay.com/photo/2014/03/03/16/08/construction-279012_1280.jpg?w=1200&h=600&fit=crop')" }}
 >
   <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center px-4">
     <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">

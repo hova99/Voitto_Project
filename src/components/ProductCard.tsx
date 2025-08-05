@@ -40,7 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   // Generate responsive image data for the current image
   const responsiveImage = useResponsiveImage(
     images[currentImageIndex],
-    minimal ? [320, 400, 600] : [320, 400, 600, 800, 1200]
+    minimal ? [400, 600, 800] : [400, 600, 800, 1200]
   );
 
   // Generate mobile-first srcSet for product images
@@ -252,9 +252,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            {/* Image Container with Fixed Aspect Ratio */}
+            {/* Image Container with Flexible Height */}
             <div
-              className="relative w-full aspect-[4/3] sm:aspect-[4/3] bg-gray-50 overflow-hidden"
+              className="relative w-full h-48 sm:h-56 bg-gray-50 overflow-hidden flex items-center justify-center"
               role="img"
               aria-label={`${product.name} product images`}
             >
@@ -270,7 +270,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 const isCurrentImage = index === currentImageIndex;
                 const responsiveData = useResponsiveImage(
                   imageSrc,
-                  minimal ? [320, 400, 600] : [320, 400, 600, 800, 1200]
+                  minimal ? [400, 600, 800] : [400, 600, 800, 1200]
                 );
                 
                 return (
@@ -282,7 +282,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     alt={`${product.name} - ${
                       index === 0 ? "Front" : "Back"
                     } View`}
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-200 ${
+                    className={`absolute inset-0 w-full h-auto max-h-full object-contain transition-opacity duration-200 ${
                       isCurrentImage &&
                       (isImageLoaded || loadedImages.has(index))
                         ? "opacity-100"
@@ -359,9 +359,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          {/* Image Container with Fixed Aspect Ratio */}
+          {/* Image Container with Flexible Height */}
           <div
-            className="relative w-full aspect-[4/3] sm:aspect-[4/3] md:aspect-[4/3] lg:aspect-[4/3] bg-gray-50 overflow-hidden"
+            className="relative w-full h-56 sm:h-64 md:h-72 lg:h-80 bg-gray-50 overflow-hidden flex items-center justify-center"
             role="img"
             aria-label={`${product.name} product images`}
           >
@@ -377,7 +377,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               const isCurrentImage = index === currentImageIndex;
               const responsiveData = useResponsiveImage(
                 imageSrc,
-                minimal ? [320, 400, 600] : [320, 400, 600, 800, 1200]
+                minimal ? [400, 600, 800] : [400, 600, 800, 1200]
               );
               
               return (
@@ -389,7 +389,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   alt={`${product.name} - ${
                     index === 0 ? "Front" : "Back"
                   } View`}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-200 ${
+                  className={`absolute inset-0 w-full h-auto max-h-full object-contain transition-opacity duration-200 ${
                     isCurrentImage &&
                     (isImageLoaded || loadedImages.has(index))
                       ? "opacity-100"
