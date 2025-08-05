@@ -14,6 +14,25 @@ const ProductsPage = () => {
   const [searchFocused, setSearchFocused] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
 
+  // Category display names mapping
+  const categoryDisplayNames = {
+    all: "All Categories",
+    drainage: "Drainage & Culverts",
+    paving: "Paving & Slabs",
+    coping: "Coping & Edging",
+    window: "Window & Ventilation",
+    balustrade: "Balustrades & Railings",
+    garden: "Garden & Landscaping",
+    fencing: "Fencing & Posts",
+    aggregates: "Aggregates & Materials",
+    miscellaneous: "Miscellaneous"
+  };
+
+  function getCategoryDisplayName(category: string): string {
+    return categoryDisplayNames[category as keyof typeof categoryDisplayNames] || 
+           category.charAt(0).toUpperCase() + category.slice(1);
+  }
+
   // Enhanced search with real-time suggestions
   const searchSuggestions = useMemo(() => {
     if (!searchTerm.trim() || searchTerm.length < 2) return [];
@@ -118,25 +137,6 @@ const ProductsPage = () => {
       }))
     ];
   }, []);
-
-  // Category display names mapping
-  const categoryDisplayNames = {
-    all: "All Categories",
-    drainage: "Drainage & Culverts",
-    paving: "Paving & Slabs",
-    coping: "Coping & Edging",
-    window: "Window & Ventilation",
-    balustrade: "Balustrades & Railings",
-    garden: "Garden & Landscaping",
-    fencing: "Fencing & Posts",
-    aggregates: "Aggregates & Materials",
-    miscellaneous: "Miscellaneous"
-  };
-
-  function getCategoryDisplayName(category: string): string {
-    return categoryDisplayNames[category as keyof typeof categoryDisplayNames] || 
-           category.charAt(0).toUpperCase() + category.slice(1);
-  }
 
   // Enhanced event handlers
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
