@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Product } from '../contexts/CartContext';
-import { useCart } from '../contexts/CartContext';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
+import { Product } from "../contexts/CartContext";
+import { useCart } from "../contexts/CartContext";
+import { Link } from "react-router-dom";
 
 interface ProductCardProps {
   product: Product;
@@ -11,11 +11,11 @@ interface ProductCardProps {
   enableImageToggle?: boolean; // Enable image toggle on product list page
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ 
-  product, 
-  minimal = false, 
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  minimal = false,
   showCarousel = false,
-  enableImageToggle = false
+  enableImageToggle = false,
 }) => {
   const { dispatch } = useCart();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -33,13 +33,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch({ type: 'ADD_ITEM', product });
+    dispatch({ type: "ADD_ITEM", product });
   };
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-KE', {
-      style: 'currency',
-      currency: 'KES',
+    return new Intl.NumberFormat("en-KE", {
+      style: "currency",
+      currency: "KES",
       minimumFractionDigits: 0,
     }).format(price);
   };
@@ -56,7 +56,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
     e.preventDefault();
     e.stopPropagation();
     if (images.length > 1) {
-      setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+      setCurrentImageIndex(
+        (prev) => (prev - 1 + images.length) % images.length
+      );
     }
   };
 
@@ -88,7 +90,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const handleTouchEnd = () => {
     // Only process touch for products with multiple images
     if (!touchStart || !touchEnd || images.length <= 1) return;
-    
+
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > 50;
     const isRightSwipe = distance < -50;
@@ -97,7 +99,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
       setCurrentImageIndex((prev) => (prev + 1) % images.length);
     }
     if (isRightSwipe && images.length > 1) {
-      setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+      setCurrentImageIndex(
+        (prev) => (prev - 1 + images.length) % images.length
+      );
     }
 
     setTouchStart(null);
@@ -125,13 +129,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
-
-
   if (minimal) {
     return (
       <div className="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden w-full max-w-xs transition-all duration-300 hover:shadow-lg hover:scale-[1.02] relative group">
         <Link to={`/product/${product.id}`}>
-          <div 
+          <div
             className="relative overflow-hidden product-card-image-toggle"
             onTouchStart={images.length > 1 ? handleTouchStart : undefined}
             onTouchMove={images.length > 1 ? handleTouchMove : undefined}
@@ -140,22 +142,27 @@ const ProductCard: React.FC<ProductCardProps> = ({
             onMouseLeave={handleMouseLeave}
           >
             {/* Image Container - Only show current image */}
-            <div className="relative w-full h-40 sm:h-48 bg-gray-50 overflow-hidden" role="img" aria-label={`${product.name} product images`}>
+            <div
+              className="relative w-full h-40 sm:h-48 bg-gray-50 overflow-hidden"
+              role="img"
+              aria-label={`${product.name} product images`}
+            >
               {/* Loading placeholder */}
               {!isImageLoaded && !isImageError && (
                 <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
                   <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
                 </div>
               )}
-              
+
               {/* Current Image */}
               <img
                 src={images[currentImageIndex]}
-                alt={`${product.name} - ${currentImageIndex === 0 ? 'Front' : 'Back'} View`}
+                alt={`${product.name} - ${
+                  currentImageIndex === 0 ? "Front" : "Back"
+                } View`}
                 className={`w-full h-full object-contain transition-opacity duration-200 ${
-                  isImageLoaded ? 'opacity-100' : 'opacity-0'
+                  isImageLoaded ? "opacity-100" : "opacity-0"
                 } group-hover:scale-105`}
-                loading="lazy"
                 onLoad={handleImageLoad}
                 onError={handleImageError}
                 width="300"
@@ -167,14 +174,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <div className="w-8 h-8 border-4 border-gray-200 border-t-blue-600 rounded-full animate-spin"></div>
               </div>
             )}
-            
+
             {/* Image Toggle Indicator for Minimal Cards */}
             {enableImageToggle && images.length > 1 && (
               <div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 toggle-indicator">
-                {currentImageIndex === 0 ? 'Hover to view back' : 'Hover to view front'}
+                {currentImageIndex === 0
+                  ? "Hover to view back"
+                  : "Hover to view front"}
               </div>
             )}
-            
+
             {/* Image Toggle Buttons for Minimal Cards */}
             {enableImageToggle && images.length > 1 && (
               <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 toggle-buttons">
@@ -201,7 +210,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
               {product.name}
             </h3>
             <p className="text-sm sm:text-base lg:text-lg font-bold text-black mt-1">
-              {product.price === 0 ? 'Contact for pricing' : formatPrice(product.price)}
+              {product.price === 0
+                ? "Contact for pricing"
+                : formatPrice(product.price)}
             </p>
           </div>
         </Link>
@@ -212,7 +223,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-lg overflow-hidden max-w-sm transition-all duration-300 hover:shadow-xl hover:scale-[1.02] relative group">
       <Link to={`/product/${product.id}`}>
-        <div 
+        <div
           className="relative overflow-hidden product-card-image-toggle bg-gray-50"
           onTouchStart={images.length > 1 ? handleTouchStart : undefined}
           onTouchMove={images.length > 1 ? handleTouchMove : undefined}
@@ -221,22 +232,27 @@ const ProductCard: React.FC<ProductCardProps> = ({
           onMouseLeave={handleMouseLeave}
         >
           {/* Image Container - Only show current image */}
-          <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 bg-gray-50 overflow-hidden" role="img" aria-label={`${product.name} product images`}>
+          <div
+            className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 bg-gray-50 overflow-hidden"
+            role="img"
+            aria-label={`${product.name} product images`}
+          >
             {/* Loading placeholder */}
             {!isImageLoaded && !isImageError && (
               <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
                 <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
               </div>
             )}
-            
+
             {/* Current Image */}
             <img
               src={images[currentImageIndex]}
-              alt={`${product.name} - ${currentImageIndex === 0 ? 'Front' : 'Back'} View`}
+              alt={`${product.name} - ${
+                currentImageIndex === 0 ? "Front" : "Back"
+              } View`}
               className={`w-full h-full object-contain transition-opacity duration-200 ${
-                isImageLoaded ? 'opacity-100' : 'opacity-0'
+                isImageLoaded ? "opacity-100" : "opacity-0"
               } group-hover:scale-105`}
-              loading="lazy"
               onLoad={handleImageLoad}
               onError={handleImageError}
               width="500"
@@ -283,9 +299,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
                       setCurrentImageIndex(index);
                     }}
                     className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                      index === currentImageIndex 
-                        ? 'bg-white shadow-lg' 
-                        : 'bg-white/50 hover:bg-white/75'
+                      index === currentImageIndex
+                        ? "bg-white shadow-lg"
+                        : "bg-white/50 hover:bg-white/75"
                     }`}
                     aria-label={`Go to image ${index + 1}`}
                   />
@@ -299,7 +315,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <>
               {/* Image Toggle Indicator */}
               <div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 toggle-indicator">
-                {currentImageIndex === 0 ? 'Hover to view back' : 'Hover to view front'}
+                {currentImageIndex === 0
+                  ? "Hover to view back"
+                  : "Hover to view front"}
               </div>
 
               {/* Image Toggle Buttons */}
@@ -340,7 +358,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
             {product.name}
           </h3>
           <p className="text-xl font-bold text-black mt-1">
-            {product.price === 0 ? 'Contact for pricing' : formatPrice(product.price)}
+            {product.price === 0
+              ? "Contact for pricing"
+              : formatPrice(product.price)}
           </p>
           <p className="text-sm text-gray-500 mt-2 line-clamp-1">
             {product.description}
@@ -348,15 +368,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
           {/* Stock Status */}
           <div className="mt-3 flex items-center">
-            <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-              product.inStock 
-                ? 'bg-green-100 text-green-800' 
-                : 'bg-red-100 text-red-800'
-            }`}>
-              <span className={`w-2 h-2 rounded-full mr-1 ${
-                product.inStock ? 'bg-green-400' : 'bg-red-400'
-              }`}></span>
-              {product.inStock ? 'In Stock' : 'Out of Stock'}
+            <span
+              className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                product.inStock
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              }`}
+            >
+              <span
+                className={`w-2 h-2 rounded-full mr-1 ${
+                  product.inStock ? "bg-green-400" : "bg-red-400"
+                }`}
+              ></span>
+              {product.inStock ? "In Stock" : "Out of Stock"}
             </span>
           </div>
         </div>
@@ -368,8 +392,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
         disabled={!product.inStock}
         className={`absolute bottom-4 right-4 p-3 rounded-full shadow-lg transition-all duration-200 ${
           product.inStock
-            ? 'bg-emerald-500 hover:bg-emerald-600 text-white hover:scale-110'
-            : 'bg-gray-300 text-gray-400 cursor-not-allowed'
+            ? "bg-emerald-500 hover:bg-emerald-600 text-white hover:scale-110"
+            : "bg-gray-300 text-gray-400 cursor-not-allowed"
         }`}
         aria-label={`Add ${product.name} to cart`}
       >
