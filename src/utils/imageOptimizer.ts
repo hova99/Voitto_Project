@@ -119,7 +119,7 @@ export class ImageOptimizer {
 
     return widths
       .map((width) => {
-        const optimizedUrl = `${baseUrl}f_auto,q_auto,w_${width},fl_progressive,fl_force_strip/${path}`;
+        const optimizedUrl = `${baseUrl}f_auto,q_auto,w_${width},h_${Math.round(width * 0.75)},c_fill,fl_progressive,fl_force_strip/${path}`;
         return `${optimizedUrl} ${width}w`;
       })
       .join(", ");
@@ -128,14 +128,65 @@ export class ImageOptimizer {
   // Generate sizes attribute for responsive images
   static generateSizes(
     breakpoints: { maxWidth: number; width: string }[] = [
-      { maxWidth: 600, width: "100vw" },
-      { maxWidth: 1024, width: "50vw" },
-      { maxWidth: 1440, width: "33vw" },
+      { maxWidth: 640, width: "100vw" }, // Mobile
+      { maxWidth: 1024, width: "50vw" }, // Tablet
+      { maxWidth: 1440, width: "33vw" }, // Desktop
     ]
   ): string {
     return breakpoints
       .map(({ maxWidth, width }) => `(max-width: ${maxWidth}px) ${width}`)
       .join(", ") + `, ${breakpoints[breakpoints.length - 1]?.width || "25vw"}`;
+  }
+
+  // Generate mobile-first srcSet for product images
+  static generateProductSrcSet(originalUrl: string): string {
+    if (!originalUrl.includes("cloudinary.com")) {
+      return "";
+    }
+
+    const baseUrl = originalUrl.split("/upload/")[0] + "/upload/";
+    const path = originalUrl.split("/upload/")[1];
+
+    // Mobile-first approach with proper aspect ratios (4:3 for product cards)
+    const sizes = [
+      { width: 300, height: 225 }, // Mobile small (1x)
+      { width: 400, height: 300 }, // Mobile large (1x)
+      { width: 600, height: 450 }, // Tablet (1x)
+      { width: 800, height: 600 }, // Desktop (1x)
+      { width: 1200, height: 900 }, // Desktop (2x for retina)
+    ];
+
+    return sizes
+      .map(({ width, height }) => {
+        const optimizedUrl = `${baseUrl}f_auto,q_auto,w_${width},h_${height},c_fill,fl_progressive,fl_force_strip/${path}`;
+        return `${optimizedUrl} ${width}w`;
+      })
+      .join(", ");
+  }
+
+  // Generate hero image srcSet for background images
+  static generateHeroSrcSet(originalUrl: string): string {
+    if (!originalUrl.includes("cloudinary.com")) {
+      return "";
+    }
+
+    const baseUrl = originalUrl.split("/upload/")[0] + "/upload/";
+    const path = originalUrl.split("/upload/")[1];
+
+    // Hero images with 2:1 aspect ratio for background covers
+    const sizes = [
+      { width: 640, height: 320 }, // Mobile (1x)
+      { width: 1024, height: 512 }, // Tablet (1x)
+      { width: 1440, height: 720 }, // Desktop (1x)
+      { width: 1920, height: 960 }, // Desktop (2x for retina)
+    ];
+
+    return sizes
+      .map(({ width, height }) => {
+        const optimizedUrl = `${baseUrl}f_auto,q_auto,w_${width},h_${height},c_fill,fl_progressive,fl_force_strip/${path}`;
+        return `${optimizedUrl} ${width}w`;
+      })
+      .join(", ");
   }
 
   // Preload images for a specific product
@@ -167,19 +218,22 @@ export class ImageOptimizer {
   }
 }
 
-// Initialize with critical images
-export const initializeImageOptimizer = () => {
-  // Preload critical images that are likely to be viewed first
-  const criticalImages = [
-    // Hero images and first few product images
-    "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754409797/IBD2_eepz4h.jpg",
-    "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754410077/IBD6_ilfn8f.jpg",
-    "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754411615/culvert900_t40svv.jpg",
-    "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754317362/road_krbs_adlteh.jpg",
-  ];
+  // Initialize with critical images
+  export const initializeImageOptimizer = () => {
+    // Preload critical images that are likely to be viewed first
+    const criticalImages = [
+      // LCP image (highest priority)
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409797/IBD2_eepz4h.jpg",
+      // First 6 product images for instant loading
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754410077/IBD6_ilfn8f.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754411615/culvert900_t40svv.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754317362/road_krbs_adlteh.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316306/paving2x2_o7sqxt.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316529/paving18x18_ymssyg.webp",
+    ];
 
-  ImageOptimizer.preloadCriticalImages(criticalImages);
-};
+    ImageOptimizer.preloadCriticalImages(criticalImages);
+  };
 
 // Hook for component-level image optimization
 export const useImageOptimizer = (

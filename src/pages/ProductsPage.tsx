@@ -58,7 +58,7 @@ const ProductsPage: React.FC = () => {
       <HeroBanner
         title="Our Products"
         subtitle="Premium precast concrete products for all your building needs"
-        backgroundImage="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1753614756/abstract-wall-with-3d-shapes_1_p5oyqx.jpg"
+        backgroundImage="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill/v1753614756/abstract-wall-with-3d-shapes_1_p5oyqx.jpg"
         overlayText="Perforated wall"
       />
 

@@ -3,7 +3,7 @@ import { ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import { Product } from "../contexts/CartContext";
 import { useCart } from "../contexts/CartContext";
 import { Link } from "react-router-dom";
-import { useResponsiveImage } from "../utils/imageOptimizer";
+import { useResponsiveImage, ImageOptimizer } from "../utils/imageOptimizer";
 
 interface ProductCardProps {
   product: Product;
@@ -40,8 +40,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
   // Generate responsive image data for the current image
   const responsiveImage = useResponsiveImage(
     images[currentImageIndex],
-    minimal ? [300, 600, 900] : [400, 800, 1200, 1600]
+    minimal ? [300, 400, 600] : [300, 400, 600, 800]
   );
+
+  // Generate mobile-first srcSet for product images
+  const productSrcSet = ImageOptimizer.generateProductSrcSet(images[currentImageIndex]);
+  const productSizes = ImageOptimizer.generateSizes([
+    { maxWidth: 640, width: "100vw" }, // Mobile
+    { maxWidth: 1024, width: "50vw" }, // Tablet  
+    { maxWidth: 1440, width: "33vw" }, // Desktop
+  ]);
+
+  // Determine if this is the LCP image (first product in the grid)
+  const isLCPImage = isCritical && currentImageIndex === 0;
 
   // Aggressive Intersection Observer - Start loading much earlier
   useEffect(() => {
@@ -359,9 +370,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
             role="img"
             aria-label={`${product.name} product images`}
           >
-            {/* Loading placeholder - only show if no images are loaded yet */}
+            {/* Loading placeholder with skeleton animation */}
             {!isImageLoaded && !isImageError && isPreloading && (
-              <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+              <div className="absolute inset-0 loading-placeholder flex items-center justify-center">
                 <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
               </div>
             )}
@@ -378,8 +389,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <img
                   key={index}
                   src={responsiveData.src}
-                  srcSet={responsiveData.srcSet}
-                  sizes={responsiveData.sizes}
+                  srcSet={productSrcSet}
+                  sizes={productSizes}
                   alt={`${product.name} - ${
                     index === 0 ? "Front" : "Back"
                   } View`}
@@ -393,8 +404,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   onError={index === 0 ? handleImageError : undefined}
                   width="500"
                   height="500"
-                  fetchPriority={index === 0 ? "high" : "low"}
-                  loading={isCritical && index === 0 ? "eager" : "lazy"}
+                  fetchPriority={isLCPImage ? "high" : index === 0 ? "high" : "low"}
+                  loading={isLCPImage ? "eager" : isCritical && index === 0 ? "eager" : "lazy"}
                   decoding="async"
                 />
               );

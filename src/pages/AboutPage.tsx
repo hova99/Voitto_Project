@@ -39,7 +39,7 @@ const AboutPage: React.FC = () => {
           poster="https://cdn.pixabay.com/photo/2017/12/03/17/22/paving-stone-2995324_640.jpg"
         >
           <source
-            src="https://res.cloudinary.com/dnv6mjhxv/video/upload/v1753110507/6036438_Man_People_1280x720_m2kwaa.webm"
+            src="https://res.cloudinary.com/dnv6mjhxv/video/upload/f_auto,q_auto/v1753110507/6036438_Man_People_1280x720_m2kwaa.webm"
             type="video/webm"
           />
           <img

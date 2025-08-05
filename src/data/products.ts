@@ -7,9 +7,9 @@ export const products: Product[] = [
     name: "I.B.D",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754409797/IBD2_eepz4h.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409797/IBD2_eepz4h.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754409934/IBD1_hgwpb7.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409934/IBD1_hgwpb7.jpg",
     category: "drainage",
     description: "Ideal for road and pavement edge drainage systems.",
     unit: "per piece",
@@ -20,7 +20,7 @@ export const products: Product[] = [
     name: "IBD 9'",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754410077/IBD6_ilfn8f.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754410077/IBD6_ilfn8f.jpg",
     category: "drainage",
     description: "Long-format interlocking drain for larger areas.",
     unit: "per piece",
@@ -31,7 +31,7 @@ export const products: Product[] = [
     name: "IBD 6'",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754410077/IBD6_ilfn8f.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754410077/IBD6_ilfn8f.jpg",
     category: "drainage",
     description: "Medium-sized drain used in residential and light road work.",
     unit: "per piece",
@@ -42,9 +42,9 @@ export const products: Product[] = [
     name: "Shallow Drain",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754410807/shallowdrains_ip58lb.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754410807/shallowdrains_ip58lb.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754410909/shallowdrains_msv2xw.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754410909/shallowdrains_msv2xw.jpg",
     category: "drainage",
     description:
       "Used to control surface water flow along roads and compounds.",
@@ -67,7 +67,7 @@ export const products: Product[] = [
     name: "Culvert 900mm",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754411615/culvert900_t40svv.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754411615/culvert900_t40svv.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753898476/900_l2soav.png",
     category: "drainage",
@@ -95,7 +95,7 @@ export const products: Product[] = [
     name: "Culvert 450mm",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754390645/cul450_vqx9xb.webp",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754390645/cul450_vqx9xb.webp",
     category: "drainage",
     description: "Suitable for small drainage projects.",
     unit: "per piece",
@@ -106,7 +106,7 @@ export const products: Product[] = [
     name: "Culvert 300mm",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754411710/cul300_cmvflk.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754411710/cul300_cmvflk.jpg",
     category: "drainage",
     description: "Compact culvert ideal for farm roads and water diversion.",
     unit: "per piece",
@@ -119,7 +119,7 @@ export const products: Product[] = [
     name: "Road Kerbs",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754317362/road_krbs_adlteh.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754317362/road_krbs_adlteh.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753900695/ROAD_KERB_vdh3na.jpg",
     category: "paving",
@@ -132,7 +132,7 @@ export const products: Product[] = [
     name: "Road Channel",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754317210/roadchannel_yt77co.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754317210/roadchannel_yt77co.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1754049771/ROAD_CHANNEL_kgtxjl.jpg",
     category: "paving",
@@ -145,9 +145,9 @@ export const products: Product[] = [
     name: 'Paving Slabs 2"x2"',
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754316306/paving2x2_o7sqxt.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316306/paving2x2_o7sqxt.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754316941/pavingsmall_eeqf1g.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316941/pavingsmall_eeqf1g.jpg",
     category: "paving",
     description: "Classic square concrete slabs for walkways and driveways.",
     unit: "per piece",
@@ -158,9 +158,9 @@ export const products: Product[] = [
     name: 'Paving Slabs 18"x18"',
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754316529/paving18x18_ymssyg.webp",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316529/paving18x18_ymssyg.webp",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754316745/pavin18888_t0dqzp.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316745/pavin18888_t0dqzp.jpg",
     category: "paving",
     description: "Larger surface area slabs ideal for open spaces.",
     unit: "per piece",
@@ -171,9 +171,9 @@ export const products: Product[] = [
     name: 'Paving Slabs 12"x24"',
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754316181/paving12x12_u2zuue.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316181/paving12x12_u2zuue.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754316626/300x600-pavers_i2dzww.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316626/300x600-pavers_i2dzww.jpg",
     category: "paving",
     description: "Rectangular paving for creative patterns.",
     unit: "per piece",
@@ -184,7 +184,7 @@ export const products: Product[] = [
     name: "Paving Slabs Cabro",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754317820/pavingcabroooo_vta5gp.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754317820/pavingcabroooo_vta5gp.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753888928/Eco-Priora_Pavers_z1pxm9.jpg",
     category: "paving",
