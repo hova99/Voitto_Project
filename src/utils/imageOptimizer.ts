@@ -1,44 +1,59 @@
 import { useEffect } from "react";
 
-// Enhanced Image Optimization Utility
+// Enhanced Image Optimization Utility with Instant Loading
 export class ImageOptimizer {
   private static imageCache = new Map<string, HTMLImageElement>();
   private static preloadQueue: string[] = [];
   private static isProcessing = false;
+  private static criticalImages = new Set<string>();
 
   // Preload critical images immediately
   static preloadCriticalImages(imageUrls: string[]) {
     imageUrls.forEach((url) => {
+      this.criticalImages.add(url);
       if (!this.imageCache.has(url)) {
         const img = new Image();
+        img.fetchPriority = "high";
+        img.loading = "eager";
         img.src = url;
         this.imageCache.set(url, img);
       }
     });
   }
 
-  // Add images to preload queue
-  static queueForPreload(imageUrls: string[]) {
-    this.preloadQueue.push(...imageUrls);
+  // Add images to preload queue with high priority
+  static queueForPreload(
+    imageUrls: string[],
+    priority: "high" | "low" = "low"
+  ) {
+    if (priority === "high") {
+      // High priority images go to the front of the queue
+      this.preloadQueue.unshift(...imageUrls);
+    } else {
+      this.preloadQueue.push(...imageUrls);
+    }
+
     if (!this.isProcessing) {
       this.processQueue();
     }
   }
 
-  // Process preload queue with throttling
+  // Process preload queue with aggressive loading
   private static async processQueue() {
     if (this.isProcessing || this.preloadQueue.length === 0) return;
 
     this.isProcessing = true;
 
     while (this.preloadQueue.length > 0) {
-      const batch = this.preloadQueue.splice(0, 3); // Process 3 at a time
+      const batch = this.preloadQueue.splice(0, 5); // Process 5 at a time for faster loading
 
       await Promise.all(
         batch.map((url) => {
           if (!this.imageCache.has(url)) {
             return new Promise<void>((resolve) => {
               const img = new Image();
+              img.fetchPriority = this.criticalImages.has(url) ? "high" : "low";
+              img.loading = "eager";
               img.onload = () => {
                 this.imageCache.set(url, img);
                 resolve();
@@ -51,8 +66,8 @@ export class ImageOptimizer {
         })
       );
 
-      // Small delay to prevent blocking
-      await new Promise((resolve) => setTimeout(resolve, 50));
+      // Minimal delay to prevent blocking
+      await new Promise((resolve) => setTimeout(resolve, 10));
     }
 
     this.isProcessing = false;
@@ -76,6 +91,7 @@ export class ImageOptimizer {
       "q_auto", // Auto quality
       "fl_progressive", // Progressive loading
       "fl_force_strip", // Remove metadata
+      "fl_attachment", // Prevent download
     ];
 
     if (width) {
@@ -89,6 +105,19 @@ export class ImageOptimizer {
     return `${baseUrl}${optimizations.join(",")}/${path}`;
   }
 
+  // Preload images for a specific product
+  static preloadProductImages(productImages: string[]) {
+    productImages.forEach((url) => {
+      if (!this.imageCache.has(url)) {
+        const img = new Image();
+        img.fetchPriority = "high";
+        img.loading = "eager";
+        img.src = url;
+        this.imageCache.set(url, img);
+      }
+    });
+  }
+
   // Clear cache to free memory
   static clearCache() {
     this.imageCache.clear();
@@ -100,6 +129,7 @@ export class ImageOptimizer {
       cachedImages: this.imageCache.size,
       queueLength: this.preloadQueue.length,
       isProcessing: this.isProcessing,
+      criticalImages: this.criticalImages.size,
     };
   }
 }
@@ -115,8 +145,18 @@ export const initializeImageOptimizer = () => {
 };
 
 // Hook for component-level image optimization
-export const useImageOptimizer = (imageUrls: string[]) => {
+export const useImageOptimizer = (
+  imageUrls: string[],
+  priority: "high" | "low" = "low"
+) => {
   useEffect(() => {
-    ImageOptimizer.queueForPreload(imageUrls);
-  }, [imageUrls]);
+    ImageOptimizer.queueForPreload(imageUrls, priority);
+  }, [imageUrls, priority]);
+};
+
+// Hook for instant product image loading
+export const useInstantProductImages = (productImages: string[]) => {
+  useEffect(() => {
+    ImageOptimizer.preloadProductImages(productImages);
+  }, [productImages]);
 };

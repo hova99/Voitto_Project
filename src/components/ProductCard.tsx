@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import { Product } from "../contexts/CartContext";
 import { useCart } from "../contexts/CartContext";
@@ -24,6 +24,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [isInView, setIsInView] = useState(false);
+  const [isPreloading, setIsPreloading] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   // Get all available images for this product - USE ORIGINAL URLs for reliability
   const images = [product.image];
@@ -31,15 +34,46 @@ const ProductCard: React.FC<ProductCardProps> = ({
     images.push(product.image2);
   }
 
-  // Preload all images when component mounts
+  // Aggressive Intersection Observer - Start loading much earlier
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          // Don't disconnect - keep observing for better performance
+        }
+      },
+      {
+        rootMargin: "200px 0px", // Start loading 200px before the card comes into view
+        threshold: 0.01, // Trigger as soon as 1% is visible
+      }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Instant preloading when component mounts (regardless of view)
+  useEffect(() => {
+    // Start preloading immediately
+    setIsPreloading(true);
+
     const preloadImages = async () => {
       const newLoadedImages = new Set<number>();
 
-      // Create promises for all images to load in parallel
+      // Create promises for all images to load in parallel with high priority
       const imagePromises = images.map((imageSrc, index) => {
         return new Promise<void>((resolve) => {
           const img = new Image();
+
+          // Set high priority for immediate loading
+          if (index === 0) {
+            img.fetchPriority = "high";
+          }
+
           img.onload = () => {
             newLoadedImages.add(index);
             setLoadedImages(new Set(newLoadedImages));
@@ -50,16 +84,38 @@ const ProductCard: React.FC<ProductCardProps> = ({
             setLoadedImages(new Set(newLoadedImages));
             resolve();
           };
+
+          // Start loading immediately
           img.src = imageSrc;
         });
       });
 
       // Wait for all images to load
       await Promise.all(imagePromises);
+      setIsPreloading(false);
     };
 
     preloadImages();
   }, [images]);
+
+  // Additional preloading when in view for extra speed
+  useEffect(() => {
+    if (!isInView) return;
+
+    // Double-check all images are loaded when in view
+    images.forEach((imageSrc, index) => {
+      if (!loadedImages.has(index)) {
+        const img = new Image();
+        img.onload = () => {
+          setLoadedImages((prev) => new Set([...prev, index]));
+        };
+        img.onerror = () => {
+          setLoadedImages((prev) => new Set([...prev, index]));
+        };
+        img.src = imageSrc;
+      }
+    });
+  }, [isInView, images, loadedImages]);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -163,7 +219,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   if (minimal) {
     return (
-      <div className="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden w-full max-w-xs transition-all duration-300 hover:shadow-lg hover:scale-[1.02] relative group">
+      <div
+        ref={cardRef}
+        className="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden w-full max-w-xs transition-all duration-300 hover:shadow-lg hover:scale-[1.02] relative group"
+      >
         <Link to={`/product/${product.id}`}>
           <div
             className="relative overflow-hidden product-card-image-toggle"
@@ -179,8 +238,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
               role="img"
               aria-label={`${product.name} product images`}
             >
-              {/* Loading placeholder */}
-              {!isImageLoaded && !isImageError && (
+              {/* Loading placeholder - only show if no images are loaded yet */}
+              {!isImageLoaded && !isImageError && isPreloading && (
                 <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
                   <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
                 </div>
@@ -195,7 +254,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     index === 0 ? "Front" : "Back"
                   } View`}
                   className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
-                    index === currentImageIndex && isImageLoaded
+                    index === currentImageIndex &&
+                    (isImageLoaded || loadedImages.has(index))
                       ? "opacity-100"
                       : "opacity-0"
                   } group-hover:scale-105`}
@@ -204,6 +264,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   width="300"
                   height="300"
                   fetchPriority={index === 0 ? "high" : "low"}
+                  loading="eager"
                 />
               ))}
             </div>
@@ -259,7 +320,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   }
 
   return (
-    <div className="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-lg overflow-hidden max-w-sm transition-all duration-300 hover:shadow-xl hover:scale-[1.02] relative group">
+    <div
+      ref={cardRef}
+      className="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-lg overflow-hidden max-w-sm transition-all duration-300 hover:shadow-xl hover:scale-[1.02] relative group"
+    >
       <Link to={`/product/${product.id}`}>
         <div
           className="relative overflow-hidden product-card-image-toggle bg-gray-50"
@@ -275,8 +339,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
             role="img"
             aria-label={`${product.name} product images`}
           >
-            {/* Loading placeholder */}
-            {!isImageLoaded && !isImageError && (
+            {/* Loading placeholder - only show if no images are loaded yet */}
+            {!isImageLoaded && !isImageError && isPreloading && (
               <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
                 <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
               </div>
@@ -289,7 +353,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 src={imageSrc}
                 alt={`${product.name} - ${index === 0 ? "Front" : "Back"} View`}
                 className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
-                  index === currentImageIndex && isImageLoaded
+                  index === currentImageIndex &&
+                  (isImageLoaded || loadedImages.has(index))
                     ? "opacity-100"
                     : "opacity-0"
                 } group-hover:scale-105`}
@@ -298,6 +363,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 width="500"
                 height="500"
                 fetchPriority={index === 0 ? "high" : "low"}
+                loading="eager"
               />
             ))}
           </div>
