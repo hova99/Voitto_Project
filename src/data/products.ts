@@ -355,7 +355,7 @@ export const products: Product[] = [
     inStock: true,
   },
   {
-    id: "window-seal-6",p
+    id: "window-seal-6",
     name: 'Window Seal 6"',
     price: 0,
     image:
