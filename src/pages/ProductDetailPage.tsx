@@ -28,6 +28,9 @@ const ProductDetailPage: React.FC = () => {
 
 
   const formatPrice = (price: number) => {
+    if (price === 0) {
+      return 'Contact for pricing';
+    }
     return new Intl.NumberFormat('en-KE', {
       style: 'currency',
       currency: 'KES',
@@ -169,7 +172,7 @@ const ProductDetailPage: React.FC = () => {
                       </h3>
                     </Link>
                     <p className="text-orange-600 font-bold mt-2">
-                      {formatPrice(relatedProduct.price)}
+                      {relatedProduct.price === 0 ? 'Contact for pricing' : formatPrice(relatedProduct.price)}
                     </p>
                   </div>
                 </div>
