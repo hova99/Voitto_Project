@@ -37,7 +37,7 @@ const ContactPage: React.FC = () => {
       <HeroBanner
         title="Contact Us"
         subtitle="Get in touch for quotes, orders, or any questions"
-        backgroundImage="https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753615789/wheel-3853539_1920_gllesv.jpg"
+        backgroundImage="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1753615789/wheel-3853539_1920_gllesv.jpg"
         overlayText="Need an Excavator? We’ve Got You Covered"
       />
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './contexts/CartContext';
 import Header from './components/Header';
@@ -12,8 +12,14 @@ import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import OrderSuccessPage from './pages/OrderSuccessPage';
 import Chatbot from './components/Chatbot';
+import { initializeImageOptimizer } from './utils/imageOptimizer';
 
 function App() {
+  // Initialize image optimizer on app start
+  useEffect(() => {
+    initializeImageOptimizer();
+  }, []);
+
   return (
     <CartProvider>
       <Router>

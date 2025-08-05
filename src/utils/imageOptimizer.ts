@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-// Enhanced Image Optimization Utility with Instant Loading
+// Enhanced Image Optimization Utility with Responsive Loading
 export class ImageOptimizer {
   private static imageCache = new Map<string, HTMLImageElement>();
   private static preloadQueue: string[] = [];
@@ -105,6 +105,39 @@ export class ImageOptimizer {
     return `${baseUrl}${optimizations.join(",")}/${path}`;
   }
 
+  // Generate responsive srcSet for Cloudinary images
+  static generateSrcSet(
+    originalUrl: string,
+    widths: number[] = [400, 800, 1200, 1600]
+  ): string {
+    if (!originalUrl.includes("cloudinary.com")) {
+      return "";
+    }
+
+    const baseUrl = originalUrl.split("/upload/")[0] + "/upload/";
+    const path = originalUrl.split("/upload/")[1];
+
+    return widths
+      .map((width) => {
+        const optimizedUrl = `${baseUrl}f_auto,q_auto,w_${width},fl_progressive,fl_force_strip/${path}`;
+        return `${optimizedUrl} ${width}w`;
+      })
+      .join(", ");
+  }
+
+  // Generate sizes attribute for responsive images
+  static generateSizes(
+    breakpoints: { maxWidth: number; width: string }[] = [
+      { maxWidth: 600, width: "100vw" },
+      { maxWidth: 1024, width: "50vw" },
+      { maxWidth: 1440, width: "33vw" },
+    ]
+  ): string {
+    return breakpoints
+      .map(({ maxWidth, width }) => `(max-width: ${maxWidth}px) ${width}`)
+      .join(", ") + `, ${breakpoints[breakpoints.length - 1]?.width || "25vw"}`;
+  }
+
   // Preload images for a specific product
   static preloadProductImages(productImages: string[]) {
     productImages.forEach((url) => {
@@ -138,7 +171,11 @@ export class ImageOptimizer {
 export const initializeImageOptimizer = () => {
   // Preload critical images that are likely to be viewed first
   const criticalImages = [
-    // Add your most important product images here
+    // Hero images and first few product images
+    "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754409797/IBD2_eepz4h.jpg",
+    "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754410077/IBD6_ilfn8f.jpg",
+    "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754411615/culvert900_t40svv.jpg",
+    "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754317362/road_krbs_adlteh.jpg",
   ];
 
   ImageOptimizer.preloadCriticalImages(criticalImages);
@@ -159,4 +196,19 @@ export const useInstantProductImages = (productImages: string[]) => {
   useEffect(() => {
     ImageOptimizer.preloadProductImages(productImages);
   }, [productImages]);
+};
+
+// Hook for responsive image optimization
+export const useResponsiveImage = (
+  imageUrl: string,
+  widths: number[] = [400, 800, 1200]
+) => {
+  const srcSet = ImageOptimizer.generateSrcSet(imageUrl, widths);
+  const sizes = ImageOptimizer.generateSizes();
+
+  return {
+    src: ImageOptimizer.getOptimizedUrl(imageUrl),
+    srcSet,
+    sizes,
+  };
 };

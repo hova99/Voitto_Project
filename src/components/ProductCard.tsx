@@ -3,12 +3,14 @@ import { ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import { Product } from "../contexts/CartContext";
 import { useCart } from "../contexts/CartContext";
 import { Link } from "react-router-dom";
+import { useResponsiveImage } from "../utils/imageOptimizer";
 
 interface ProductCardProps {
   product: Product;
   minimal?: boolean;
   showCarousel?: boolean; // Show carousel on product detail page
   enableImageToggle?: boolean; // Enable image toggle on product list page
+  isCritical?: boolean; // Is this a critical product (first 6 in grid)
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -16,6 +18,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   minimal = false,
   showCarousel = false,
   enableImageToggle = false,
+  isCritical = false,
 }) => {
   const { dispatch } = useCart();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -33,6 +36,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
   if (product.image2 && (showCarousel || enableImageToggle)) {
     images.push(product.image2);
   }
+
+  // Generate responsive image data for the current image
+  const responsiveImage = useResponsiveImage(
+    images[currentImageIndex],
+    minimal ? [300, 600, 900] : [400, 800, 1200, 1600]
+  );
 
   // Aggressive Intersection Observer - Start loading much earlier
   useEffect(() => {
@@ -246,27 +255,38 @@ const ProductCard: React.FC<ProductCardProps> = ({
               )}
 
               {/* Render all images but only show current one */}
-              {images.map((imageSrc, index) => (
-                <img
-                  key={index}
-                  src={imageSrc}
-                  alt={`${product.name} - ${
-                    index === 0 ? "Front" : "Back"
-                  } View`}
-                  className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
-                    index === currentImageIndex &&
-                    (isImageLoaded || loadedImages.has(index))
-                      ? "opacity-100"
-                      : "opacity-0"
-                  } group-hover:scale-105`}
-                  onLoad={index === 0 ? handleImageLoad : undefined}
-                  onError={index === 0 ? handleImageError : undefined}
-                  width="300"
-                  height="300"
-                  fetchPriority={index === 0 ? "high" : "low"}
-                  loading="eager"
-                />
-              ))}
+              {images.map((imageSrc, index) => {
+                const isCurrentImage = index === currentImageIndex;
+                const responsiveData = useResponsiveImage(
+                  imageSrc,
+                  minimal ? [300, 600, 900] : [400, 800, 1200, 1600]
+                );
+                
+                return (
+                  <img
+                    key={index}
+                    src={responsiveData.src}
+                    srcSet={responsiveData.srcSet}
+                    sizes={responsiveData.sizes}
+                    alt={`${product.name} - ${
+                      index === 0 ? "Front" : "Back"
+                    } View`}
+                    className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
+                      isCurrentImage &&
+                      (isImageLoaded || loadedImages.has(index))
+                        ? "opacity-100"
+                        : "opacity-0"
+                    } group-hover:scale-105`}
+                    onLoad={index === 0 ? handleImageLoad : undefined}
+                    onError={index === 0 ? handleImageError : undefined}
+                                       width={minimal ? "300" : "500"}
+                   height={minimal ? "300" : "500"}
+                    fetchPriority={index === 0 ? "high" : "low"}
+                    loading="eager"
+                    decoding="async"
+                  />
+                );
+              })}
             </div>
             {!isImageLoaded && !isImageError && (
               <div className="absolute inset-0 bg-gray-50 animate-shimmer flex items-center justify-center">
@@ -347,25 +367,38 @@ const ProductCard: React.FC<ProductCardProps> = ({
             )}
 
             {/* Render all images but only show current one */}
-            {images.map((imageSrc, index) => (
-              <img
-                key={index}
-                src={imageSrc}
-                alt={`${product.name} - ${index === 0 ? "Front" : "Back"} View`}
-                className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
-                  index === currentImageIndex &&
-                  (isImageLoaded || loadedImages.has(index))
-                    ? "opacity-100"
-                    : "opacity-0"
-                } group-hover:scale-105`}
-                onLoad={index === 0 ? handleImageLoad : undefined}
-                onError={index === 0 ? handleImageError : undefined}
-                width="500"
-                height="500"
-                fetchPriority={index === 0 ? "high" : "low"}
-                loading="eager"
-              />
-            ))}
+            {images.map((imageSrc, index) => {
+              const isCurrentImage = index === currentImageIndex;
+              const responsiveData = useResponsiveImage(
+                imageSrc,
+                minimal ? [300, 600, 900] : [400, 800, 1200, 1600]
+              );
+              
+              return (
+                <img
+                  key={index}
+                  src={responsiveData.src}
+                  srcSet={responsiveData.srcSet}
+                  sizes={responsiveData.sizes}
+                  alt={`${product.name} - ${
+                    index === 0 ? "Front" : "Back"
+                  } View`}
+                  className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
+                    isCurrentImage &&
+                    (isImageLoaded || loadedImages.has(index))
+                      ? "opacity-100"
+                      : "opacity-0"
+                  } group-hover:scale-105`}
+                  onLoad={index === 0 ? handleImageLoad : undefined}
+                  onError={index === 0 ? handleImageError : undefined}
+                  width="500"
+                  height="500"
+                  fetchPriority={index === 0 ? "high" : "low"}
+                  loading={isCritical && index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+              );
+            })}
           </div>
 
           {/* Loading Spinner */}

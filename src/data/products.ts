@@ -635,7 +635,7 @@ export const products: Product[] = [
     name: 'Darugo Stones 6"',
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754314456/daru66_pk4adk.webp",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754314456/daru66_pk4adk.webp",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753904180/ndarungo6_hcjuqh.jpg",
     category: "aggregates",

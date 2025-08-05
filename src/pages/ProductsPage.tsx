@@ -58,7 +58,7 @@ const ProductsPage: React.FC = () => {
       <HeroBanner
         title="Our Products"
         subtitle="Premium precast concrete products for all your building needs"
-        backgroundImage="https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753614756/abstract-wall-with-3d-shapes_1_p5oyqx.jpg"
+        backgroundImage="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1753614756/abstract-wall-with-3d-shapes_1_p5oyqx.jpg"
         overlayText="Perforated wall"
       />
 
@@ -136,11 +136,12 @@ const ProductsPage: React.FC = () => {
         {/* Products Grid */}
         {filteredAndSortedProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {filteredAndSortedProducts.map((product) => (
+            {filteredAndSortedProducts.map((product, index) => (
               <ProductCard 
                 key={product.id} 
                 product={product} 
                 enableImageToggle={true}
+                isCritical={index < 6} // First 6 products are critical content
               />
             ))}
           </div>
