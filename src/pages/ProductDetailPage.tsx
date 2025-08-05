@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Star, Truck, Shield, ArrowLeft, Plus, Minus } from 'lucide-react';
+import { Star, Truck, Shield, ArrowLeft, Plus, Minus, ShoppingCart } from 'lucide-react';
 import { products } from '../data/products';
+import { useCart } from '../contexts/CartContext';
 
 import ProductCard from '../components/ProductCard';
 
 const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [quantity, setQuantity] = useState(1);
-
+  const { dispatch } = useCart();
 
   const product = products.find(p => p.id === id);
 
@@ -25,8 +26,6 @@ const ProductDetailPage: React.FC = () => {
     );
   }
 
-
-
   const formatPrice = (price: number) => {
     if (price === 0) {
       return 'Contact for pricing';
@@ -36,6 +35,13 @@ const ProductDetailPage: React.FC = () => {
       currency: 'KES',
       minimumFractionDigits: 0
     }).format(price);
+  };
+
+  const handleAddToCart = () => {
+    dispatch({
+      type: "ADD_ITEM",
+      payload: { ...product, quantity },
+    });
   };
 
   const relatedProducts = products
@@ -103,33 +109,86 @@ const ProductDetailPage: React.FC = () => {
                 {product.description}
               </p>
 
-              {/* Quantity Selector */}
-              <div className="flex items-center space-x-4 mb-8">
-                <span className="text-lg font-medium text-gray-900">Quantity:</span>
-                <div className="flex items-center border border-gray-300 rounded-lg">
-                  <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-2 hover:bg-gray-100 transition-colors"
-                  >
-                    <Minus className="h-4 w-4" />
-                  </button>
-                  <span className="px-4 py-2 text-lg font-medium">{quantity}</span>
-                  <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="p-2 hover:bg-gray-100 transition-colors"
-                  >
-                    <Plus className="h-4 w-4" />
-                  </button>
+              {/* Enhanced Quantity Selector */}
+              <div className="bg-gray-50 rounded-lg p-6 mb-8">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Select Quantity</h3>
+                
+                <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                  {/* Quantity Controls */}
+                  <div className="flex items-center space-x-4">
+                    <span className="text-base font-medium text-gray-700 min-w-[80px]">Quantity:</span>
+                    <div className="flex items-center border-2 border-gray-300 rounded-lg bg-white shadow-sm">
+                      <button
+                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                        className="p-3 hover:bg-gray-100 transition-colors rounded-l-md border-r border-gray-200"
+                        aria-label="Decrease quantity"
+                      >
+                        <Minus className="h-5 w-5 text-gray-600" />
+                      </button>
+                      <span className="px-6 py-3 text-xl font-bold text-gray-900 min-w-[60px] text-center">
+                        {quantity}
+                      </span>
+                      <button
+                        onClick={() => setQuantity(quantity + 1)}
+                        className="p-3 hover:bg-gray-100 transition-colors rounded-r-md border-l border-gray-200"
+                        aria-label="Increase quantity"
+                      >
+                        <Plus className="h-5 w-5 text-gray-600" />
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Quick Quantity Buttons */}
+                  <div className="flex flex-wrap gap-2">
+                    {[1, 5, 10, 20].map((qty) => (
+                      <button
+                        key={qty}
+                        onClick={() => setQuantity(qty)}
+                        className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                          quantity === qty
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                        }`}
+                      >
+                        {qty}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quantity Summary */}
+                <div className="mt-4 p-4 bg-white rounded-lg border border-gray-200">
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg font-semibold text-gray-900">
+                      Selected Quantity: {quantity}
+                    </span>
+                    <span className="text-sm text-gray-600">
+                      {product.unit}
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              {/* Quantity Info */}
-              <div className="w-full py-4 px-6 rounded-lg text-lg font-semibold flex items-center justify-center space-x-3 bg-gray-100 text-gray-700">
-                <span>Quantity: {quantity}</span>
+              {/* Add to Cart Button */}
+              <div className="mb-8">
+                <button
+                  onClick={handleAddToCart}
+                  disabled={!product.inStock}
+                  className={`w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all duration-200 flex items-center justify-center space-x-3 ${
+                    product.inStock
+                      ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02]'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  }`}
+                >
+                  <ShoppingCart className="h-6 w-6" />
+                  <span>
+                    {product.inStock ? `Add ${quantity} to Cart` : 'Out of Stock'}
+                  </span>
+                </button>
               </div>
 
               {/* Features */}
-              <div className="grid grid-cols-2 gap-4 mt-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
                 <div className="flex items-center space-x-3 p-4 bg-slate-50 rounded-lg">
                   <Truck className="h-8 w-8 text-orange-600" />
                   <div>

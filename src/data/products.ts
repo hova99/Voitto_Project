@@ -537,9 +537,9 @@ export const products: Product[] = [
     name: "Ballast",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754313196/ballaaaaaa_ndtqc4.jpg",
-    image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754315085/balastaaaaa_nmovyi.webp",
+    image2:
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754313196/ballaaaaaa_ndtqc4.jpg",
     category: "aggregates",
     description:
       "Crushed stone used in concrete mixing and foundations (Price varies by quantity).",

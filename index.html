@@ -699,6 +699,92 @@
           padding: 12px 16px;
         }
       }
+
+      /* Enhanced quantity selector styles */
+      .quantity-selector {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .quantity-controls {
+        background: white;
+        border: 2px solid #d1d5db;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease;
+      }
+
+      .quantity-controls:hover {
+        border-color: #3b82f6;
+        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.1);
+      }
+
+      .quantity-button {
+        transition: all 0.15s ease;
+        min-width: 44px;
+        min-height: 44px;
+      }
+
+      .quantity-button:hover {
+        background-color: #f3f4f6;
+        transform: scale(1.05);
+      }
+
+      .quantity-button:active {
+        transform: scale(0.95);
+      }
+
+      .quick-quantity-btn {
+        transition: all 0.2s ease;
+        min-width: 44px;
+        min-height: 44px;
+      }
+
+      .quick-quantity-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .quick-quantity-btn.active {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        color: white;
+        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+      }
+
+      /* Mobile optimization for quantity selector */
+      @media (max-width: 640px) {
+        .quantity-selector {
+          padding: 1rem;
+        }
+        
+        .quantity-controls {
+          width: 100%;
+          justify-content: center;
+        }
+        
+        .quick-quantity-btn {
+          flex: 1;
+          min-width: 60px;
+        }
+      }
+
+      /* Enhanced focus states for quantity controls */
+      .quantity-button:focus-visible,
+      .quick-quantity-btn:focus-visible {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+      }
+
+      /* Smooth animations for quantity changes */
+      .quantity-display {
+        transition: all 0.2s ease;
+      }
+
+      .quantity-display:hover {
+        transform: scale(1.02);
+      }
     </style>
   </head>
 
