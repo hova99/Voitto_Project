@@ -623,6 +623,82 @@
           color: #f1f5f9;
         }
       }
+
+      /* Enhanced dropdown styles for better visibility */
+      select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-color: white;
+        cursor: pointer;
+      }
+
+      select option {
+        background-color: white;
+        color: #374151;
+        padding: 8px 12px;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+      }
+
+      select option:hover {
+        background-color: #f3f4f6;
+      }
+
+      select option:checked {
+        background-color: #3b82f6;
+        color: white;
+      }
+
+      /* Ensure dropdown options are visible */
+      select:focus option:checked {
+        background-color: #3b82f6;
+        color: white;
+      }
+
+      /* Custom dropdown arrow */
+      .custom-select {
+        position: relative;
+      }
+
+      .custom-select::after {
+        content: '';
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #6b7280;
+        pointer-events: none;
+      }
+
+      /* Enhanced focus states for better accessibility */
+      select:focus {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+        border-color: #3b82f6;
+      }
+
+      /* Ensure proper z-index for dropdowns */
+      select {
+        z-index: 10;
+      }
+
+      /* Mobile dropdown optimization */
+      @media (max-width: 768px) {
+        select {
+          font-size: 16px; /* Prevents zoom on iOS */
+        }
+        
+        select option {
+          font-size: 16px;
+          padding: 12px 16px;
+        }
+      }
     </style>
   </head>
 

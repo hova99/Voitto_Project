@@ -58,11 +58,25 @@ const ProductsPage = () => {
     return filtered;
   }, [searchTerm, selectedCategory, sortBy]);
 
-  // Memoized categories
+  // Memoized categories with proper formatting
   const categories = useMemo(() => {
     const uniqueCategories = [...new Set(products.map((p) => p.category))];
     return ["all", ...uniqueCategories];
   }, []);
+
+  // Category display names mapping
+  const categoryDisplayNames = {
+    all: "All Categories",
+    drainage: "Drainage & Culverts",
+    paving: "Paving & Slabs",
+    coping: "Coping & Edging",
+    window: "Window & Ventilation",
+    balustrade: "Balustrades & Railings",
+    garden: "Garden & Landscaping",
+    fencing: "Fencing & Posts",
+    aggregates: "Aggregates & Materials",
+    miscellaneous: "Miscellaneous"
+  };
 
   // Optimized event handlers
   const handleCategoryChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -80,6 +94,14 @@ const ProductsPage = () => {
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     debouncedSetSearchTerm(e.target.value);
   }, [debouncedSetSearchTerm]);
+
+  const clearFilters = useCallback(() => {
+    startTransition(() => {
+      setSearchTerm("");
+      setSelectedCategory("all");
+      setSortBy("name");
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -104,7 +126,7 @@ const ProductsPage = () => {
       {/* Filters Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Search */}
             <div>
               <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-2">
@@ -114,7 +136,7 @@ const ProductsPage = () => {
                 type="text"
                 id="search"
                 placeholder="Search by name, description, or category..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 onChange={handleSearchChange}
                 defaultValue={searchTerm}
               />
@@ -129,11 +151,22 @@ const ProductsPage = () => {
                 id="category"
                 value={selectedCategory}
                 onChange={handleCategoryChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors bg-white cursor-pointer"
+                style={{ 
+                  backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
+                  backgroundPosition: 'right 0.5rem center',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: '1.5em 1.5em',
+                  paddingRight: '2.5rem'
+                }}
               >
                 {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category === "all" ? "All Categories" : category.charAt(0).toUpperCase() + category.slice(1)}
+                  <option 
+                    key={category} 
+                    value={category}
+                    className="py-2 px-3 hover:bg-gray-100"
+                  >
+                    {categoryDisplayNames[category as keyof typeof categoryDisplayNames] || category.charAt(0).toUpperCase() + category.slice(1)}
                   </option>
                 ))}
               </select>
@@ -148,12 +181,29 @@ const ProductsPage = () => {
                 id="sort"
                 value={sortBy}
                 onChange={handleSortChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors bg-white cursor-pointer"
+                style={{ 
+                  backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
+                  backgroundPosition: 'right 0.5rem center',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: '1.5em 1.5em',
+                  paddingRight: '2.5rem'
+                }}
               >
-                <option value="name">Name</option>
-                <option value="price">Price</option>
+                <option value="name">Name (A-Z)</option>
+                <option value="price">Price (Low to High)</option>
                 <option value="category">Category</option>
               </select>
+            </div>
+
+            {/* Clear Filters */}
+            <div className="flex items-end">
+              <button
+                onClick={clearFilters}
+                className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-md transition-colors duration-200"
+              >
+                Clear Filters
+              </button>
             </div>
           </div>
 
@@ -162,7 +212,7 @@ const ProductsPage = () => {
             <p className="text-sm text-gray-600">
               Showing {filteredProducts.length} of {products.length} products
               {searchTerm && ` for "${searchTerm}"`}
-              {selectedCategory !== "all" && ` in ${selectedCategory}`}
+              {selectedCategory !== "all" && ` in ${categoryDisplayNames[selectedCategory as keyof typeof categoryDisplayNames]}`}
             </p>
           </div>
         </div>
@@ -179,9 +229,15 @@ const ProductsPage = () => {
           <div className="text-center py-12">
             <div className="text-gray-400 text-6xl mb-4">🔍</div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">No products found</h3>
-            <p className="text-gray-500">
+            <p className="text-gray-500 mb-4">
               Try adjusting your search terms or category filter
             </p>
+            <button
+              onClick={clearFilters}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Clear All Filters
+            </button>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
