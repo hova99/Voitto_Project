@@ -103,6 +103,9 @@ const ProductsPage = () => {
     });
   }, []);
 
+  // Get current category display name
+  const currentCategoryName = categoryDisplayNames[selectedCategory as keyof typeof categoryDisplayNames] || selectedCategory;
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -135,7 +138,7 @@ const ProductsPage = () => {
               <input
                 type="text"
                 id="search"
-                placeholder="Search by name, description, or category..."
+                placeholder={`Search in ${currentCategoryName}...`}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 onChange={handleSearchChange}
                 defaultValue={searchTerm}
@@ -207,12 +210,31 @@ const ProductsPage = () => {
             </div>
           </div>
 
+          {/* Active Filters Display */}
+          {(selectedCategory !== "all" || searchTerm) && (
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-sm text-gray-600">Active filters:</span>
+                {selectedCategory !== "all" && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    {currentCategoryName}
+                  </span>
+                )}
+                {searchTerm && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    Search: "{searchTerm}"
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Results Count */}
           <div className="mt-4 pt-4 border-t border-gray-200">
             <p className="text-sm text-gray-600">
               Showing {filteredProducts.length} of {products.length} products
               {searchTerm && ` for "${searchTerm}"`}
-              {selectedCategory !== "all" && ` in ${categoryDisplayNames[selectedCategory as keyof typeof categoryDisplayNames]}`}
+              {selectedCategory !== "all" && ` in ${currentCategoryName}`}
             </p>
           </div>
         </div>

@@ -8,7 +8,7 @@ const CartPage: React.FC = () => {
   const { state, dispatch } = useCart();
 
   const formatPrice = (price: number) => {
-    if (price === 0) return 'Contact for pricing';
+    if (price === 0 || isNaN(price)) return 'Contact for pricing';
     return new Intl.NumberFormat('en-KE', {
       style: 'currency',
       currency: 'KES',
@@ -23,6 +23,15 @@ const CartPage: React.FC = () => {
   const removeItem = (productId: string) => {
     dispatch({ type: 'REMOVE_ITEM', productId });
   };
+
+  // Check if any items have price 0
+  const hasContactPricing = state.items.some(item => item.price === 0);
+  
+  // Calculate subtotal for items with actual prices
+  const subtotal = state.items.reduce((sum, item) => {
+    if (item.price === 0) return sum;
+    return sum + (item.price * item.quantity);
+  }, 0);
 
   if (state.items.length === 0) {
     return (
@@ -134,7 +143,7 @@ const CartPage: React.FC = () => {
                 <div className="flex justify-between">
                   <span className="text-gray-600">Subtotal</span>
                   <span className="font-semibold">
-                    {state.items.some(item => item.price === 0) ? 'Contact for pricing' : formatPrice(state.total)}
+                    {hasContactPricing ? 'Contact for pricing' : formatPrice(subtotal)}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -145,7 +154,7 @@ const CartPage: React.FC = () => {
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total</span>
                     <span className="text-orange-600">
-                      {state.items.some(item => item.price === 0) ? 'Contact for pricing' : formatPrice(state.total)}
+                      {hasContactPricing ? 'Contact for pricing' : formatPrice(subtotal)}
                     </span>
                   </div>
                 </div>

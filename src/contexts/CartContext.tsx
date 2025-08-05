@@ -22,7 +22,7 @@ interface CartState {
 }
 
 type CartAction = 
-  | { type: 'ADD_ITEM'; product: Product }
+  | { type: 'ADD_ITEM'; payload: Product & { quantity?: number } }
   | { type: 'REMOVE_ITEM'; productId: string }
   | { type: 'UPDATE_QUANTITY'; productId: string; quantity: number }
   | { type: 'CLEAR_CART' };
@@ -32,27 +32,39 @@ const CartContext = createContext<{
   dispatch: React.Dispatch<CartAction>;
 } | null>(null);
 
+// Helper function to calculate total safely
+const calculateTotal = (items: CartItem[]): number => {
+  return items.reduce((sum, item) => {
+    // If price is 0, don't add to total calculation
+    if (item.price === 0) {
+      return sum;
+    }
+    return sum + (item.price * item.quantity);
+  }, 0);
+};
+
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
     case 'ADD_ITEM': {
-      const existingItem = state.items.find(item => item.id === action.product.id);
+      const existingItem = state.items.find(item => item.id === action.payload.id);
+      const quantity = action.payload.quantity || 1;
       
       if (existingItem) {
         const updatedItems = state.items.map(item =>
-          item.id === action.product.id
-            ? { ...item, quantity: item.quantity + 1 }
+          item.id === action.payload.id
+            ? { ...item, quantity: item.quantity + quantity }
             : item
         );
         return {
           items: updatedItems,
-          total: updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+          total: calculateTotal(updatedItems)
         };
       }
       
-      const newItems = [...state.items, { ...action.product, quantity: 1 }];
+      const newItems = [...state.items, { ...action.payload, quantity }];
       return {
         items: newItems,
-        total: newItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+        total: calculateTotal(newItems)
       };
     }
     
@@ -60,7 +72,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       const filteredItems = state.items.filter(item => item.id !== action.productId);
       return {
         items: filteredItems,
-        total: filteredItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+        total: calculateTotal(filteredItems)
       };
     }
     
@@ -69,7 +81,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         const filteredItems = state.items.filter(item => item.id !== action.productId);
         return {
           items: filteredItems,
-          total: filteredItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+          total: calculateTotal(filteredItems)
         };
       }
       
@@ -80,7 +92,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       );
       return {
         items: updatedItems,
-        total: updatedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+        total: calculateTotal(updatedItems)
       };
     }
     
