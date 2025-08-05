@@ -97,30 +97,37 @@ const CartPage: React.FC = () => {
                         </p>
                       </div>
                       
-                      <div className="flex items-center space-x-3">
-                        <div className="flex items-center border border-gray-300 rounded-lg">
+                      {/* Enhanced Quantity Selector */}
+                      <div className="flex flex-col items-center space-y-2">
+                        <label className="text-sm font-medium text-gray-700">Quantity</label>
+                        <div className="cart-quantity-selector">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="p-2 hover:bg-gray-100 transition-colors"
+                            className="cart-quantity-button rounded-l-lg"
+                            disabled={item.quantity <= 1}
                           >
-                            <Minus className="h-4 w-4" />
+                            <Minus className="h-5 w-5" />
                           </button>
-                          <span className="px-4 py-2 text-lg font-medium">{item.quantity}</span>
+                          <div className="cart-quantity-display">
+                            <span>{item.quantity}</span>
+                          </div>
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="p-2 hover:bg-gray-100 transition-colors"
+                            className="cart-quantity-button rounded-r-lg"
                           >
-                            <Plus className="h-4 w-4" />
+                            <Plus className="h-5 w-5" />
                           </button>
                         </div>
-                        
-                        <button
-                          onClick={() => removeItem(item.id)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                        >
-                          <Trash2 className="h-5 w-5" />
-                        </button>
                       </div>
+                      
+                      {/* Remove Item Button */}
+                      <button
+                        onClick={() => removeItem(item.id)}
+                        className="p-3 text-red-600 hover:bg-red-50 hover:text-red-700 rounded-lg transition-colors border border-red-200 hover:border-red-300"
+                        title="Remove item"
+                      >
+                        <Trash2 className="h-5 w-5" />
+                      </button>
                     </div>
                     
                     <div className="mt-4 text-right">

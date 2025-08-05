@@ -259,14 +259,14 @@ const ProductsPage = () => {
 
             {/* Search Suggestions */}
             {searchFocused && searchSuggestions.length > 0 && (
-              <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+              <div className="search-suggestions">
                 {searchSuggestions.map((suggestion, index) => (
                   <button
                     key={index}
                     onClick={() => handleSuggestionClick(suggestion)}
-                    className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 flex items-center"
+                    className="search-suggestion-item"
                   >
-                    <Search className="h-4 w-4 text-gray-400 mr-3" />
+                    <Search className="h-4 w-4 text-gray-400" />
                     <span className="text-gray-700">{suggestion}</span>
                   </button>
                 ))}
@@ -285,7 +285,7 @@ const ProductsPage = () => {
                 id="category"
                 value={selectedCategory}
                 onChange={handleCategoryChange}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white cursor-pointer appearance-none"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white cursor-pointer appearance-none custom-select"
                 style={{ 
                   backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
                   backgroundPosition: 'right 1rem center',
@@ -295,7 +295,11 @@ const ProductsPage = () => {
                 }}
               >
                 {categoriesWithCounts.map((category) => (
-                  <option key={category.value} value={category.value}>
+                  <option 
+                    key={category.value} 
+                    value={category.value}
+                    className="py-2 px-3 hover:bg-gray-100"
+                  >
                     {category.label} ({category.count})
                   </option>
                 ))}
@@ -311,7 +315,7 @@ const ProductsPage = () => {
                 id="sort"
                 value={sortBy}
                 onChange={handleSortChange}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white cursor-pointer appearance-none"
+                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white cursor-pointer appearance-none custom-select"
                 style={{ 
                   backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
                   backgroundPosition: 'right 1rem center',
