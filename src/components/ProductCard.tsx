@@ -39,21 +39,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
     return imgArray;
   }, [product.image, product.image2, showCarousel, enableImageToggle]);
 
-  // Memoize optimized URLs to prevent recalculation
+  // Memoize optimized URLs and picture sources
   const optimizedImages = useMemo(() => {
     return images.map((img) => ImageOptimizer.validateAndOptimizeUrl(img));
   }, [images]);
 
-  // Memoize responsive data
-  const productSrcSet = useMemo(() => {
+  const pictureSources = useMemo(() => {
+    return images.map((img) => ImageOptimizer.generatePictureSources(img));
+  }, [images]);
+
+  // Memoize responsive data for current image
+  const currentImageSrcSet = useMemo(() => {
     return ImageOptimizer.generateProductSrcSet(images[currentImageIndex]);
   }, [images, currentImageIndex]);
 
-  const productSizes = useMemo(() => {
+  const currentImageSizes = useMemo(() => {
     return ImageOptimizer.generateSizes([
       { maxWidth: 640, width: "100vw" },
-      { maxWidth: 1024, width: "50vw" },
-      { maxWidth: 1440, width: "33vw" },
+      { maxWidth: 768, width: "50vw" },
+      { maxWidth: 1024, width: "33vw" },
+      { maxWidth: 1440, width: "25vw" },
     ]);
   }, []);
 
@@ -160,56 +165,52 @@ const ProductCard: React.FC<ProductCardProps> = ({
   );
 
   // Memoized utility functions
-  // Fixed aspect ratio container classes for better CLS
-  const getImageContainerClasses = () => {
+  const getImageContainerClasses = useCallback(() => {
     const isSpecial = images.some((img) => isSpecialProduct(img));
 
     if (minimal) {
       if (isSpecial) {
-        return "relative w-full h-56 sm:h-64 md:h-72 bg-gray-50 overflow-hidden flex items-center justify-center"; // More height for special products
+        return "relative w-full h-64 sm:h-72 md:h-80 bg-gray-50 overflow-hidden flex items-center justify-center";
       }
-      return "relative w-full h-48 sm:h-56 md:h-64 bg-gray-50 overflow-hidden flex items-center justify-center";
+      return "relative w-full h-56 sm:h-64 md:h-72 bg-gray-50 overflow-hidden flex items-center justify-center";
     }
 
     if (isSpecial) {
-      return "relative w-full h-64 sm:h-72 md:h-80 lg:h-96 bg-gray-50 overflow-hidden flex items-center justify-center"; // More height for special products
+      return "relative w-full h-72 sm:h-80 md:h-96 lg:h-[28rem] bg-gray-50 overflow-hidden flex items-center justify-center";
     }
-    return "relative w-full h-56 sm:h-64 md:h-72 lg:h-80 bg-gray-50 overflow-hidden flex items-center justify-center";
-  };
+    return "relative w-full h-64 sm:h-72 md:h-80 lg:h-96 bg-gray-50 overflow-hidden flex items-center justify-center";
+  }, [minimal, images]);
 
-  // Get appropriate width/height attributes
   const getImageDimensions = useCallback(() => {
     if (minimal) {
-      return { width: "300", height: "240" };
+      return { width: "400", height: "320" };
     }
-    return { width: "500", height: "400" };
+    return { width: "600", height: "480" };
   }, [minimal]);
 
-  // Check if this is a special product that needs full image display
   const isSpecialProduct = useCallback((imageSrc: string) => {
     const specialProducts = [
-      "ball_sjs7h0.jpg", // Ball Head first image
-      "1950626f-fc13-495a-94a2-2a8f813925a2_enqifz.jpg", // Ball Head second image
-      "ws9_rernom.jpg", // Window Seal 9
-      "ws6_f0rtwi.jpg", // Window Seal 6
-      "straigh_irvg3x.jpg", // Fencing Post Straight
+      "ball_sjs7h0.jpg",
+      "1950626f-fc13-495a-94a2-2a8f813925a2_enqifz.jpg",
+      "ws9_rernom.jpg",
+      "ws6_f0rtwi.jpg",
+      "straigh_irvg3x.jpg",
     ];
     return specialProducts.some((product) => imageSrc.includes(product));
   }, []);
 
-  // Get appropriate object-fit class based on product type
   const getObjectFitClass = useCallback(
     (imageSrc: string) => {
       if (isSpecialProduct(imageSrc)) {
         return "object-contain"; // Show full image for special products
       }
-      return "object-contain"; // Default to contain for all products
+      return "object-cover"; // Cover for better visual appeal
     },
     [isSpecialProduct]
   );
 
   const getFallbackImage = useCallback(() => {
-    return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='240' viewBox='0 0 300 240'%3E%3Crect width='300' height='240' fill='%23f3f4f6'/%3E%3Ctext x='150' y='120' text-anchor='middle' fill='%239ca3af' font-family='Arial, sans-serif' font-size='14'%3EImage unavailable%3C/text%3E%3C/svg%3E";
+    return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect width='400' height='320' fill='%23f3f4f6'/%3E%3Ctext x='200' y='160' text-anchor='middle' fill='%239ca3af' font-family='Arial, sans-serif' font-size='16'%3EImage unavailable%3C/text%3E%3C/svg%3E";
   }, []);
 
   const formatPrice = useCallback((price: number) => {
@@ -219,7 +220,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }).format(price);
   }, []);
 
-  // Preload images on mount
+  // Preload images on mount with high priority
   useEffect(() => {
     const preloadImages = async () => {
       const newLoadedImages = new Set<number>();
@@ -228,7 +229,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         return new Promise<void>((resolve) => {
           const img = new Image();
 
-          if (index === 0) {
+          if (index === 0 || isCritical) {
             img.fetchPriority = "high";
           }
 
@@ -262,15 +263,86 @@ const ProductCard: React.FC<ProductCardProps> = ({
     };
 
     preloadImages();
-  }, [optimizedImages, product.name]);
+  }, [optimizedImages, product.name, isCritical]);
+
+  // Render optimized image with picture element for modern browsers
+  const renderOptimizedImage = useCallback(
+    (imageSrc: string, index: number) => {
+      const isCurrentImage = index === currentImageIndex;
+      const optimizedSrc = optimizedImages[index];
+      const { width, height } = getImageDimensions();
+      const objectFitClass = getObjectFitClass(imageSrc);
+      const sources = pictureSources[index];
+
+      return (
+        <picture
+          key={index}
+          className={`absolute inset-0 w-full h-full transition-opacity duration-300 ${
+            isCurrentImage && (isImageLoaded || loadedImages.has(index))
+              ? "opacity-100"
+              : "opacity-0"
+          }`}
+        >
+          {/* AVIF format for modern browsers */}
+          <source
+            srcSet={sources.avif}
+            type="image/avif"
+            media="(min-width: 768px)"
+          />
+          {/* WebP format for modern browsers */}
+          <source
+            srcSet={sources.webp}
+            type="image/webp"
+          />
+          {/* Fallback for older browsers */}
+          <img
+            src={optimizedSrc}
+            srcSet={currentImageSrcSet}
+            sizes={currentImageSizes}
+            alt={`${product.name} - ${
+              index === 0 ? "Front" : "Back"
+            } View`}
+            className={`w-full h-full ${objectFitClass} transition-all duration-300`}
+            onLoad={() => {
+              if (index === 0) handleImageLoad();
+              setLoadedImages((prev) => new Set([...prev, index]));
+            }}
+            onError={() => handleImageError(index)}
+            width={width}
+            height={height}
+            fetchPriority={
+              isLCPImage ? "high" : index === 0 ? "high" : "low"
+            }
+            loading="eager"
+            decoding="async"
+          />
+        </picture>
+      );
+    },
+    [
+      currentImageIndex,
+      optimizedImages,
+      pictureSources,
+      currentImageSrcSet,
+      currentImageSizes,
+      getImageDimensions,
+      getObjectFitClass,
+      isImageLoaded,
+      loadedImages,
+      product.name,
+      handleImageLoad,
+      handleImageError,
+      isLCPImage,
+    ]
+  );
 
   if (minimal) {
     return (
       <div
         ref={cardRef}
-        className="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden w-full max-w-xs transition-all duration-300 hover:shadow-lg hover:scale-[1.02] relative group"
+        className="bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden w-full max-w-xs transition-all duration-300 hover:shadow-xl hover:scale-[1.02] relative group"
       >
-        <Link to={`/product/${product.id}`}>
+        <Link to={`/product/${product.id}`} className="block">
           <div
             className="relative overflow-hidden"
             onTouchStart={images.length > 1 ? handleTouchStart : undefined}
@@ -296,52 +368,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     src={getFallbackImage()}
                     alt="Image unavailable"
                     className="w-full h-full object-contain"
-                    width="300"
-                    height="240"
+                    width="400"
+                    height="320"
                   />
                 </div>
               )}
 
-              {images.map((imageSrc, index) => {
-                const isCurrentImage = index === currentImageIndex;
-                const optimizedSrc = optimizedImages[index];
-                const { width, height } = getImageDimensions();
-                const objectFitClass = getObjectFitClass(imageSrc);
-
-                return (
-                  <img
-                    key={index}
-                    src={optimizedSrc}
-                    srcSet={productSrcSet}
-                    sizes={productSizes}
-                    alt={`${product.name} - ${
-                      index === 0 ? "Front" : "Back"
-                    } View`}
-                    className={`absolute inset-0 w-full h-full ${objectFitClass} transition-opacity duration-300 ${
-                      isCurrentImage &&
-                      (isImageLoaded || loadedImages.has(index))
-                        ? "opacity-100"
-                        : "opacity-0"
-                    }`}
-                    onLoad={() => {
-                      if (index === 0) handleImageLoad();
-                      setLoadedImages((prev) => new Set([...prev, index]));
-                    }}
-                    onError={() => handleImageError(index)}
-                    width={width}
-                    height={height}
-                    fetchPriority={
-                      isLCPImage ? "high" : index === 0 ? "high" : "low"
-                    }
-                    loading="eager"
-                    decoding="async"
-                  />
-                );
-              })}
+              {images.map((imageSrc, index) => renderOptimizedImage(imageSrc, index))}
             </div>
 
             {enableImageToggle && images.length > 1 && (
-              <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full transition-opacity duration-200 z-30">
+              <div className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full transition-opacity duration-200 z-30">
                 {currentImageIndex === 0
                   ? "Click to view back"
                   : "Click to view front"}
@@ -356,14 +393,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
               >
                 <button
                   onClick={prevImage}
-                  className="bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-all duration-200 shadow-lg"
+                  className="bg-black/70 hover:bg-black/90 text-white p-2 rounded-full transition-all duration-200 shadow-lg"
                   aria-label="Previous image"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-all duration-200 shadow-lg"
+                  className="bg-black/70 hover:bg-black/90 text-white p-2 rounded-full transition-all duration-200 shadow-lg"
                   aria-label="Next image"
                 >
                   <ChevronRight className="w-4 h-4" />
@@ -372,11 +409,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
             )}
           </div>
 
-          <div className="p-2 sm:p-3">
-            <h3 className="text-xs sm:text-sm font-semibold text-gray-800 line-clamp-1 group-hover:text-blue-600 transition-colors">
+          <div className="p-3 sm:p-4">
+            <h3 className="text-sm sm:text-base font-semibold text-gray-800 line-clamp-1 group-hover:text-blue-600 transition-colors">
               {product.name}
             </h3>
-            <p className="text-sm sm:text-base lg:text-lg font-bold text-black mt-1">
+            <p className="text-base sm:text-lg lg:text-xl font-bold text-black mt-1">
               {product.price === 0
                 ? "Contact for pricing"
                 : formatPrice(product.price)}
@@ -390,9 +427,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div
       ref={cardRef}
-      className="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-lg overflow-hidden max-w-sm transition-all duration-300 hover:shadow-xl hover:scale-[1.02] relative group"
+      className="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-xl overflow-hidden max-w-sm transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] relative group"
     >
-      <Link to={`/product/${product.id}`}>
+      <Link to={`/product/${product.id}`} className="block">
         <div
           className="relative overflow-hidden bg-gray-50"
           onTouchStart={images.length > 1 ? handleTouchStart : undefined}
@@ -418,54 +455,20 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   src={getFallbackImage()}
                   alt="Image unavailable"
                   className="w-full h-full object-contain"
-                  width="500"
-                  height="400"
+                  width="600"
+                  height="480"
                 />
               </div>
             )}
 
-            {images.map((imageSrc, index) => {
-              const isCurrentImage = index === currentImageIndex;
-              const optimizedSrc = optimizedImages[index];
-              const { width, height } = getImageDimensions();
-              const objectFitClass = getObjectFitClass(imageSrc);
-
-              return (
-                <img
-                  key={index}
-                  src={optimizedSrc}
-                  srcSet={productSrcSet}
-                  sizes={productSizes}
-                  alt={`${product.name} - ${
-                    index === 0 ? "Front" : "Back"
-                  } View`}
-                  className={`absolute inset-0 w-full h-full ${objectFitClass} transition-opacity duration-300 ${
-                    isCurrentImage && (isImageLoaded || loadedImages.has(index))
-                      ? "opacity-100"
-                      : "opacity-0"
-                  }`}
-                  onLoad={() => {
-                    if (index === 0) handleImageLoad();
-                    setLoadedImages((prev) => new Set([...prev, index]));
-                  }}
-                  onError={() => handleImageError(index)}
-                  width={width}
-                  height={height}
-                  fetchPriority={
-                    isLCPImage ? "high" : index === 0 ? "high" : "low"
-                  }
-                  loading="eager"
-                  decoding="async"
-                />
-              );
-            })}
+            {images.map((imageSrc, index) => renderOptimizedImage(imageSrc, index))}
           </div>
 
           {images.length > 1 && showCarousel && (
             <>
               <button
                 onClick={prevImage}
-                className={`absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full transition-all duration-200 shadow-lg z-30 ${
+                className={`absolute left-3 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all duration-200 shadow-lg z-30 ${
                   showNavigation ? "opacity-100" : "opacity-0"
                 }`}
                 aria-label="Previous image"
@@ -475,7 +478,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
               <button
                 onClick={nextImage}
-                className={`absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full transition-all duration-200 shadow-lg z-30 ${
+                className={`absolute right-3 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all duration-200 shadow-lg z-30 ${
                   showNavigation ? "opacity-100" : "opacity-0"
                 }`}
                 aria-label="Next image"
@@ -483,7 +486,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <ChevronRight className="w-5 h-5" />
               </button>
 
-              <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex gap-2 z-30">
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-30">
                 {images.map((_, index) => (
                   <button
                     key={index}
@@ -491,7 +494,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     className={`w-3 h-3 rounded-full transition-all duration-200 shadow-lg ${
                       index === currentImageIndex
                         ? "bg-white"
-                        : "bg-white/60 hover:bg-white/80"
+                        : "bg-white/70 hover:bg-white/90"
                     }`}
                     aria-label={`Go to image ${index + 1}`}
                   />
@@ -502,7 +505,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
           {images.length > 1 && enableImageToggle && !showCarousel && (
             <>
-              <div className="absolute top-3 right-3 bg-black/60 text-white text-sm px-3 py-1 rounded-full transition-opacity duration-200 z-30">
+              <div className="absolute top-3 right-3 bg-black/70 text-white text-sm px-3 py-1 rounded-full transition-opacity duration-200 z-30">
                 {currentImageIndex === 0
                   ? "Click to view back"
                   : "Click to view front"}
@@ -515,21 +518,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
               >
                 <button
                   onClick={prevImage}
-                  className="bg-black/60 hover:bg-black/80 text-white p-3 rounded-full transition-all duration-200 shadow-lg"
+                  className="bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all duration-200 shadow-lg"
                   aria-label="Previous image"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="bg-black/60 hover:bg-black/80 text-white p-3 rounded-full transition-all duration-200 shadow-lg"
+                  className="bg-black/70 hover:bg-black/90 text-white p-3 rounded-full transition-all duration-200 shadow-lg"
                   aria-label="Next image"
                 >
                   <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="absolute bottom-3 right-3 bg-black/60 text-white text-sm px-3 py-1 rounded-full z-30">
+              <div className="absolute bottom-3 right-3 bg-black/70 text-white text-sm px-3 py-1 rounded-full z-30">
                 {currentImageIndex + 1}/{images.length}
               </div>
             </>
@@ -537,21 +540,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
           {(!showCarousel || images.length === 1) && (
             <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 z-30">
-              <div className="w-3 h-3 rounded-full bg-white/60 shadow-lg"></div>
+              <div className="w-3 h-3 rounded-full bg-white/70 shadow-lg"></div>
             </div>
           )}
         </div>
 
-        <div className="p-4">
-          <h3 className="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-1">
+        <div className="p-4 sm:p-5">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-1">
             {product.name}
           </h3>
-          <p className="text-xl font-bold text-black mt-1">
+          <p className="text-xl sm:text-2xl font-bold text-black mt-1">
             {product.price === 0
               ? "Contact for pricing"
               : formatPrice(product.price)}
           </p>
-          <p className="text-sm text-gray-500 mt-2 line-clamp-1">
+          <p className="text-sm sm:text-base text-gray-500 mt-2 line-clamp-2">
             {product.description}
           </p>
 

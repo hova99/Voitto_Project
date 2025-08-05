@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=yes" />
 
     <!-- ✅ Enhanced Favicon & Touch Icon for Google Search Results -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
@@ -33,8 +33,8 @@
     <meta name="msapplication-TileImage" content="/favicon.png" />
     <meta name="msapplication-config" content="/browserconfig.xml" />
 
-    <!-- ✅ Performance Optimizations -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- ✅ Enhanced Performance Optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
     <link rel="preconnect" href="https://cdn.pixabay.com" crossorigin />
@@ -43,93 +43,68 @@
     <link rel="dns-prefetch" href="https://cdn.pixabay.com" />
     <link rel="dns-prefetch" href="https://images.pexels.com" />
 
-    <!-- Resource hints for faster loading -->
-    <link rel="preload" href="/favicon.png" as="image" type="image/png" />
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-      as="style"
-    />
-
-    <!-- Font loading optimization -->
+    <!-- Enhanced resource hints for faster loading -->
+    <link rel="preload" href="/favicon.png" as="image" type="image/png" fetchpriority="high" />
+    
+    <!-- Optimized font loading with display=swap -->
     <link
       rel="preload"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
     />
-    <noscript
-      ><link
+    <noscript>
+      <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet"
-    /></noscript>
+      />
+    </noscript>
 
-    <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
-    <link rel="preconnect" href="https://cdn.pixabay.com" crossorigin />
-    <link rel="preconnect" href="https://images.pexels.com" crossorigin />
-    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-    <link rel="dns-prefetch" href="https://cdn.pixabay.com" />
-    <link rel="dns-prefetch" href="https://images.pexels.com" />
-
-    <!-- Critical LCP Images Preload -->
+    <!-- Critical LCP Images Preload with optimized URLs -->
     <link
       rel="preload"
-      href="https://cdn.pixabay.com/photo/2014/03/03/16/08/construction-279012_1280.jpg?w=1200&h=600&fit=crop"
+      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_800,h_600,c_fill,fl_progressive,fl_force_strip/v1754409797/IBD2_eepz4h.jpg"
       as="image"
       fetchpriority="high"
+      type="image/webp"
     />
     <link
       rel="preload"
-      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409797/IBD2_eepz4h.jpg"
+      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_800,h_600,c_fill,fl_progressive,fl_force_strip/v1754409797/IBD6_ilfn8f.jpg"
       as="image"
       fetchpriority="high"
+      type="image/webp"
     />
     <link
       rel="preload"
-      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409797/IBD6_ilfn8f.jpg"
+      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_800,h_600,c_fill,fl_progressive,fl_force_strip/v1754409797/IBD9_ilfn8f.jpg"
       as="image"
       fetchpriority="high"
-    />
-    <link
-      rel="preload"
-      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409797/IBD9_ilfn8f.jpg"
-      as="image"
-      fetchpriority="high"
+      type="image/webp"
     />
 
     <!-- Hero Background Images Preload -->
     <link
       rel="preload"
-      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill/v1753614756/abstract-wall-with-3d-shapes_1_p5oyqx.jpg"
+      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill,fl_progressive,fl_force_strip/v1753614756/abstract-wall-with-3d-shapes_1_p5oyqx.jpg"
       as="image"
       fetchpriority="high"
+      type="image/webp"
     />
     <link
       rel="preload"
-      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill/v1753615528/photo-wall-texture-pattern_1_n4rjnd.jpg"
+      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill,fl_progressive,fl_force_strip/v1753615528/photo-wall-texture-pattern_1_n4rjnd.jpg"
       as="image"
       fetchpriority="high"
+      type="image/webp"
     />
     <link
       rel="preload"
-      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill/v1753614515/crane-lifting-concrete-beam_1_znmocs.jpg"
+      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill,fl_progressive,fl_force_strip/v1753614515/crane-lifting-concrete-beam_1_znmocs.jpg"
       as="image"
       fetchpriority="high"
+      type="image/webp"
     />
-
-    <!-- Font Preload for better CLS -->
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript
-      ><link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    /></noscript>
 
     <!-- ✅ Open Graph Tags -->
     <meta
@@ -229,9 +204,21 @@
       }
     </script>
 
-    <!-- ✅ Critical CSS for Performance -->
+    <!-- ✅ Enhanced Critical CSS for Performance -->
     <style>
       /* Critical CSS for immediate rendering */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        font-size: 16px;
+      }
+
       body {
         margin: 0;
         font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -240,7 +227,12 @@
         color: #1f2937;
         background-color: #f8fafc;
         min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
       }
+
+      /* Optimize loading states */
       .loading {
         display: flex;
         justify-content: center;
@@ -248,6 +240,7 @@
         height: 100vh;
         background: #f8fafc;
       }
+
       .spinner {
         width: 40px;
         height: 40px;
@@ -256,6 +249,7 @@
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
+
       @keyframes spin {
         0% {
           transform: rotate(0deg);
@@ -265,7 +259,7 @@
         }
       }
 
-      /* Product card image container styles */
+      /* Enhanced product card image container styles */
       .product-card-image-container {
         position: relative;
         width: 100%;
@@ -274,6 +268,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        aspect-ratio: 4/3;
+        min-height: 200px;
       }
 
       /* Ensure images display properly with full visibility */
@@ -283,9 +279,11 @@
         width: 100%;
         height: 100%;
         transition: opacity 0.3s ease;
+        max-width: 100%;
+        max-height: 100%;
       }
 
-      /* Loading placeholder styles */
+      /* Enhanced loading placeholder styles */
       .loading-placeholder {
         position: absolute;
         inset: 0;
@@ -297,6 +295,9 @@
         );
         background-size: 200% 100%;
         animation: shimmer 1.5s infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       @keyframes shimmer {
@@ -308,7 +309,7 @@
         }
       }
 
-      /* Image skeleton animation */
+      /* Enhanced image skeleton animation */
       .image-skeleton {
         background: linear-gradient(
           90deg,
@@ -318,36 +319,41 @@
         );
         background-size: 200% 100%;
         animation: shimmer 1.5s infinite;
+        border-radius: 8px;
       }
 
-      /* Responsive image container heights */
+      /* Responsive image container heights with better aspect ratios */
       @media (max-width: 640px) {
         .product-card-image-container {
-          min-height: 192px; /* h-48 */
+          aspect-ratio: 4/3;
+          min-height: 200px;
         }
       }
 
-      @media (min-width: 640px) and (max-width: 768px) {
+      @media (min-width: 641px) and (max-width: 768px) {
         .product-card-image-container {
-          min-height: 224px; /* h-56 */
+          aspect-ratio: 4/3;
+          min-height: 240px;
         }
       }
 
-      @media (min-width: 768px) and (max-width: 1024px) {
+      @media (min-width: 769px) and (max-width: 1024px) {
         .product-card-image-container {
-          min-height: 256px; /* h-64 */
+          aspect-ratio: 4/3;
+          min-height: 280px;
         }
       }
 
-      @media (min-width: 1024px) {
+      @media (min-width: 1025px) {
         .product-card-image-container {
-          min-height: 288px; /* h-72 */
+          aspect-ratio: 4/3;
+          min-height: 320px;
         }
       }
 
-      /* Navigation button styles */
+      /* Enhanced navigation button styles */
       .image-nav-button {
-        background-color: rgba(0, 0, 0, 0.6);
+        background-color: rgba(0, 0, 0, 0.7);
         color: white;
         border: none;
         border-radius: 50%;
@@ -355,22 +361,26 @@
         cursor: pointer;
         transition: all 0.2s ease;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
       }
 
       .image-nav-button:hover {
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.9);
         transform: scale(1.05);
       }
 
-      /* Image indicator styles */
+      /* Enhanced image indicator styles */
       .image-indicator {
-        background-color: rgba(0, 0, 0, 0.6);
+        background-color: rgba(0, 0, 0, 0.7);
         color: white;
         padding: 0.25rem 0.75rem;
         border-radius: 9999px;
         font-size: 0.75rem;
         font-weight: 500;
         transition: opacity 0.2s ease;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
       }
 
       /* Ensure proper z-index stacking */
@@ -382,10 +392,11 @@
         z-index: 10;
       }
 
-      /* Prevent layout shift */
+      /* Prevent layout shift with proper image sizing */
       img {
         max-width: 100%;
         height: auto;
+        display: block;
       }
 
       /* Optimize for instant interactions */
@@ -401,6 +412,7 @@
         touch-action: manipulation;
         -webkit-tap-highlight-color: transparent;
         transition: all 0.15s ease;
+        cursor: pointer;
       }
 
       /* Optimize form elements */
@@ -409,15 +421,10 @@
       textarea {
         touch-action: manipulation;
         -webkit-tap-highlight-color: transparent;
+        font-family: inherit;
       }
 
-      /* Optimize scrolling */
-      html {
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      /* Optimize animations */
+      /* Optimize animations with reduced motion support */
       @media (prefers-reduced-motion: no-preference) {
         .animate-spin {
           animation: spin 1s linear infinite;
@@ -425,6 +432,15 @@
 
         .animate-pulse {
           animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.5;
+          }
         }
       }
 
@@ -438,6 +454,11 @@
         a {
           min-height: 44px;
           min-width: 44px;
+        }
+
+        .product-card-image-container {
+          aspect-ratio: 4/3;
+          min-height: 200px;
         }
       }
 
@@ -470,14 +491,16 @@
         outline: 2px solid #3b82f6;
         outline-offset: 2px;
       }
+
       /* Fast image transitions */
       .product-card-image-toggle img {
         transition: opacity 0.15s ease-in-out;
       }
+
       /* Prevent layout shifts with aspect ratio containers */
       .product-card-image-toggle {
         background: #f8fafc;
-        aspect-ratio: 3/2;
+        aspect-ratio: 4/3;
         min-height: 200px;
         position: relative;
         overflow: hidden;
@@ -490,6 +513,8 @@
         width: 100%;
         height: 100%;
         transition: opacity 0.3s ease;
+        max-width: 100%;
+        max-height: 100%;
       }
 
       /* Enhanced skeleton loader for better CLS */
@@ -525,7 +550,7 @@
       /* Optimize for mobile with consistent sizing */
       @media (max-width: 640px) {
         .product-card-image-toggle {
-          aspect-ratio: 3/2;
+          aspect-ratio: 4/3;
           min-height: 200px;
         }
       }
@@ -533,14 +558,14 @@
       /* Ensure proper image display on all screen sizes */
       @media (min-width: 641px) and (max-width: 1024px) {
         .product-card-image-toggle {
-          aspect-ratio: 3/2;
+          aspect-ratio: 4/3;
           min-height: 240px;
         }
       }
 
       @media (min-width: 1025px) {
         .product-card-image-toggle {
-          aspect-ratio: 3/2;
+          aspect-ratio: 4/3;
           min-height: 280px;
         }
       }
@@ -550,6 +575,7 @@
         font-family: "Inter";
         font-display: swap;
       }
+
       /* Critical loading states */
       .loading-placeholder {
         background: linear-gradient(
@@ -561,6 +587,7 @@
         background-size: 200% 100%;
         animation: loading 1.5s infinite;
       }
+
       @keyframes loading {
         0% {
           background-position: 200% 0;
@@ -569,12 +596,39 @@
           background-position: -200% 0;
         }
       }
+
+      /* Optimize for high DPI displays */
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .product-card-image-container img {
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+        }
+      }
+
+      /* Optimize for reduced motion preferences */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      /* Optimize for dark mode if needed */
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #0f172a;
+          color: #f1f5f9;
+        }
+      }
     </style>
   </head>
 
   <body>
     <div id="root">
-      <!-- Loading fallback for better UX -->
+      <!-- Enhanced loading fallback for better UX -->
       <div class="loading">
         <div class="spinner"></div>
       </div>
