@@ -17,7 +17,7 @@ const ProductCarousel: React.FC = () => {
               key={product.id}
               className="min-w-[250px] flex-shrink-0 shadow-lg rounded-2xl bg-gray-50 p-4"
             >
-              <ProductCard product={product} minimal />
+              <ProductCard product={product} minimal enableImageToggle={true} />
             </div>
           ))}
         </div>

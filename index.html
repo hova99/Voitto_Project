@@ -42,7 +42,16 @@
     <link rel="dns-prefetch" href="https://res.cloudinary.com" />
     <link rel="dns-prefetch" href="https://cdn.pixabay.com" />
     <link rel="dns-prefetch" href="https://images.pexels.com" />
+
+    <!-- Resource hints for faster loading -->
     <link rel="preload" href="/favicon.png" as="image" type="image/png" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      as="style"
+    />
+
+    <!-- Font loading optimization -->
     <link
       rel="preload"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
@@ -55,50 +64,72 @@
         rel="stylesheet"
     /></noscript>
 
-    <!-- ✅ LCP Image Preload with High Priority -->
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.pixabay.com" crossorigin />
+    <link rel="preconnect" href="https://images.pexels.com" crossorigin />
+    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+    <link rel="dns-prefetch" href="https://cdn.pixabay.com" />
+    <link rel="dns-prefetch" href="https://images.pexels.com" />
+
+    <!-- Critical LCP Images Preload -->
+    <link
+      rel="preload"
+      href="https://cdn.pixabay.com/photo/2014/03/03/16/08/construction-279012_1280.jpg?w=1200&h=600&fit=crop"
+      as="image"
+      fetchpriority="high"
+    />
     <link
       rel="preload"
       href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409797/IBD2_eepz4h.jpg"
       as="image"
       fetchpriority="high"
     />
-    <!-- ✅ Critical Image Preloading for Instant Loading -->
     <link
       rel="preload"
-      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754410077/IBD6_ilfn8f.jpg"
+      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409797/IBD6_ilfn8f.jpg"
       as="image"
+      fetchpriority="high"
     />
     <link
       rel="preload"
-      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754411615/culvert900_t40svv.jpg"
+      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409797/IBD9_ilfn8f.jpg"
       as="image"
+      fetchpriority="high"
     />
+
+    <!-- Hero Background Images Preload -->
     <link
       rel="preload"
-      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754317362/road_krbs_adlteh.jpg"
+      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill/v1753614756/abstract-wall-with-3d-shapes_1_p5oyqx.jpg"
       as="image"
+      fetchpriority="high"
     />
-    <link
-      rel="preload"
-      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316306/paving2x2_o7sqxt.jpg"
-      as="image"
-    />
-    <link
-      rel="preload"
-      href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316529/paving18x18_ymssyg.webp"
-      as="image"
-    />
-    <!-- Hero Background Images -->
     <link
       rel="preload"
       href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill/v1753615528/photo-wall-texture-pattern_1_n4rjnd.jpg"
       as="image"
+      fetchpriority="high"
     />
     <link
       rel="preload"
       href="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill/v1753614515/crane-lifting-concrete-beam_1_znmocs.jpg"
       as="image"
+      fetchpriority="high"
     />
+
+    <!-- Font Preload for better CLS -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    /></noscript>
 
     <!-- ✅ Open Graph Tags -->
     <meta
@@ -206,10 +237,8 @@
         font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
           Roboto, sans-serif;
         line-height: 1.6;
-        color: #1e293b;
-        background: #ffffff;
-      }
-      #root {
+        color: #1f2937;
+        background-color: #f8fafc;
         min-height: 100vh;
       }
       .loading {
@@ -235,52 +264,291 @@
           transform: rotate(360deg);
         }
       }
+
+      /* Product card image container styles */
+      .product-card-image-container {
+        position: relative;
+        width: 100%;
+        background-color: #f9fafb;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Ensure images display properly with full visibility */
+      .product-card-image-container img {
+        object-fit: contain;
+        object-position: center;
+        width: 100%;
+        height: 100%;
+        transition: opacity 0.3s ease;
+      }
+
+      /* Loading placeholder styles */
+      .loading-placeholder {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+
+      /* Image skeleton animation */
+      .image-skeleton {
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+
+      /* Responsive image container heights */
+      @media (max-width: 640px) {
+        .product-card-image-container {
+          min-height: 192px; /* h-48 */
+        }
+      }
+
+      @media (min-width: 640px) and (max-width: 768px) {
+        .product-card-image-container {
+          min-height: 224px; /* h-56 */
+        }
+      }
+
+      @media (min-width: 768px) and (max-width: 1024px) {
+        .product-card-image-container {
+          min-height: 256px; /* h-64 */
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .product-card-image-container {
+          min-height: 288px; /* h-72 */
+        }
+      }
+
+      /* Navigation button styles */
+      .image-nav-button {
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        padding: 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .image-nav-button:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+        transform: scale(1.05);
+      }
+
+      /* Image indicator styles */
+      .image-indicator {
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        transition: opacity 0.2s ease;
+      }
+
+      /* Ensure proper z-index stacking */
+      .image-controls {
+        z-index: 30;
+      }
+
+      .image-content {
+        z-index: 10;
+      }
+
       /* Prevent layout shift */
       img {
         max-width: 100%;
         height: auto;
       }
-      /* Smooth scrolling */
+
+      /* Optimize for instant interactions */
+      * {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+
+      /* Optimize button interactions */
+      button,
+      a,
+      [role="button"] {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        transition: all 0.15s ease;
+      }
+
+      /* Optimize form elements */
+      input,
+      select,
+      textarea {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /* Optimize scrolling */
       html {
         scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
       }
-      /* Focus styles for accessibility */
-      *:focus {
-        outline: 2px solid #1e293b;
+
+      /* Optimize animations */
+      @media (prefers-reduced-motion: no-preference) {
+        .animate-spin {
+          animation: spin 1s linear infinite;
+        }
+
+        .animate-pulse {
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+      }
+
+      /* Optimize for mobile performance */
+      @media (max-width: 768px) {
+        * {
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        button,
+        a {
+          min-height: 44px;
+          min-width: 44px;
+        }
+      }
+
+      /* Optimize loading states */
+      .loading-skeleton {
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+
+      /* Optimize transitions */
+      .transition-fast {
+        transition: all 0.15s ease;
+      }
+
+      .transition-medium {
+        transition: all 0.3s ease;
+      }
+
+      /* Optimize focus states for accessibility */
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible,
+      select:focus-visible {
+        outline: 2px solid #3b82f6;
         outline-offset: 2px;
       }
       /* Fast image transitions */
       .product-card-image-toggle img {
         transition: opacity 0.15s ease-in-out;
       }
-      /* Prevent layout shifts with flexible containers */
+      /* Prevent layout shifts with aspect ratio containers */
       .product-card-image-toggle {
         background: #f8fafc;
-        min-height: 180px;
+        aspect-ratio: 3/2;
+        min-height: 200px;
+        position: relative;
+        overflow: hidden;
       }
-      /* Ensure images display properly without cropping */
+
+      /* Ensure images display properly with full visibility */
       .product-card-image-toggle img {
         object-fit: contain;
         object-position: center;
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
+        transition: opacity 0.3s ease;
       }
-      /* Optimize for mobile with flexible sizing */
+
+      /* Enhanced skeleton loader for better CLS */
+      .loading-placeholder {
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Image skeleton for better loading experience */
+      .image-skeleton {
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+        border-radius: 8px;
+      }
+
+      /* Optimize for mobile with consistent sizing */
       @media (max-width: 640px) {
         .product-card-image-toggle {
-          min-height: 180px;
+          aspect-ratio: 3/2;
+          min-height: 200px;
         }
       }
+
       /* Ensure proper image display on all screen sizes */
       @media (min-width: 641px) and (max-width: 1024px) {
         .product-card-image-toggle {
-          min-height: 220px;
+          aspect-ratio: 3/2;
+          min-height: 240px;
         }
       }
+
       @media (min-width: 1025px) {
         .product-card-image-toggle {
-          min-height: 250px;
+          aspect-ratio: 3/2;
+          min-height: 280px;
         }
+      }
+
+      /* Font display swap for better CLS */
+      @font-face {
+        font-family: "Inter";
+        font-display: swap;
       }
       /* Critical loading states */
       .loading-placeholder {

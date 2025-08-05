@@ -186,7 +186,7 @@ export const products: Product[] = [
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754317820/pavingcabroooo_vta5gp.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753888928/Eco-Priora_Pavers_z1pxm9.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1753888928/Eco-Priora_Pavers_z1pxm9.jpg",
     category: "paving",
     description: "Interlocking cabro-style pavers for durable surfaces.",
     unit: "per piece",
@@ -331,9 +331,9 @@ export const products: Product[] = [
     name: "Ball Head",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754390312/ball_sjs7h0.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754390312/ball_sjs7h0.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753902330/1950626f-fc13-495a-94a2-2a8f813925a2_enqifz.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1753902330/1950626f-fc13-495a-94a2-2a8f813925a2_enqifz.jpg",
     category: "coping",
     description: "Decorative top element for pillars or gate posts.",
     unit: "per piece",
@@ -346,7 +346,7 @@ export const products: Product[] = [
     name: 'Window Seal 9"',
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754413484/ws9_rernom.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754413484/ws9_rernom.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753887402/72152246-c9b8-4b68-93fc-b2e61172ee26_nqflxo.jpg",
     category: "window",
@@ -355,11 +355,11 @@ export const products: Product[] = [
     inStock: true,
   },
   {
-    id: "window-seal-6",
+    id: "window-seal-6",p
     name: 'Window Seal 6"',
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754413406/ws6_f0rtwi.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754413406/ws6_f0rtwi.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754413539/ws66_lbkaqi.jpg",
     category: "window",
@@ -509,7 +509,7 @@ export const products: Product[] = [
     name: "Fencing Post Straight",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754413860/straigh_irvg3x.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754413860/straigh_irvg3x.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753881083/STRAIGHT_qyff5g.avif",
     category: "fencing",

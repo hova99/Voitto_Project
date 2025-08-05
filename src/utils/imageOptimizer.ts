@@ -6,103 +6,163 @@ export class ImageOptimizer {
   private static preloadQueue: string[] = [];
   private static isProcessing = false;
   private static criticalImages = new Set<string>();
+  private static maxConcurrentRequests = 3; // Limit concurrent requests
+  private static activeRequests = 0;
 
-  // Preload critical images immediately
+  // Preload critical images with priority
   static preloadCriticalImages(imageUrls: string[]) {
     imageUrls.forEach((url) => {
       this.criticalImages.add(url);
-      if (!this.imageCache.has(url)) {
-        const img = new Image();
-        img.fetchPriority = "high";
-        img.loading = "eager";
-        img.src = url;
-        this.imageCache.set(url, img);
-      }
+      this.queueForPreload(url, "high");
     });
   }
 
-  // Add images to preload queue with high priority
+  // Queue images for preloading with priority
   static queueForPreload(
-    imageUrls: string[],
+    imageUrls: string | string[],
     priority: "high" | "low" = "low"
   ) {
-    if (priority === "high") {
-      // High priority images go to the front of the queue
-      this.preloadQueue.unshift(...imageUrls);
-    } else {
-      this.preloadQueue.push(...imageUrls);
-    }
+    const urls = Array.isArray(imageUrls) ? imageUrls : [imageUrls];
+
+    urls.forEach((url) => {
+      if (!this.imageCache.has(url) && !this.preloadQueue.includes(url)) {
+        if (priority === "high") {
+          this.preloadQueue.unshift(url); // Add to front for high priority
+        } else {
+          this.preloadQueue.push(url); // Add to back for low priority
+        }
+      }
+    });
 
     if (!this.isProcessing) {
       this.processQueue();
     }
   }
 
-  // Process preload queue with aggressive loading
+  // Process queue with limited concurrent requests
   private static async processQueue() {
     if (this.isProcessing || this.preloadQueue.length === 0) return;
 
     this.isProcessing = true;
 
-    while (this.preloadQueue.length > 0) {
-      const batch = this.preloadQueue.splice(0, 5); // Process 5 at a time for faster loading
+    while (
+      this.preloadQueue.length > 0 &&
+      this.activeRequests < this.maxConcurrentRequests
+    ) {
+      const url = this.preloadQueue.shift();
+      if (!url) continue;
 
-      await Promise.all(
-        batch.map((url) => {
-          if (!this.imageCache.has(url)) {
-            return new Promise<void>((resolve) => {
-              const img = new Image();
-              img.fetchPriority = this.criticalImages.has(url) ? "high" : "low";
-              img.loading = "eager";
-              img.onload = () => {
-                this.imageCache.set(url, img);
-                resolve();
-              };
-              img.onerror = () => resolve();
-              img.src = url;
-            });
-          }
-          return Promise.resolve();
-        })
-      );
+      this.activeRequests++;
 
-      // Minimal delay to prevent blocking
-      await new Promise((resolve) => setTimeout(resolve, 10));
+      try {
+        await this.loadImage(url);
+      } catch (error) {
+        console.warn(`Failed to load image: ${url}`, error);
+      } finally {
+        this.activeRequests--;
+      }
     }
 
     this.isProcessing = false;
+
+    // Continue processing if there are more items
+    if (this.preloadQueue.length > 0) {
+      setTimeout(() => this.processQueue(), 50); // Small delay to prevent overwhelming
+    }
   }
 
-  // Get optimized Cloudinary URL with best performance settings
-  static getOptimizedUrl(
-    originalUrl: string,
-    width?: number,
-    quality?: number
-  ): string {
-    if (!originalUrl.includes("cloudinary.com")) {
-      return originalUrl;
+  // Load individual image with error handling
+  private static loadImage(url: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+
+      img.onload = () => {
+        this.imageCache.set(url, img);
+        resolve();
+      };
+
+      img.onerror = () => {
+        reject(new Error(`Failed to load image: ${url}`));
+      };
+
+      // Set loading attributes for better performance
+      img.loading = "eager";
+      img.decoding = "async";
+
+      img.src = url;
+    });
+  }
+
+  // Validate and optimize Cloudinary URLs
+  static validateAndOptimizeUrl(url: string): string {
+    if (!url.includes("cloudinary.com")) {
+      return url;
     }
 
-    const baseUrl = originalUrl.split("/upload/")[0] + "/upload/";
-    const path = originalUrl.split("/upload/")[1];
-
-    const optimizations = [
-      "f_auto", // Auto format
-      "q_auto", // Auto quality
-      "fl_progressive", // Progressive loading
-      "fl_force_strip", // Remove metadata
-      "fl_attachment", // Prevent download
+    // Special products that should show full images without optimization
+    const specialProducts = [
+      "ball_sjs7h0.jpg", // Ball Head first image
+      "1950626f-fc13-495a-94a2-2a8f813925a2_enqifz.jpg", // Ball Head second image
+      "ws9_rernom.jpg", // Window Seal 9
+      "ws6_f0rtwi.jpg", // Window Seal 6
+      "straigh_irvg3x.jpg", // Fencing Post Straight
     ];
 
+    // Check if this is a special product that should not be optimized
+    const isSpecialProduct = specialProducts.some((product) =>
+      url.includes(product)
+    );
+    if (isSpecialProduct) {
+      // Return the original URL without any optimization parameters
+      return url;
+    }
+
+    // Check if URL already has optimization parameters
+    if (url.includes("/f_auto,q_auto/")) {
+      return url;
+    }
+
+    // Add optimization parameters if missing
+    const baseUrl = url.split("/upload/")[0] + "/upload/";
+    const path = url.split("/upload/")[1];
+
+    return `${baseUrl}f_auto,q_auto/${path}`;
+  }
+
+  // Get optimized URL with specific transformations
+  static getOptimizedUrl(
+    url: string,
+    width?: number,
+    height?: number,
+    quality: number = 80
+  ): string {
+    if (!url.includes("cloudinary.com")) {
+      return url;
+    }
+
+    // Ensure base optimization parameters
+    let optimizedUrl = this.validateAndOptimizeUrl(url);
+
+    // Add width transformation if specified
     if (width) {
-      optimizations.push(`w_${width}`);
+      optimizedUrl = optimizedUrl.replace(
+        "/f_auto,q_auto/",
+        `/f_auto,q_auto,w_${width},`
+      );
     }
 
-    if (quality) {
-      optimizations.push(`q_${quality}`);
+    // Add height transformation if specified
+    if (height) {
+      optimizedUrl = optimizedUrl.replace(
+        "/f_auto,q_auto/",
+        `/f_auto,q_auto,h_${height},`
+      );
     }
 
-    return `${baseUrl}${optimizations.join(",")}/${path}`;
+    // Add quality transformation
+    optimizedUrl = optimizedUrl.replace("q_auto", `q_${quality}`);
+
+    return optimizedUrl;
   }
 
   // Generate responsive srcSet for Cloudinary images
@@ -119,7 +179,9 @@ export class ImageOptimizer {
 
     return widths
       .map((width) => {
-        const optimizedUrl = `${baseUrl}f_auto,q_auto,w_${width},h_${Math.round(width * 0.75)},c_fill,fl_progressive,fl_force_strip/${path}`;
+        const optimizedUrl = `${baseUrl}f_auto,q_auto,w_${width},h_${Math.round(
+          width * 0.75
+        )},c_fill,fl_progressive,fl_force_strip/${path}`;
         return `${optimizedUrl} ${width}w`;
       })
       .join(", ");
@@ -133,9 +195,12 @@ export class ImageOptimizer {
       { maxWidth: 1440, width: "33vw" }, // Desktop
     ]
   ): string {
-    return breakpoints
-      .map(({ maxWidth, width }) => `(max-width: ${maxWidth}px) ${width}`)
-      .join(", ") + `, ${breakpoints[breakpoints.length - 1]?.width || "25vw"}`;
+    return (
+      breakpoints
+        .map(({ maxWidth, width }) => `(max-width: ${maxWidth}px) ${width}`)
+        .join(", ") +
+      `, ${breakpoints[breakpoints.length - 1]?.width || "25vw"}`
+    );
   }
 
   // Generate mobile-first srcSet for product images
@@ -147,7 +212,7 @@ export class ImageOptimizer {
     const baseUrl = originalUrl.split("/upload/")[0] + "/upload/";
     const path = originalUrl.split("/upload/")[1];
 
-    // Mobile-first approach with better quality settings
+    // Mobile-first approach with better quality settings for full image visibility
     const sizes = [
       { width: 400, height: 300 }, // Mobile (1x) - better quality
       { width: 600, height: 450 }, // Tablet (1x) - good quality
@@ -215,24 +280,33 @@ export class ImageOptimizer {
       criticalImages: this.criticalImages.size,
     };
   }
-}
 
-  // Initialize with critical images
-  export const initializeImageOptimizer = () => {
-    // Preload critical images that are likely to be viewed first
+  // Initialize image optimizer with critical images
+  static initializeImageOptimizer() {
+    // Preload critical product images with optimized settings
     const criticalImages = [
-      // LCP image (highest priority)
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409797/IBD2_eepz4h.jpg",
-      // First 6 product images for instant loading
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754410077/IBD6_ilfn8f.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409797/IBD6_ilfn8f.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409797/IBD9_ilfn8f.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754410077/culvert300_t40svv.jpg",
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754411615/culvert900_t40svv.jpg",
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754317362/road_krbs_adlteh.jpg",
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316306/paving2x2_o7sqxt.jpg",
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316529/paving18x18_ymssyg.webp",
     ];
 
-    ImageOptimizer.preloadCriticalImages(criticalImages);
-  };
+    // Add critical images to the set
+    criticalImages.forEach((url) => {
+      this.criticalImages.add(url);
+    });
+
+    // Preload critical images immediately
+    criticalImages.forEach((url) => {
+      this.queueForPreload(url, "high");
+    });
+
+    // Start processing the queue
+    this.processQueue();
+  }
+}
 
 // Hook for component-level image optimization
 export const useImageOptimizer = (
@@ -264,4 +338,9 @@ export const useResponsiveImage = (
     srcSet,
     sizes,
   };
+};
+
+// Export the initialize function
+export const initializeImageOptimizer = () => {
+  ImageOptimizer.initializeImageOptimizer();
 };

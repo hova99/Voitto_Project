@@ -1,155 +1,198 @@
-import React, { useState, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { Search, Filter } from 'lucide-react';
-import HeroBanner from '../components/HeroBanner';
-import ProductCard from '../components/ProductCard';
-import { products, categories } from '../data/products';
+import { useState, useMemo, useCallback, useTransition } from "react";
+import ProductCard from "../components/ProductCard";
+import { products } from "../data/products";
+import { debounce } from "../utils/debounce";
 
-const ProductsPage: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || 'all');
-  const [sortBy, setSortBy] = useState('name');
+const ProductsPage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [sortBy, setSortBy] = useState("name");
+  const [isPending, startTransition] = useTransition();
 
-  const filteredAndSortedProducts = useMemo(() => {
+  // Debounced search to prevent excessive re-renders
+  const debouncedSetSearchTerm = useCallback(
+    debounce((value: string) => {
+      startTransition(() => {
+        setSearchTerm(value);
+      });
+    }, 150),
+    []
+  );
+
+  // Memoized filtered and sorted products
+  const filteredProducts = useMemo(() => {
     let filtered = products;
 
-    // Filter by category
-    if (selectedCategory !== 'all') {
-      filtered = filtered.filter(product => product.category === selectedCategory);
+    // Filter by search term
+    if (searchTerm.trim()) {
+      const searchLower = searchTerm.toLowerCase();
+      filtered = filtered.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchLower) ||
+          product.description.toLowerCase().includes(searchLower) ||
+          product.category.toLowerCase().includes(searchLower)
+      );
     }
 
-    // Filter by search term
-    if (searchTerm) {
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase())
+    // Filter by category
+    if (selectedCategory !== "all") {
+      filtered = filtered.filter(
+        (product) => product.category === selectedCategory
       );
     }
 
     // Sort products
     filtered.sort((a, b) => {
       switch (sortBy) {
-        case 'price-low':
-          return a.price - b.price;
-        case 'price-high':
-          return b.price - a.price;
-        case 'name':
-        default:
+        case "name":
           return a.name.localeCompare(b.name);
+        case "price":
+          return a.price - b.price;
+        case "category":
+          return a.category.localeCompare(b.category);
+        default:
+          return 0;
       }
     });
 
     return filtered;
-  }, [selectedCategory, searchTerm, sortBy]);
+  }, [searchTerm, selectedCategory, sortBy]);
 
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
-    if (category === 'all') {
-      setSearchParams({});
-    } else {
-      setSearchParams({ category });
-    }
-  };
+  // Memoized categories
+  const categories = useMemo(() => {
+    const uniqueCategories = [...new Set(products.map((p) => p.category))];
+    return ["all", ...uniqueCategories];
+  }, []);
+
+  // Optimized event handlers
+  const handleCategoryChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    startTransition(() => {
+      setSelectedCategory(e.target.value);
+    });
+  }, []);
+
+  const handleSortChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    startTransition(() => {
+      setSortBy(e.target.value);
+    });
+  }, []);
+
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    debouncedSetSearchTerm(e.target.value);
+  }, [debouncedSetSearchTerm]);
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Hero Banner */}
-      <HeroBanner
-        title="Our Products"
-        subtitle="Premium precast concrete products for all your building needs"
-        backgroundImage="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill/v1753614756/abstract-wall-with-3d-shapes_1_p5oyqx.jpg"
-        overlayText="Perforated wall"
-      />
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <div
+        className="relative bg-cover bg-center bg-no-repeat py-20 px-4 sm:px-6 lg:px-8"
+        style={{
+          backgroundImage: `url('https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill/v1753614756/abstract-wall-with-3d-shapes_1_p5oyqx.jpg')`,
+        }}
+      >
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="relative max-w-7xl mx-auto text-center">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
+            Our Products
+          </h1>
+          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+            Discover our comprehensive range of high-quality precast concrete products
+          </p>
+        </div>
+      </div>
 
+      {/* Filters Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        {/* Filters and Search */}
-        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md mb-6 sm:mb-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Search */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <div>
+              <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-2">
+                Search Products
+              </label>
               <input
                 type="text"
-                placeholder="Search products..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                id="search"
+                placeholder="Search by name, description, or category..."
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                onChange={handleSearchChange}
+                defaultValue={searchTerm}
               />
             </div>
 
             {/* Category Filter */}
-            <select
-              value={selectedCategory}
-              onChange={(e) => handleCategoryChange(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-            >
-              <option value="all">All Categories</option>
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
+            <div>
+              <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+                Category
+              </label>
+              <select
+                id="category"
+                value={selectedCategory}
+                onChange={handleCategoryChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category === "all" ? "All Categories" : category.charAt(0).toUpperCase() + category.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             {/* Sort */}
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-            >
-              <option value="name">Sort by Name</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-            </select>
+            <div>
+              <label htmlFor="sort" className="block text-sm font-medium text-gray-700 mb-2">
+                Sort By
+              </label>
+              <select
+                id="sort"
+                value={sortBy}
+                onChange={handleSortChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="name">Name</option>
+                <option value="price">Price</option>
+                <option value="category">Category</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Results Count */}
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <p className="text-sm text-gray-600">
+              Showing {filteredProducts.length} of {products.length} products
+              {searchTerm && ` for "${searchTerm}"`}
+              {selectedCategory !== "all" && ` in ${selectedCategory}`}
+            </p>
           </div>
         </div>
 
-        {/* Category Tabs */}
-        <div className="flex flex-wrap gap-1 sm:gap-2 mb-6 sm:mb-8">
-                      <button
-              onClick={() => handleCategoryChange('all')}
-              className={`px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
-                selectedCategory === 'all'
-                  ? 'bg-orange-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-orange-50'
-              }`}
-            >
-              All Products
-            </button>
-                      {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => handleCategoryChange(category.id)}
-                className={`px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
-                  selectedCategory === category.id
-                    ? 'bg-orange-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-orange-50'
-                }`}
-              >
-                {category.name}
-              </button>
-            ))}
-        </div>
+        {/* Loading Indicator */}
+        {isPending && (
+          <div className="flex justify-center mb-8">
+            <div className="w-8 h-8 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+          </div>
+        )}
 
         {/* Products Grid */}
-        {filteredAndSortedProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {filteredAndSortedProducts.map((product, index) => (
-              <ProductCard 
-                key={product.id} 
-                product={product} 
-                enableImageToggle={true}
-                isCritical={index < 6} // First 6 products are critical content
-              />
-            ))}
+        {filteredProducts.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="text-gray-400 text-6xl mb-4">🔍</div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">No products found</h3>
+            <p className="text-gray-500">
+              Try adjusting your search terms or category filter
+            </p>
           </div>
         ) : (
-          <div className="text-center py-12">
-            <Filter className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-600 mb-2">No products found</h3>
-            <p className="text-gray-500">Try adjusting your search or filter criteria</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredProducts.map((product, index) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                enableImageToggle={true}
+                isCritical={index < 6}
+              />
+            ))}
           </div>
         )}
       </div>

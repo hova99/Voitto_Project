@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ShoppingCart, Menu, X, MessageCircle } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
@@ -8,14 +8,31 @@ const Header: React.FC = () => {
   const { state } = useCart();
   const location = useLocation();
 
-  const navigation = [
+  // Memoize navigation items
+  const navigation = useMemo(() => [
     { name: 'Home', href: '/' },
     { name: 'Products', href: '/products' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' }
-  ];
+  ], []);
 
-  const isActive = (path: string) => location.pathname === path;
+  // Memoize active state check
+  const isActive = useCallback((path: string) => location.pathname === path, [location.pathname]);
+
+  // Memoize cart item count
+  const cartItemCount = useMemo(() => 
+    state.items.reduce((sum, item) => sum + item.quantity, 0), 
+    [state.items]
+  );
+
+  // Optimized event handlers
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen(prev => !prev);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
 
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
@@ -75,9 +92,9 @@ const Header: React.FC = () => {
               className="relative p-2 text-gray-700 hover:text-brand-orange-600 transition-colors"
             >
               <ShoppingCart className="h-6 w-6" />
-              {state.items.length > 0 && (
+              {cartItemCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-brand-orange-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {state.items.reduce((sum, item) => sum + item.quantity, 0)}
+                  {cartItemCount}
                 </span>
               )}
             </Link>
@@ -85,7 +102,8 @@ const Header: React.FC = () => {
             {/* Mobile menu button */}
             <button
               className="md:hidden p-2 text-gray-700"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={toggleMenu}
+              aria-label="Toggle mobile menu"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -101,12 +119,12 @@ const Header: React.FC = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`block px-3 py-2 text-base font-medium transition-colors ${
+                onClick={closeMenu}
+                className={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${
                   isActive(item.href)
-                    ? 'text-brand-orange-600 bg-orange-50'
+                    ? 'text-brand-orange-600 bg-brand-orange-50'
                     : 'text-gray-700 hover:text-brand-orange-600 hover:bg-gray-50'
                 }`}
-                onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
               </Link>

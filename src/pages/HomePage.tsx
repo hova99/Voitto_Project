@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Truck, Camera, Mic, FlaskRound as Flask } from 'lucide-react';
 import FeaturedCarousel from '../components/FeaturedCarousel';
@@ -10,12 +10,13 @@ import FeaturedCarousel from '../components/FeaturedCarousel';
 ======================================== */
 
 const HomePage: React.FC = () => {
-  useEffect(() => {
-    // Parallax effect
-    const handleScroll = () => {
-      const parallaxSections = document.querySelectorAll('.parallax-section');
-      const scrollPosition = window.pageYOffset;
-      
+  // Optimized parallax effect with useCallback for better performance
+  const handleScroll = useCallback(() => {
+    const parallaxSections = document.querySelectorAll('.parallax-section');
+    const scrollPosition = window.pageYOffset;
+    
+    // Use requestAnimationFrame for better performance
+    requestAnimationFrame(() => {
       parallaxSections.forEach(section => {
         const sectionElement = section as HTMLElement;
         const sectionOffset = sectionElement.offsetTop;
@@ -29,54 +30,55 @@ const HomePage: React.FC = () => {
           sectionElement.style.backgroundPositionY = yPos + 'px';
         }
       });
-    };
+    });
+  }, []);
 
-    window.addEventListener('scroll', handleScroll);
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100">
       {/* Hero Section with Video Background and Fallback Image */}
-{/* Hero Section with Video Background and Fallback Image */}
-<section
-  className="relative h-screen flex items-center justify-center bg-cover bg-center"
-  style={{ backgroundImage: "url('https://cdn.pixabay.com/photo/2014/03/03/16/08/construction-279012_1280.jpg?w=1200&h=600&fit=crop')" }}
->
-  <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center px-4">
-    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-      <Link
-        to="/products"
-        className="inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 bg-orange-600 hover:bg-orange-700 rounded-full font-semibold transition transform hover:scale-105 text-white text-base sm:text-lg"
+      <section
+        className="relative h-screen flex items-center justify-center bg-cover bg-center"
+        style={{ backgroundImage: "url('https://cdn.pixabay.com/photo/2014/03/03/16/08/construction-279012_1280.jpg?w=1200&h=600&fit=crop')" }}
       >
-        View Products
-      </Link>
-      <Link
-        to="/about"
-        className="inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 bg-transparent border-2 border-white hover:bg-white hover:text-slate-900 rounded-full font-semibold transition transform hover:scale-105 text-white text-base sm:text-lg"
-      >
-        Learn More
-      </Link>
-    </div>
-  </div>
-</section>
+        <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center px-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <Link
+              to="/products"
+              className="inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 bg-orange-600 hover:bg-orange-700 rounded-full font-semibold transition transform hover:scale-105 text-white text-base sm:text-lg"
+            >
+              View Products
+            </Link>
+            <Link
+              to="/about"
+              className="inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 bg-transparent border-2 border-white hover:bg-white hover:text-slate-900 rounded-full font-semibold transition transform hover:scale-105 text-white text-base sm:text-lg"
+            >
+              Learn More
+            </Link>
+          </div>
+        </div>
+      </section>
 
-{/* ✅ Professional Scroll Down Indicator */}
-<div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce z-10">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-8 w-8 text-white opacity-80"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-  </svg>
-</div>
+      {/* ✅ Professional Scroll Down Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce z-10">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-8 w-8 text-white opacity-80"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
 
 
       {/* About Our Company */}

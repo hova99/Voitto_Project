@@ -1,16 +1,16 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 import { Product } from "../contexts/CartContext";
 import { useCart } from "../contexts/CartContext";
 import { Link } from "react-router-dom";
-import { useResponsiveImage, ImageOptimizer } from "../utils/imageOptimizer";
+import { ImageOptimizer } from "../utils/imageOptimizer";
 
 interface ProductCardProps {
   product: Product;
   minimal?: boolean;
-  showCarousel?: boolean; // Show carousel on product detail page
-  enableImageToggle?: boolean; // Enable image toggle on product list page
-  isCritical?: boolean; // Is this a critical product (first 6 in grid)
+  showCarousel?: boolean;
+  enableImageToggle?: boolean;
+  isCritical?: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -27,185 +27,110 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
-  const [isInView, setIsInView] = useState(false);
-  const [isPreloading, setIsPreloading] = useState(false);
+  const [showNavigation, setShowNavigation] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  // Get all available images for this product - USE ORIGINAL URLs for reliability
-  const images = [product.image];
-  if (product.image2 && (showCarousel || enableImageToggle)) {
-    images.push(product.image2);
-  }
-
-  // Generate responsive image data for the current image
-  const responsiveImage = useResponsiveImage(
-    images[currentImageIndex],
-    minimal ? [400, 600, 800] : [400, 600, 800, 1200]
-  );
-
-  // Generate mobile-first srcSet for product images
-  const productSrcSet = ImageOptimizer.generateProductSrcSet(images[currentImageIndex]);
-  const productSizes = ImageOptimizer.generateSizes([
-    { maxWidth: 640, width: "100vw" }, // Mobile
-    { maxWidth: 1024, width: "50vw" }, // Tablet  
-    { maxWidth: 1440, width: "33vw" }, // Desktop
-  ]);
-
-  // Determine if this is the LCP image (first product in the grid)
-  const isLCPImage = isCritical && currentImageIndex === 0;
-
-  // Aggressive Intersection Observer - Start loading much earlier
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          // Don't disconnect - keep observing for better performance
-        }
-      },
-      {
-        rootMargin: "200px 0px", // Start loading 200px before the card comes into view
-        threshold: 0.01, // Trigger as soon as 1% is visible
-      }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
+  // Memoize images array to prevent unnecessary re-renders
+  const images = useMemo(() => {
+    const imgArray = [product.image];
+    if (product.image2 && (showCarousel || enableImageToggle)) {
+      imgArray.push(product.image2);
     }
+    return imgArray;
+  }, [product.image, product.image2, showCarousel, enableImageToggle]);
 
-    return () => observer.disconnect();
-  }, []);
-
-  // Instant preloading when component mounts (regardless of view)
-  useEffect(() => {
-    // Start preloading immediately
-    setIsPreloading(true);
-
-    const preloadImages = async () => {
-      const newLoadedImages = new Set<number>();
-
-      // Create promises for all images to load in parallel with high priority
-      const imagePromises = images.map((imageSrc, index) => {
-        return new Promise<void>((resolve) => {
-          const img = new Image();
-
-          // Set high priority for immediate loading
-          if (index === 0) {
-            img.fetchPriority = "high";
-          }
-
-          img.onload = () => {
-            newLoadedImages.add(index);
-            setLoadedImages(new Set(newLoadedImages));
-            resolve();
-          };
-          img.onerror = () => {
-            newLoadedImages.add(index); // Mark as "loaded" even if error to prevent infinite loading
-            setLoadedImages(new Set(newLoadedImages));
-            resolve();
-          };
-
-          // Start loading immediately
-          img.src = imageSrc;
-        });
-      });
-
-      // Wait for all images to load
-      await Promise.all(imagePromises);
-      setIsPreloading(false);
-    };
-
-    preloadImages();
+  // Memoize optimized URLs to prevent recalculation
+  const optimizedImages = useMemo(() => {
+    return images.map((img) => ImageOptimizer.validateAndOptimizeUrl(img));
   }, [images]);
 
-  // Additional preloading when in view for extra speed
-  useEffect(() => {
-    if (!isInView) return;
+  // Memoize responsive data
+  const productSrcSet = useMemo(() => {
+    return ImageOptimizer.generateProductSrcSet(images[currentImageIndex]);
+  }, [images, currentImageIndex]);
 
-    // Double-check all images are loaded when in view
-    images.forEach((imageSrc, index) => {
-      if (!loadedImages.has(index)) {
-        const img = new Image();
-        img.onload = () => {
-          setLoadedImages((prev) => new Set([...prev, index]));
-        };
-        img.onerror = () => {
-          setLoadedImages((prev) => new Set([...prev, index]));
-        };
-        img.src = imageSrc;
-      }
-    });
-  }, [isInView, images, loadedImages]);
+  const productSizes = useMemo(() => {
+    return ImageOptimizer.generateSizes([
+      { maxWidth: 640, width: "100vw" },
+      { maxWidth: 1024, width: "50vw" },
+      { maxWidth: 1440, width: "33vw" },
+    ]);
+  }, []);
 
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dispatch({ type: "ADD_ITEM", product });
-  };
+  const isLCPImage = useMemo(
+    () => isCritical && currentImageIndex === 0,
+    [isCritical, currentImageIndex]
+  );
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("en-KE", {
-      style: "currency",
-      currency: "KES",
-      minimumFractionDigits: 0,
-    }).format(price);
-  };
+  // Optimized event handlers with useCallback
+  const handleAddToCart = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dispatch({
+        type: "ADD_ITEM",
+        payload: { ...product, quantity: 1 },
+      });
+    },
+    [dispatch, product]
+  );
 
-  const nextImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (images.length > 1) {
+  const nextImage = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
       setCurrentImageIndex((prev) => (prev + 1) % images.length);
-    }
-  };
+    },
+    [images.length]
+  );
 
-  const prevImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (images.length > 1) {
+  const prevImage = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
       setCurrentImageIndex(
         (prev) => (prev - 1 + images.length) % images.length
       );
-    }
-  };
+    },
+    [images.length]
+  );
 
-  const handleImageLoad = () => {
+  const handleImageLoad = useCallback(() => {
     setIsImageLoaded(true);
     setIsImageError(false);
-  };
+  }, []);
 
-  const handleImageError = () => {
-    setIsImageLoaded(true);
-    setIsImageError(true);
-  };
+  const handleImageError = useCallback(
+    (index: number) => {
+      console.warn(`Failed to load image ${index} for ${product.name}`);
+      setLoadedImages((prev) => new Set([...prev, index]));
 
-  // Touch event handlers for mobile swipe
-  const handleTouchStart = (e: React.TouchEvent) => {
-    // Only enable touch for products with multiple images
-    if (images.length > 1) {
-      setTouchStart(e.targetTouches[0].clientX);
-    }
-  };
+      if (index === 0) {
+        setIsImageError(true);
+        setIsImageLoaded(false);
+      }
+    },
+    [product.name]
+  );
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    // Only enable touch for products with multiple images
-    if (images.length > 1) {
-      setTouchEnd(e.targetTouches[0].clientX);
-    }
-  };
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  }, []);
 
-  const handleTouchEnd = () => {
-    // Only process touch for products with multiple images
-    if (!touchStart || !touchEnd || images.length <= 1) return;
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    if (!touchStart || !touchEnd) return;
 
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > 50;
     const isRightSwipe = distance < -50;
 
-    if (isLeftSwipe && images.length > 1) {
+    if (isLeftSwipe) {
       setCurrentImageIndex((prev) => (prev + 1) % images.length);
-    }
-    if (isRightSwipe && images.length > 1) {
+    } else if (isRightSwipe) {
       setCurrentImageIndex(
         (prev) => (prev - 1 + images.length) % images.length
       );
@@ -213,29 +138,131 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
     setTouchStart(null);
     setTouchEnd(null);
+  }, [touchStart, touchEnd, images.length]);
+
+  const handleMouseEnter = useCallback(() => {
+    if (images.length > 1) {
+      setShowNavigation(true);
+    }
+  }, [images.length]);
+
+  const handleMouseLeave = useCallback(() => {
+    setShowNavigation(false);
+  }, []);
+
+  const handleImageClick = useCallback(
+    (index: number) => (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setCurrentImageIndex(index);
+    },
+    []
+  );
+
+  // Memoized utility functions
+  // Fixed aspect ratio container classes for better CLS
+  const getImageContainerClasses = () => {
+    const isSpecial = images.some((img) => isSpecialProduct(img));
+
+    if (minimal) {
+      if (isSpecial) {
+        return "relative w-full h-56 sm:h-64 md:h-72 bg-gray-50 overflow-hidden flex items-center justify-center"; // More height for special products
+      }
+      return "relative w-full h-48 sm:h-56 md:h-64 bg-gray-50 overflow-hidden flex items-center justify-center";
+    }
+
+    if (isSpecial) {
+      return "relative w-full h-64 sm:h-72 md:h-80 lg:h-96 bg-gray-50 overflow-hidden flex items-center justify-center"; // More height for special products
+    }
+    return "relative w-full h-56 sm:h-64 md:h-72 lg:h-80 bg-gray-50 overflow-hidden flex items-center justify-center";
   };
 
-  // Reset image state when product changes
+  // Get appropriate width/height attributes
+  const getImageDimensions = useCallback(() => {
+    if (minimal) {
+      return { width: "300", height: "240" };
+    }
+    return { width: "500", height: "400" };
+  }, [minimal]);
+
+  // Check if this is a special product that needs full image display
+  const isSpecialProduct = useCallback((imageSrc: string) => {
+    const specialProducts = [
+      "ball_sjs7h0.jpg", // Ball Head first image
+      "1950626f-fc13-495a-94a2-2a8f813925a2_enqifz.jpg", // Ball Head second image
+      "ws9_rernom.jpg", // Window Seal 9
+      "ws6_f0rtwi.jpg", // Window Seal 6
+      "straigh_irvg3x.jpg", // Fencing Post Straight
+    ];
+    return specialProducts.some((product) => imageSrc.includes(product));
+  }, []);
+
+  // Get appropriate object-fit class based on product type
+  const getObjectFitClass = useCallback(
+    (imageSrc: string) => {
+      if (isSpecialProduct(imageSrc)) {
+        return "object-contain"; // Show full image for special products
+      }
+      return "object-contain"; // Default to contain for all products
+    },
+    [isSpecialProduct]
+  );
+
+  const getFallbackImage = useCallback(() => {
+    return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='240' viewBox='0 0 300 240'%3E%3Crect width='300' height='240' fill='%23f3f4f6'/%3E%3Ctext x='150' y='120' text-anchor='middle' fill='%239ca3af' font-family='Arial, sans-serif' font-size='14'%3EImage unavailable%3C/text%3E%3C/svg%3E";
+  }, []);
+
+  const formatPrice = useCallback((price: number) => {
+    return new Intl.NumberFormat("en-KE", {
+      style: "currency",
+      currency: "KES",
+    }).format(price);
+  }, []);
+
+  // Preload images on mount
   useEffect(() => {
-    setIsImageLoaded(false);
-    setIsImageError(false);
-    setLoadedImages(new Set());
-    // Always start with first image, and ensure single-image products stay at index 0
-    setCurrentImageIndex(0);
-  }, [product.id, product.image2]);
+    const preloadImages = async () => {
+      const newLoadedImages = new Set<number>();
 
-  // Auto-switch image on hover for products with multiple images
-  const handleMouseEnter = () => {
-    if (images.length > 1 && enableImageToggle) {
-      setCurrentImageIndex(1);
-    }
-  };
+      const imagePromises = optimizedImages.map((imageSrc, index) => {
+        return new Promise<void>((resolve) => {
+          const img = new Image();
 
-  const handleMouseLeave = () => {
-    if (images.length > 1 && enableImageToggle) {
-      setCurrentImageIndex(0);
-    }
-  };
+          if (index === 0) {
+            img.fetchPriority = "high";
+          }
+
+          img.onload = () => {
+            newLoadedImages.add(index);
+            resolve();
+          };
+
+          img.onerror = () => {
+            console.warn(
+              `Failed to preload image ${index} for ${product.name}`
+            );
+            resolve();
+          };
+
+          img.loading = "eager";
+          img.decoding = "async";
+          img.src = imageSrc;
+        });
+      });
+
+      try {
+        await Promise.all(imagePromises);
+        setLoadedImages(newLoadedImages);
+        if (newLoadedImages.has(0)) {
+          setIsImageLoaded(true);
+        }
+      } catch (error) {
+        console.warn(`Error preloading images for ${product.name}:`, error);
+      }
+    };
+
+    preloadImages();
+  }, [optimizedImages, product.name]);
 
   if (minimal) {
     return (
@@ -245,86 +272,101 @@ const ProductCard: React.FC<ProductCardProps> = ({
       >
         <Link to={`/product/${product.id}`}>
           <div
-            className="relative overflow-hidden product-card-image-toggle"
+            className="relative overflow-hidden"
             onTouchStart={images.length > 1 ? handleTouchStart : undefined}
             onTouchMove={images.length > 1 ? handleTouchMove : undefined}
             onTouchEnd={images.length > 1 ? handleTouchEnd : undefined}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            {/* Image Container with Flexible Height */}
             <div
-              className="relative w-full h-48 sm:h-56 bg-gray-50 overflow-hidden flex items-center justify-center"
+              className={getImageContainerClasses()}
               role="img"
               aria-label={`${product.name} product images`}
             >
-              {/* Loading placeholder with skeleton animation */}
-              {!isImageLoaded && !isImageError && isPreloading && (
-                <div className="absolute inset-0 loading-placeholder flex items-center justify-center">
-                  <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+              {!isImageLoaded && !isImageError && (
+                <div className="absolute inset-0 bg-gray-100 animate-pulse flex items-center justify-center">
+                  <div className="w-8 h-8 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
                 </div>
               )}
 
-              {/* Render all images but only show current one */}
+              {isImageError && (
+                <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+                  <img
+                    src={getFallbackImage()}
+                    alt="Image unavailable"
+                    className="w-full h-full object-contain"
+                    width="300"
+                    height="240"
+                  />
+                </div>
+              )}
+
               {images.map((imageSrc, index) => {
                 const isCurrentImage = index === currentImageIndex;
-                const responsiveData = useResponsiveImage(
-                  imageSrc,
-                  minimal ? [400, 600, 800] : [400, 600, 800, 1200]
-                );
-                
+                const optimizedSrc = optimizedImages[index];
+                const { width, height } = getImageDimensions();
+                const objectFitClass = getObjectFitClass(imageSrc);
+
                 return (
                   <img
                     key={index}
-                    src={responsiveData.src}
+                    src={optimizedSrc}
                     srcSet={productSrcSet}
                     sizes={productSizes}
                     alt={`${product.name} - ${
                       index === 0 ? "Front" : "Back"
                     } View`}
-                    className={`absolute inset-0 w-full h-auto max-h-full object-contain transition-opacity duration-200 ${
+                    className={`absolute inset-0 w-full h-full ${objectFitClass} transition-opacity duration-300 ${
                       isCurrentImage &&
                       (isImageLoaded || loadedImages.has(index))
                         ? "opacity-100"
                         : "opacity-0"
-                    } group-hover:scale-105`}
-                    onLoad={index === 0 ? handleImageLoad : undefined}
-                    onError={index === 0 ? handleImageError : undefined}
-                    width={minimal ? "300" : "500"}
-                    height={minimal ? "300" : "500"}
-                    fetchPriority={isLCPImage ? "high" : index === 0 ? "high" : "low"}
-                    loading={isLCPImage ? "eager" : isCritical && index === 0 ? "eager" : "lazy"}
+                    }`}
+                    onLoad={() => {
+                      if (index === 0) handleImageLoad();
+                      setLoadedImages((prev) => new Set([...prev, index]));
+                    }}
+                    onError={() => handleImageError(index)}
+                    width={width}
+                    height={height}
+                    fetchPriority={
+                      isLCPImage ? "high" : index === 0 ? "high" : "low"
+                    }
+                    loading="eager"
                     decoding="async"
                   />
                 );
               })}
             </div>
 
-            {/* Image Toggle Indicator for Minimal Cards */}
             {enableImageToggle && images.length > 1 && (
-              <div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 toggle-indicator">
+              <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full transition-opacity duration-200 z-30">
                 {currentImageIndex === 0
-                  ? "Hover to view back"
-                  : "Hover to view front"}
+                  ? "Click to view back"
+                  : "Click to view front"}
               </div>
             )}
 
-            {/* Image Toggle Buttons for Minimal Cards */}
             {enableImageToggle && images.length > 1 && (
-              <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 toggle-buttons">
+              <div
+                className={`absolute inset-0 flex items-center justify-between px-2 transition-opacity duration-200 z-20 ${
+                  showNavigation ? "opacity-100" : "opacity-0"
+                }`}
+              >
                 <button
                   onClick={prevImage}
-                  className="bg-black/50 hover:bg-black/70 text-white p-1 rounded-full transition-all duration-200"
+                  className="bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-all duration-200 shadow-lg"
                   aria-label="Previous image"
                 >
-                  <ChevronLeft className="w-3 h-3" />
+                  <ChevronLeft className="w-4 h-4" />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="bg-black/50 hover:bg-black/70 text-white p-1 rounded-full transition-all duration-200"
+                  className="bg-black/60 hover:bg-black/80 text-white p-2 rounded-full transition-all duration-200 shadow-lg"
                   aria-label="Next image"
                 >
-                  <ChevronRight className="w-3 h-3" />
+                  <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
             )}
@@ -352,103 +394,104 @@ const ProductCard: React.FC<ProductCardProps> = ({
     >
       <Link to={`/product/${product.id}`}>
         <div
-          className="relative overflow-hidden product-card-image-toggle bg-gray-50"
+          className="relative overflow-hidden bg-gray-50"
           onTouchStart={images.length > 1 ? handleTouchStart : undefined}
           onTouchMove={images.length > 1 ? handleTouchMove : undefined}
           onTouchEnd={images.length > 1 ? handleTouchEnd : undefined}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          {/* Image Container with Flexible Height */}
           <div
-            className="relative w-full h-56 sm:h-64 md:h-72 lg:h-80 bg-gray-50 overflow-hidden flex items-center justify-center"
+            className={getImageContainerClasses()}
             role="img"
             aria-label={`${product.name} product images`}
           >
-            {/* Loading placeholder with skeleton animation */}
-            {!isImageLoaded && !isImageError && isPreloading && (
-              <div className="absolute inset-0 loading-placeholder flex items-center justify-center">
-                <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
+            {!isImageLoaded && !isImageError && (
+              <div className="absolute inset-0 bg-gray-100 animate-pulse flex items-center justify-center">
+                <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
               </div>
             )}
 
-            {/* Render all images but only show current one */}
+            {isImageError && (
+              <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+                <img
+                  src={getFallbackImage()}
+                  alt="Image unavailable"
+                  className="w-full h-full object-contain"
+                  width="500"
+                  height="400"
+                />
+              </div>
+            )}
+
             {images.map((imageSrc, index) => {
               const isCurrentImage = index === currentImageIndex;
-              const responsiveData = useResponsiveImage(
-                imageSrc,
-                minimal ? [400, 600, 800] : [400, 600, 800, 1200]
-              );
-              
+              const optimizedSrc = optimizedImages[index];
+              const { width, height } = getImageDimensions();
+              const objectFitClass = getObjectFitClass(imageSrc);
+
               return (
                 <img
                   key={index}
-                  src={responsiveData.src}
+                  src={optimizedSrc}
                   srcSet={productSrcSet}
                   sizes={productSizes}
                   alt={`${product.name} - ${
                     index === 0 ? "Front" : "Back"
                   } View`}
-                  className={`absolute inset-0 w-full h-auto max-h-full object-contain transition-opacity duration-200 ${
-                    isCurrentImage &&
-                    (isImageLoaded || loadedImages.has(index))
+                  className={`absolute inset-0 w-full h-full ${objectFitClass} transition-opacity duration-300 ${
+                    isCurrentImage && (isImageLoaded || loadedImages.has(index))
                       ? "opacity-100"
                       : "opacity-0"
-                  } group-hover:scale-105`}
-                  onLoad={index === 0 ? handleImageLoad : undefined}
-                  onError={index === 0 ? handleImageError : undefined}
-                  width="500"
-                  height="500"
-                  fetchPriority={isLCPImage ? "high" : index === 0 ? "high" : "low"}
-                  loading={isLCPImage ? "eager" : isCritical && index === 0 ? "eager" : "lazy"}
+                  }`}
+                  onLoad={() => {
+                    if (index === 0) handleImageLoad();
+                    setLoadedImages((prev) => new Set([...prev, index]));
+                  }}
+                  onError={() => handleImageError(index)}
+                  width={width}
+                  height={height}
+                  fetchPriority={
+                    isLCPImage ? "high" : index === 0 ? "high" : "low"
+                  }
+                  loading="eager"
                   decoding="async"
                 />
               );
             })}
           </div>
 
-          {/* Loading Spinner */}
-          {!isImageLoaded && !isImageError && (
-            <div className="absolute inset-0 bg-gray-50 animate-shimmer flex items-center justify-center">
-              <div className="w-12 h-12 border-4 border-gray-200 border-t-blue-600 rounded-full animate-spin"></div>
-            </div>
-          )}
-
-          {/* Carousel Navigation (for product detail page) */}
           {images.length > 1 && showCarousel && (
             <>
-              {/* Previous Button */}
               <button
                 onClick={prevImage}
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100"
+                className={`absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full transition-all duration-200 shadow-lg z-30 ${
+                  showNavigation ? "opacity-100" : "opacity-0"
+                }`}
                 aria-label="Previous image"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="w-5 h-5" />
               </button>
 
-              {/* Next Button */}
               <button
                 onClick={nextImage}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 opacity-0 group-hover:opacity-100"
+                className={`absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full transition-all duration-200 shadow-lg z-30 ${
+                  showNavigation ? "opacity-100" : "opacity-0"
+                }`}
                 aria-label="Next image"
               >
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-5 h-5" />
               </button>
 
-              {/* Carousel Indicators */}
-              <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex gap-2">
+              <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex gap-2 z-30">
                 {images.map((_, index) => (
                   <button
                     key={index}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setCurrentImageIndex(index);
-                    }}
-                    className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                    onClick={handleImageClick(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-200 shadow-lg ${
                       index === currentImageIndex
-                        ? "bg-white shadow-lg"
-                        : "bg-white/50 hover:bg-white/75"
+                        ? "bg-white"
+                        : "bg-white/60 hover:bg-white/80"
                     }`}
                     aria-label={`Go to image ${index + 1}`}
                   />
@@ -457,45 +500,44 @@ const ProductCard: React.FC<ProductCardProps> = ({
             </>
           )}
 
-          {/* Image Toggle for Product List Page */}
           {images.length > 1 && enableImageToggle && !showCarousel && (
             <>
-              {/* Image Toggle Indicator */}
-              <div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 toggle-indicator">
+              <div className="absolute top-3 right-3 bg-black/60 text-white text-sm px-3 py-1 rounded-full transition-opacity duration-200 z-30">
                 {currentImageIndex === 0
-                  ? "Hover to view back"
-                  : "Hover to view front"}
+                  ? "Click to view back"
+                  : "Click to view front"}
               </div>
 
-              {/* Image Toggle Buttons */}
-              <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 toggle-buttons">
+              <div
+                className={`absolute inset-0 flex items-center justify-between px-3 transition-opacity duration-200 z-20 ${
+                  showNavigation ? "opacity-100" : "opacity-0"
+                }`}
+              >
                 <button
                   onClick={prevImage}
-                  className="bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200"
+                  className="bg-black/60 hover:bg-black/80 text-white p-3 rounded-full transition-all duration-200 shadow-lg"
                   aria-label="Previous image"
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-5 h-5" />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200"
+                  className="bg-black/60 hover:bg-black/80 text-white p-3 rounded-full transition-all duration-200 shadow-lg"
                   aria-label="Next image"
                 >
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Image Counter */}
-              <div className="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded-full">
+              <div className="absolute bottom-3 right-3 bg-black/60 text-white text-sm px-3 py-1 rounded-full z-30">
                 {currentImageIndex + 1}/{images.length}
               </div>
             </>
           )}
 
-          {/* Single Image Indicator (when not showing carousel) */}
           {(!showCarousel || images.length === 1) && (
-            <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2">
-              <div className="w-2 h-2 rounded-full bg-white/50 shadow-lg"></div>
+            <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 z-30">
+              <div className="w-3 h-3 rounded-full bg-white/60 shadow-lg"></div>
             </div>
           )}
         </div>
@@ -513,7 +555,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
             {product.description}
           </p>
 
-          {/* Stock Status */}
           <div className="mt-3 flex items-center">
             <span
               className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
@@ -533,7 +574,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </Link>
 
-      {/* Floating Add to Cart Button */}
       <button
         onClick={handleAddToCart}
         disabled={!product.inStock}
