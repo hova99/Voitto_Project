@@ -207,7 +207,7 @@ export const products: Product[] = [
   },
   {
     id: "hexagon",
-    name: "Hexagon",
+    name: "Hexagon slabs",
     price: 0,
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754317902/hexa_ctc70x.jpg",
