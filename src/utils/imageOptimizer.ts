@@ -177,7 +177,7 @@ export class ImageOptimizer {
       .map((width) => {
         const optimizedUrl = `${baseUrl}f_auto,q_auto,w_${width},h_${Math.round(
           width * 0.75
-        )},c_fill,fl_progressive,fl_force_strip/${path}`;
+        )},c_fit,fl_progressive,fl_force_strip/${path}`;
         return `${optimizedUrl} ${width}w`;
       })
       .join(", ");
@@ -221,7 +221,7 @@ export class ImageOptimizer {
 
     return sizes
       .map(({ width, height }) => {
-        const optimizedUrl = `${baseUrl}f_auto,q_auto,w_${width},h_${height},c_fill,fl_progressive,fl_force_strip/${path}`;
+        const optimizedUrl = `${baseUrl}f_auto,q_auto,w_${width},h_${height},c_fit,fl_progressive,fl_force_strip/${path}`;
         return `${optimizedUrl} ${width}w`;
       })
       .join(", ");
@@ -246,7 +246,7 @@ export class ImageOptimizer {
 
     return sizes
       .map(({ width, height }) => {
-        const optimizedUrl = `${baseUrl}f_auto,q_auto,w_${width},h_${height},c_fill,fl_progressive,fl_force_strip/${path}`;
+        const optimizedUrl = `${baseUrl}f_auto,q_auto,w_${width},h_${height},c_fit,fl_progressive,fl_force_strip/${path}`;
         return `${optimizedUrl} ${width}w`;
       })
       .join(", ");

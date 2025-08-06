@@ -166,20 +166,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   // Memoized utility functions
   const getImageContainerClasses = useCallback(() => {
-    const isSpecial = images.some((img) => isSpecialProduct(img));
-
     if (minimal) {
-      if (isSpecial) {
-        return "relative w-full h-64 sm:h-72 md:h-80 bg-gray-50 overflow-hidden flex items-center justify-center";
-      }
-      return "relative w-full h-56 sm:h-64 md:h-72 bg-gray-50 overflow-hidden flex items-center justify-center";
-    }
-
-    if (isSpecial) {
-      return "relative w-full h-72 sm:h-80 md:h-96 lg:h-[28rem] bg-gray-50 overflow-hidden flex items-center justify-center";
+      return "relative w-full h-64 sm:h-72 md:h-80 bg-gray-50 overflow-hidden flex items-center justify-center";
     }
     return "relative w-full h-64 sm:h-72 md:h-80 lg:h-96 bg-gray-50 overflow-hidden flex items-center justify-center";
-  }, [minimal, images]);
+  }, [minimal]);
 
   const getImageDimensions = useCallback(() => {
     if (minimal) {
@@ -201,12 +192,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const getObjectFitClass = useCallback(
     (imageSrc: string) => {
-      if (isSpecialProduct(imageSrc)) {
-        return "object-contain"; // Show full image for special products
-      }
-      return "object-cover"; // Cover for better visual appeal
+      // Always use object-contain to show full images without cropping
+      return "object-contain object-center"; // Show full image for all products
     },
-    [isSpecialProduct]
+    []
   );
 
   const getFallbackImage = useCallback(() => {
@@ -367,7 +356,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   <img
                     src={getFallbackImage()}
                     alt="Image unavailable"
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain object-center"
                     width="400"
                     height="320"
                   />
