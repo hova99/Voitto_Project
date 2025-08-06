@@ -4,7 +4,7 @@ export const products: Product[] = [
   // Drainage & Culverts
   {
     id: "ibd-600",
-    name: "I.B.D",
+    name: "Inverted Block Drainage(IBD)",
     price: 0,
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409797/IBD2_eepz4h.jpg",
