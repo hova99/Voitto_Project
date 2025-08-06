@@ -171,7 +171,7 @@ export const products: Product[] = [
     name: 'Paving Slabs 12"x24"',
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316181/paving12x12_u2zuue.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754475560/12x24_ksribq.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316626/300x600-pavers_i2dzww.jpg",
     category: "paving",
