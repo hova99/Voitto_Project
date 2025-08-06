@@ -386,7 +386,7 @@ export const products: Product[] = [
     name: 'Louvers 6"',
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754413244/louver6_y4qjpw.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754475612/louver_mpmfdl.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753886821/1f97a4b4-38a1-4306-acb6-a43630b37715_m8qdbz.jpg",
     category: "window",
