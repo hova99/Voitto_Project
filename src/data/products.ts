@@ -145,7 +145,7 @@ export const products: Product[] = [
     name: 'Paving Slabs 2"x2"',
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316306/paving2x2_o7sqxt.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754475446/2X2_uxkhff.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754316941/pavingsmall_eeqf1g.jpg",
     category: "paving",
