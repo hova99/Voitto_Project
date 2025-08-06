@@ -7,7 +7,7 @@ export const products: Product[] = [
     name: "Inverted Block Drainage(IBD)",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409797/IBD2_eepz4h.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754487626/ibdmain_qaocmo.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754409934/IBD1_hgwpb7.jpg",
     category: "drainage",
@@ -20,7 +20,9 @@ export const products: Product[] = [
     name: "IBD 9'",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754410077/IBD6_ilfn8f.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754485691/ibd9_jmtfwf.jpg",
+    image2:
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754487389/IBD9_dc8le2.jpg",
     category: "drainage",
     description: "Long-format interlocking drain for larger areas.",
     unit: "per piece",
@@ -69,7 +71,7 @@ export const products: Product[] = [
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754411615/culvert900_t40svv.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753898476/900_l2soav.png",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754485648/culvertaction_qgwxid.webp",
     category: "drainage",
     description:
       "Heavy-duty concrete pipe for major water channels and highways.",
@@ -81,7 +83,7 @@ export const products: Product[] = [
     name: "Culvert 600mm",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753897982/600_lngweo.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754485869/cul600_dglwez.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753896800/ce80aecc-7b22-4a31-b154-4dc85f576ee7_nswmvu.jpg",
     category: "drainage",
@@ -96,6 +98,8 @@ export const products: Product[] = [
     price: 0,
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754390645/cul450_vqx9xb.webp",
+    image2:
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754485631/culvertaction2_xguaim.jpg",
     category: "drainage",
     description: "Suitable for small drainage projects.",
     unit: "per piece",
@@ -107,6 +111,8 @@ export const products: Product[] = [
     price: 0,
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fill/v1754411710/cul300_cmvflk.jpg",
+    image2:
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754485572/culvertaction3_efrs6g.webp",
     category: "drainage",
     description: "Compact culvert ideal for farm roads and water diversion.",
     unit: "per piece",
@@ -279,7 +285,7 @@ export const products: Product[] = [
     name: 'Wall Coping 6"',
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754412545/wallcoppping_6_did2y6.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754488112/wallcoping6_vvyife.webp",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754413116/wmremove-transformed_cffw79.webp",
     category: "coping",
@@ -387,8 +393,6 @@ export const products: Product[] = [
     price: 0,
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754475612/louver_mpmfdl.jpg",
-    image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753886821/1f97a4b4-38a1-4306-acb6-a43630b37715_m8qdbz.jpg",
     category: "window",
     description: "Smaller concrete louvers for indoor or light wall use.",
     unit: "per piece",
@@ -429,7 +433,7 @@ export const products: Product[] = [
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754311337/ballustardeeeeee_vdaapj.webp",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753885023/balusters-for-back-porch-400x248_gkjikq.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754489541/balufine_fqdcpm.jpg",
     category: "balustrade",
     description: "Decorative concrete railing piece for balconies and stairs.",
     unit: "per piece",
@@ -442,7 +446,7 @@ export const products: Product[] = [
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,e_gen_remove:prompt_(building);multiple_true/v1754311618/balustrade2_qu3wuy.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753884974/backyard-fencing-400x248_zw99e0.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754488545/balustrade2._cd1foy.jpg",
     category: "balustrade",
     description: "Standard-size balustrade for medium spaces.",
     unit: "per piece",
@@ -455,7 +459,7 @@ export const products: Product[] = [
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754310551/Concrete_Balusters_and_Decorative_Elements_o5fpb9.png",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753884858/cement_fence_w9lchf.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754488407/balu_azmles.webp",
     category: "balustrade",
     description: "Compact balustrade for short walls or stair rails.",
     unit: "per piece",
@@ -498,7 +502,7 @@ export const products: Product[] = [
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1753880962/FENCING_POST_2_z5kxcv.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754475363/CURVED_a4xo6h.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754487190/FESN_CURVED_oib3jc.jpg",
     category: "fencing",
     description: "Arched post for strong boundary fencing.",
     unit: "per piece",
@@ -537,9 +541,9 @@ export const products: Product[] = [
     name: "Ballast",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754315085/balastaaaaa_nmovyi.webp",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754485156/ballast2_qm7gdo.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754313196/ballaaaaaa_ndtqc4.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754485360/ballast_i5ie2c.jpg",
     category: "aggregates",
     description:
       "Crushed stone used in concrete mixing and foundations (Price varies by quantity).",
@@ -552,8 +556,6 @@ export const products: Product[] = [
     price: 0,
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754312644/chippingsf_cxommy.webp",
-    image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753903209/Dandy_s_Black_Ice_Gravel_Chippings_Bulk_Bag_-_Fast_irbdct.jpg",
     category: "aggregates",
     description:
       "Small stone chips for construction or decorative landscaping.",
@@ -567,7 +569,7 @@ export const products: Product[] = [
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754314987/riversand2_ky5dor.webp",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754314595/riversand_n3o0lq.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754487811/riversanddd_vxssvk.webp",
     category: "aggregates",
     description: "Clean natural sand ideal for mortar and plastering.",
     unit: "per tipper",
@@ -578,7 +580,7 @@ export const products: Product[] = [
     name: "Rock Dust",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754414071/rock_yy6wgm.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754487901/rockdust4_dutbec.jpg",
     category: "aggregates",
     description: "Fine aggregate used for compacting and surface preparation.",
     unit: "per tipper",
@@ -611,7 +613,7 @@ export const products: Product[] = [
     name: 'Yellow Stones 6"',
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753904036/darungo6_pl5ax2.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753904180/ndarungo6_hcjuqh.jpg",
     category: "aggregates",
     description: "Decorative or structural yellow stone blocks.",
     unit: "per tipper",
@@ -622,9 +624,9 @@ export const products: Product[] = [
     name: 'Darugo Stones 9"',
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/e_gen_remove:prompt_(boy);multiple_true/v1754313630/daru_lonlnp.webp",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754486753/DARUNGO9_ddpthr.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753904220/darungo9_czbz5e.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754486987/DARUNGO91_z3cm7n.jpg",
     category: "aggregates",
     description: 'Traditional 9" hard-cut building stones.',
     unit: "per tipper",
@@ -637,7 +639,7 @@ export const products: Product[] = [
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754314456/daru66_pk4adk.webp",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753904180/ndarungo6_hcjuqh.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754486893/DARUNGO6_cfelor.webp",
     category: "aggregates",
     description: "Smaller variant of Darugo for partition walls.",
     unit: "per tipper",
@@ -650,7 +652,7 @@ export const products: Product[] = [
     name: "Cement (Used)",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754050550/blue_awr73u.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754489014/b_ue_teriangle_qyrbdz.jpg",
     category: "miscellaneous",
     description: "Quality used cement bags at affordable prices.",
     unit: "per bag",
