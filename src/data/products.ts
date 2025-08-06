@@ -498,7 +498,7 @@ export const products: Product[] = [
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1753880962/FENCING_POST_2_z5kxcv.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753880907/fencing-post_uv5stn.png",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754475363/CURVED_a4xo6h.jpg",
     category: "fencing",
     description: "Arched post for strong boundary fencing.",
     unit: "per piece",
