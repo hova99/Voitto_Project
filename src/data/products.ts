@@ -511,7 +511,7 @@ export const products: Product[] = [
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754413860/straigh_irvg3x.jpg",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753881083/STRAIGHT_qyff5g.avif",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754475278/FENS_STRAIGHT_fkzldp.jpg",
     category: "fencing",
     description: "Standard vertical fencing post for support.",
     unit: "per piece",
