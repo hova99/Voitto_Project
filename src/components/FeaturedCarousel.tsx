@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import ProductCard from './ProductCard';
-import { products } from '../data/products';
+import React from "react";
+import { Link } from "react-router-dom";
+import ProductCard from "./ProductCard";
+import { products } from "../data/products";
 
 const FeaturedCarousel: React.FC = () => {
   const featuredProducts = products.slice(0, 7); // Or however many you want to show
@@ -25,7 +25,11 @@ const FeaturedCarousel: React.FC = () => {
                 key={product.id}
                 className="min-w-[250px] w-[250px] flex items-center justify-center px-4"
               >
-                <ProductCard product={product} minimal enableImageToggle={true} />
+                <ProductCard
+                  product={product}
+                  minimal
+                  enableImageToggle={true}
+                />
               </div>
             ))}
             {featuredProducts.map((product, index) => (
@@ -33,7 +37,11 @@ const FeaturedCarousel: React.FC = () => {
                 key={`duplicate-${index}`}
                 className="min-w-[250px] w-[250px] flex items-center justify-center px-4"
               >
-                <ProductCard product={product} minimal enableImageToggle={true} />
+                <ProductCard
+                  product={product}
+                  minimal
+                  enableImageToggle={true}
+                />
               </div>
             ))}
           </div>
@@ -42,7 +50,7 @@ const FeaturedCarousel: React.FC = () => {
         <div className="text-center mt-12">
           <Link
             to="/products"
-            className="inline-flex items-center bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors group"
+            className="inline-flex items-center bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors group shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             View All Products
           </Link>

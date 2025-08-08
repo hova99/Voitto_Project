@@ -1,34 +1,36 @@
-import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
-import HeroBanner from '../components/HeroBanner';
+import React, { useState } from "react";
+import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import HeroBanner from "../components/HeroBanner";
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Thank you for your message! We will get back to you soon.');
+    alert("Thank you for your message! We will get back to you soon.");
     setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
     });
   };
 
@@ -37,15 +39,16 @@ const ContactPage: React.FC = () => {
       <HeroBanner
         title="Contact Us"
         subtitle="Get in touch for quotes, orders, or any questions"
-        backgroundImage="https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill/v1753615789/wheel-3853539_1920_gllesv.jpg"
-        overlayText="Need an Excavator? We’ve Got You Covered"
+        backgroundImage="https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754684110/voittoo_ych1k6.jpg"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Info */}
           <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-blue-900 mb-6 sm:mb-8">Get in Touch</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-blue-900 mb-6 sm:mb-8">
+              Get in Touch
+            </h2>
             <div className="space-y-4 sm:space-y-6">
               <ContactItem
                 icon={<Phone className="h-6 w-6 text-white" />}
@@ -62,7 +65,7 @@ const ContactPage: React.FC = () => {
               <ContactItem
                 icon={<MapPin className="h-6 w-6 text-white" />}
                 title="Location"
-                content="Mashambani, Banana, Kiambu"
+                content="Mashambani, Banana-Raini Rd Kiambu County"
                 note="Kenya"
               />
               <ContactItem
@@ -70,8 +73,8 @@ const ContactPage: React.FC = () => {
                 title="Business Hours"
                 content={
                   <>
-                    Monday - Friday: 6:00 AM - 6:00 PM <br />
-                    Saturday: 6:00 AM - 4:00 PM <br />
+                    Monday - Friday: 7:00 AM - 5:00 PM <br />
+                    Saturday: 7:00 AM - 5:00 PM <br />
                     Sunday: Emergency orders only
                   </>
                 }
@@ -81,14 +84,39 @@ const ContactPage: React.FC = () => {
 
           {/* Contact Form */}
           <div className="bg-white rounded-lg shadow-md p-6 sm:p-8">
-            <h2 className="text-xl sm:text-2xl font-bold text-blue-900 mb-4 sm:mb-6">Send us a Message</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-blue-900 mb-4 sm:mb-6">
+              Send us a Message
+            </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
-              <InputField label="Full Name *" name="name" value={formData.name} onChange={handleInputChange} required />
-              <InputField label="Email Address *" name="email" type="email" value={formData.email} onChange={handleInputChange} required />
-              <InputField label="Phone Number *" name="phone" type="tel" placeholder="+254 7XX XXX XXX" value={formData.phone} onChange={handleInputChange} required />
+              <InputField
+                label="Full Name *"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+              />
+              <InputField
+                label="Email Address *"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
+              <InputField
+                label="Phone Number *"
+                name="phone"
+                type="tel"
+                placeholder="+254 7XX XXX XXX"
+                value={formData.phone}
+                onChange={handleInputChange}
+                required
+              />
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Subject
+                </label>
                 <select
                   name="subject"
                   value={formData.subject}
@@ -105,7 +133,9 @@ const ContactPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Message *</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Message *
+                </label>
                 <textarea
                   name="message"
                   required
@@ -119,7 +149,7 @@ const ContactPage: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full bg-orange-600 hover:bg-orange-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2"
+                className="w-full bg-orange-600 hover:bg-orange-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 <Send className="h-5 w-5" />
                 <span>Send Message</span>
@@ -133,7 +163,8 @@ const ContactPage: React.FC = () => {
           <div className="p-6">
             <h2 className="text-2xl font-bold text-blue-900 mb-4">Find Us</h2>
             <p className="text-gray-600 mb-6">
-              Visit our yard in Mashambani, Banana, Kiambu to see our materials firsthand and speak with our experts.
+              Visit our yard in Mashambani, Banana-Raini Rd Kiambu County to see our materials
+              firsthand and speak with our experts.
             </p>
           </div>
           <div className="h-[600px] w-full">
@@ -159,7 +190,7 @@ const ContactItem = ({
   icon,
   title,
   content,
-  note
+  note,
 }: {
   icon: React.ReactNode;
   title: string;
@@ -179,11 +210,11 @@ const ContactItem = ({
 const InputField = ({
   label,
   name,
-  type = 'text',
+  type = "text",
   placeholder,
   value,
   onChange,
-  required = false
+  required = false,
 }: {
   label: string;
   name: string;
@@ -194,7 +225,9 @@ const InputField = ({
   required?: boolean;
 }) => (
   <div>
-    <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
+    <label className="block text-sm font-medium text-gray-700 mb-2">
+      {label}
+    </label>
     <input
       type={type}
       name={name}

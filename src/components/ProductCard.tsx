@@ -179,24 +179,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
     return { width: "600", height: "480" };
   }, [minimal]);
 
-  const isSpecialProduct = useCallback((imageSrc: string) => {
-    const specialProducts = [
-      "ball_sjs7h0.jpg",
-      "1950626f-fc13-495a-94a2-2a8f813925a2_enqifz.jpg",
-      "ws9_rernom.jpg",
-      "ws6_f0rtwi.jpg",
-      "straigh_irvg3x.jpg",
-    ];
-    return specialProducts.some((product) => imageSrc.includes(product));
-  }, []);
 
-  const getObjectFitClass = useCallback(
-    (imageSrc: string) => {
-      // Always use object-contain to show full images without cropping
-      return "object-contain object-center"; // Show full image for all products
-    },
-    []
-  );
+
+  const getObjectFitClass = useCallback(() => {
+    // Always use object-contain to show full images without cropping
+    return "object-contain object-center"; // Show full image for all products
+  }, []);
 
   const getFallbackImage = useCallback(() => {
     return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='320' viewBox='0 0 400 320'%3E%3Crect width='400' height='320' fill='%23f3f4f6'/%3E%3Ctext x='200' y='160' text-anchor='middle' fill='%239ca3af' font-family='Arial, sans-serif' font-size='16'%3EImage unavailable%3C/text%3E%3C/svg%3E";
@@ -260,7 +248,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       const isCurrentImage = index === currentImageIndex;
       const optimizedSrc = optimizedImages[index];
       const { width, height } = getImageDimensions();
-      const objectFitClass = getObjectFitClass(imageSrc);
+      const objectFitClass = getObjectFitClass();
       const sources = pictureSources[index];
 
       return (

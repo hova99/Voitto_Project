@@ -52,15 +52,15 @@ const HomePage: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Link
               to="/products"
-              className="inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 bg-orange-600 hover:bg-orange-700 rounded-full font-semibold transition transform hover:scale-105 text-white text-base sm:text-lg"
+              className="inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 bg-orange-600 hover:bg-orange-700 rounded-full font-semibold transition transform hover:scale-105 text-white text-base sm:text-lg shadow-lg hover:shadow-xl"
             >
               View Products
             </Link>
             <Link
               to="/about"
-              className="inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 bg-transparent border-2 border-white hover:bg-white hover:text-slate-900 rounded-full font-semibold transition transform hover:scale-105 text-white text-base sm:text-lg"
+              className="inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 bg-transparent border-2 border-white hover:bg-white hover:text-slate-900 rounded-full font-semibold transition transform hover:scale-105 text-white text-base sm:text-lg shadow-lg hover:shadow-xl"
             >
-              Learn More
+              View Past Projects
             </Link>
           </div>
         </div>
@@ -307,7 +307,7 @@ const HomePage: React.FC = () => {
             />
             <button 
               type="submit" 
-              className="px-6 py-3 bg-orange-600 hover:bg-orange-700 rounded-full font-semibold transition transform hover:scale-105 text-white"
+              className="px-6 py-3 bg-orange-600 hover:bg-orange-700 rounded-full font-semibold transition transform hover:scale-105 text-white shadow-lg hover:shadow-xl"
             >
               Subscribe
             </button>

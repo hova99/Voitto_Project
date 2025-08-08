@@ -382,8 +382,6 @@ export const products: Product[] = [
     price: 0,
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto/v1754413281/louver9_ekcdkl.jpg",
-    image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_400,c_scale/v1753887123/Galeria_Bespoke___HUGUET_ohw8hl.jpg",
     category: "window",
     description: 'Air vents for 9" walls, allows ventilation and light.',
     unit: "per piece",
@@ -543,9 +541,9 @@ export const products: Product[] = [
     name: "Ballast",
     price: 0,
     image:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fit/v1754485156/ballast2_qm7gdo.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fit/v1754667589/ballast_ml9raw.webp",
     image2:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fit/v1754485360/ballast_i5ie2c.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fit/v1754683486/ballasta_k87lrc.jpg",
     category: "aggregates",
     description:
       "Crushed stone used in concrete mixing and foundations (Price varies by quantity).",
@@ -671,6 +669,20 @@ export const products: Product[] = [
     category: "miscellaneous",
     description: "High-quality concrete sink for laundry and utility use.",
     unit: "per piece",
+    inStock: true,
+  },
+  {
+    id: "machinery-hire-services",
+    name: "Machinery Hire Services",
+    price: 0,
+    image:
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fit/v1754683183/site2_wuggit.jpg",
+    image2:
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fit/v1754678214/Untitled_design_1_1_1_sdovke.png",
+    category: "miscellaneous",
+    description:
+      "Professional machinery hire services including excavators, tippers, dump trucks, and tractors for all your construction needs. Contact us for competitive daily rates.",
+    unit: "per day",
     inStock: true,
   },
 ];

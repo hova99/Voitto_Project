@@ -12,7 +12,7 @@ const Header: React.FC = () => {
   const navigation = useMemo(() => [
     { name: 'Home', href: '/' },
     { name: 'Products', href: '/products' },
-    { name: 'About', href: '/about' },
+    { name: 'Projects', href: '/about' },
     { name: 'Contact', href: '/contact' }
   ], []);
 

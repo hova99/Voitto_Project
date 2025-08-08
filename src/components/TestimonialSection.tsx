@@ -98,7 +98,7 @@ const TestimonialSection: React.FC = () => {
         <div className="relative">
           {/* Desktop View - 2 Column Layout */}
           <div className="hidden md:grid md:grid-cols-2 gap-8">
-            {testimonials.slice(currentIndex, currentIndex + 2).map((testimonial, index) => (
+                          {testimonials.slice(currentIndex, currentIndex + 2).map((testimonial) => (
               <div key={testimonial.id} className="bg-white rounded-lg shadow-lg p-8 relative">
                 <Quote className="absolute top-4 right-4 h-8 w-8 text-orange-200" />
                 

@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useTransition, useRef, useEffect } from "react";
-import { Search, Filter, X, ChevronDown, ChevronUp, Grid, List } from "lucide-react";
+import { Search, X, Grid, List } from "lucide-react";
 import ProductCard from "../components/ProductCard";
 import { products } from "../data/products";
 import { debounce } from "../utils/debounce";
@@ -9,7 +9,7 @@ const ProductsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("name");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [showFilters, setShowFilters] = useState(false);
+
   const [isPending, startTransition] = useTransition();
   const [searchFocused, setSearchFocused] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
