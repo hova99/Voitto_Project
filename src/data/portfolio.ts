@@ -115,7 +115,7 @@ export const portfolioProjects: PortfolioProject[] = [
     image:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fit/v1754677221/dumptruck_hpqadl.png",
     images: [
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fit/v1754682982/del_a1ihal.jpg",
+      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754717529/tippr_lrbmgu.jpg",
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fit/v1754682732/dar2_dclobm.jpg",
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fit/v1754682982/del_a1ihal.jpg",
     ],
