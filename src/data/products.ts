@@ -679,8 +679,7 @@ export const products: Product[] = [
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fit/v1754683183/site2_wuggit.jpg",
     image2:
       "https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_600,h_400,c_fit/v1754678214/Untitled_design_1_1_1_sdovke.png",
-    image3:
-      "https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754718107/tips_pwuui9.jpg"
+  
     category: "miscellaneous",
     description:
       "Professional machinery hire services including excavators, tippers, dump trucks, and tractors for all your construction needs. Contact us for competitive daily rates.",
