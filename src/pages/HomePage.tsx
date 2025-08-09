@@ -249,7 +249,7 @@ const HomePage: React.FC = () => {
       <section 
         className="parallax-section py-32 bg-fixed bg-center bg-no-repeat bg-cover" 
         style={{
-          backgroundImage: "url('https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754717529/tippr_lrbmgu.jpg')"
+          backgroundImage: "url('https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fit/v1754717529/tippr_lrbmgu.jpg')"
         }}
       >
         <div className="bg-black bg-opacity-70 py-20">
@@ -319,4 +319,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;   
+export default HomePage;
