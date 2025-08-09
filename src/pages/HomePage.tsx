@@ -249,7 +249,7 @@ const HomePage: React.FC = () => {
       <section 
         className="parallax-section py-32 bg-fixed bg-center bg-no-repeat bg-cover" 
         style={{
-          backgroundImage: "url('https://res.cloudinary.com/dnv6mjhxv/image/upload/f_auto,q_auto,w_1200,h_600,c_fill/v1753614515/crane-lifting-concrete-beam_1_znmocs.jpg')"
+          backgroundImage: "url('https://res.cloudinary.com/dnv6mjhxv/image/upload/v1754717529/tippr_lrbmgu.jpg')"
         }}
       >
         <div className="bg-black bg-opacity-70 py-20">
